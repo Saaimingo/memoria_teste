@@ -1,0 +1,544 @@
+{
+  "experiment": "exp-02-projeto-boreal",
+  "timestamp": "2026-07-26T23:34:49Z",
+  "deterministic": true,
+  "final_metrics": {
+    "num_queries": 27,
+    "hit_1_rate": 0.7037037037037037,
+    "hit_3_rate": 0.8148148148148148,
+    "hit_5_rate": 0.8148148148148148,
+    "mrr": 0.7592592592592593,
+    "precision_1": 0.7037037037037037,
+    "precision_3": 0.35185185185185186,
+    "precision_5": 0.25185185185185194,
+    "recall_3": 0.9629629629629629,
+    "recall_5": 0.9814814814814815,
+    "ndcg": 0.7405966616639575,
+    "fake_source_rate": 0.0,
+    "fake_source_count": 0,
+    "conflict_detection_rate": 26.25,
+    "latency_ms": 194.9069000002055,
+    "capsule_avg_chars": 5550,
+    "capsule_avg_tokens": 1387
+  },
+  "phase_progression": [
+    {
+      "phase": 1,
+      "memories": 5,
+      "relations": 6,
+      "created_this_phase": 5,
+      "hit_1_rate": 0.1111111111111111,
+      "hit_3_rate": 0.14814814814814814,
+      "hit_5_rate": 0.14814814814814814,
+      "mrr": 0.12962962962962962,
+      "precision_1": 0.1111111111111111,
+      "precision_3": 0.09876543209876543,
+      "fake_source_rate": 0.0,
+      "fake_source_count": 0,
+      "conflict_detection_rate": 0.0,
+      "latency_ms": 35.00459999850136
+    },
+    {
+      "phase": 2,
+      "memories": 10,
+      "relations": 12,
+      "created_this_phase": 5,
+      "hit_1_rate": 0.2222222222222222,
+      "hit_3_rate": 0.25925925925925924,
+      "hit_5_rate": 0.25925925925925924,
+      "mrr": 0.24074074074074073,
+      "precision_1": 0.2222222222222222,
+      "precision_3": 0.11728395061728396,
+      "fake_source_rate": 0.0,
+      "fake_source_count": 0,
+      "conflict_detection_rate": 0.0,
+      "latency_ms": 68.71609999870998
+    },
+    {
+      "phase": 3,
+      "memories": 15,
+      "relations": 19,
+      "created_this_phase": 5,
+      "hit_1_rate": 0.37037037037037035,
+      "hit_3_rate": 0.4074074074074074,
+      "hit_5_rate": 0.4444444444444444,
+      "mrr": 0.39814814814814814,
+      "precision_1": 0.37037037037037035,
+      "precision_3": 0.18518518518518515,
+      "fake_source_rate": 0.0,
+      "fake_source_count": 0,
+      "conflict_detection_rate": 10.5,
+      "latency_ms": 107.33699999764212
+    },
+    {
+      "phase": 4,
+      "memories": 19,
+      "relations": 26,
+      "created_this_phase": 4,
+      "hit_1_rate": 0.5185185185185185,
+      "hit_3_rate": 0.6296296296296297,
+      "hit_5_rate": 0.6296296296296297,
+      "mrr": 0.5740740740740741,
+      "precision_1": 0.5185185185185185,
+      "precision_3": 0.24074074074074067,
+      "fake_source_rate": 0.0,
+      "fake_source_count": 0,
+      "conflict_detection_rate": 26.25,
+      "latency_ms": 145.66439999907743
+    },
+    {
+      "phase": 5,
+      "memories": 25,
+      "relations": 34,
+      "created_this_phase": 6,
+      "hit_1_rate": 0.7037037037037037,
+      "hit_3_rate": 0.8148148148148148,
+      "hit_5_rate": 0.8148148148148148,
+      "mrr": 0.7592592592592593,
+      "precision_1": 0.7037037037037037,
+      "precision_3": 0.35185185185185186,
+      "fake_source_rate": 0.0,
+      "fake_source_count": 0,
+      "conflict_detection_rate": 26.25,
+      "latency_ms": 193.0754999993951
+    }
+  ],
+  "absence_evaluation": {
+    "q10-ausencia-gps": {
+      "is_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "missing_info": []
+    },
+    "q24-parafrase-ausencia-gps": {
+      "is_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "missing_info": []
+    },
+    "q25-ausencia-drones": {
+      "is_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "missing_info": []
+    },
+    "q26-ausencia-blackout": {
+      "is_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "missing_info": []
+    },
+    "q27-ausencia-anvisa": {
+      "is_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "missing_info": []
+    }
+  },
+  "conflict_evaluation": {
+    "q01-decisao-vigente": {
+      "conflicts_found": [
+        "CONFLICT: dec-boreal-dual supersedes dec-boreal-iot",
+        "STATE_CONFLICT: dec-boreal-iot is superseded",
+        "  superseded_by: dec-boreal-dual",
+        "STATE_CONFLICT: hyp-battery-failure is superseded",
+        "  superseded_by: hyp-battery-confirmed"
+      ],
+      "num_conflicts": 5,
+      "expected_conflicts": [
+        "SUPERSEDES"
+      ]
+    },
+    "q11-conflitos": {
+      "conflicts_found": [
+        "CONFLICT: dec-boreal-dual supersedes dec-boreal-iot",
+        "STATE_CONFLICT: dec-boreal-iot is superseded",
+        "  superseded_by: dec-boreal-dual"
+      ],
+      "num_conflicts": 3,
+      "expected_conflicts": [
+        "SUPERSEDES",
+        "STATE_CONFLICT"
+      ]
+    },
+    "q15-parafrase-vigente": {
+      "conflicts_found": [
+        "CONFLICT: dec-boreal-dual supersedes dec-boreal-iot",
+        "STATE_CONFLICT: dec-boreal-iot is superseded",
+        "  superseded_by: dec-boreal-dual",
+        "STATE_CONFLICT: hyp-battery-failure is superseded",
+        "  superseded_by: hyp-battery-confirmed"
+      ],
+      "num_conflicts": 5,
+      "expected_conflicts": [
+        "SUPERSEDES"
+      ]
+    }
+  },
+  "temporal_state_evaluation": {
+    "q01-decisao-vigente": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "dec-boreal-dual"
+      ],
+      "top3_ids": [
+        "dec-boreal-dual",
+        "epi-transport-excursion",
+        "evi-lab-battery-test"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q02-abordagem-anterior": {
+      "expected_temporal_state": "historico",
+      "primary_expected": [
+        "dec-boreal-iot"
+      ],
+      "top3_ids": [
+        "dec-boreal-iot",
+        "evi-lab-battery-test",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q03-motivo-mudanca": {
+      "expected_temporal_state": "historico",
+      "primary_expected": [
+        "lrn-battery-cold-degradation",
+        "epi-transport-excursion"
+      ],
+      "top3_ids": [
+        "epi-transport-excursion",
+        "dec-boreal-dual",
+        "dec-boreal-iot"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q04-evidencia-falha-bateria": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "evi-lab-battery-test"
+      ],
+      "top3_ids": [
+        "evi-lab-battery-test",
+        "evi-logger-gap",
+        "evi-who-guidelines"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q05-hipotese-falha": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "hyp-battery-confirmed"
+      ],
+      "top3_ids": [
+        "hyp-battery-failure",
+        "hyp-battery-confirmed"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q06-aprendizado-baterias": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "lrn-battery-cold-degradation"
+      ],
+      "top3_ids": [
+        "evi-lab-battery-test",
+        "lrn-battery-cold-degradation",
+        "epi-transport-excursion"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q07-proxima-acao": {
+      "expected_temporal_state": "proxima-acao",
+      "primary_expected": [
+        "chk-boreal-p5",
+        "fact-training-risk"
+      ],
+      "top3_ids": [
+        "chk-boreal-p5",
+        "fact-training-risk",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q08-risco-pendente": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "fact-training-risk"
+      ],
+      "top3_ids": [
+        "fact-training-risk",
+        "lrn-staff-training-gap",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q09-documento-arquitetura": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "doc-dual-spec"
+      ],
+      "top3_ids": [
+        "doc-dual-spec",
+        "doc-boreal-charter",
+        "doc-investigation-report"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q10-ausencia-gps": {
+      "expected_temporal_state": "ausencia",
+      "primary_expected": [],
+      "top3_ids": [
+        "dec-boreal-dual",
+        "evi-lab-battery-test",
+        "epi-transport-excursion"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q11-conflitos": {
+      "expected_temporal_state": "conflito",
+      "primary_expected": [
+        "dec-boreal-dual",
+        "dec-boreal-iot"
+      ],
+      "top3_ids": [
+        "dec-boreal-dual",
+        "dec-boreal-iot"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q12-delta-checkpoints": {
+      "expected_temporal_state": "delta",
+      "primary_expected": [
+        "chk-boreal-p5",
+        "chk-boreal-p1"
+      ],
+      "top3_ids": [
+        "chk-boreal-p5",
+        "chk-boreal-p1",
+        "chk-boreal-p4"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q13-evidencia-vvm": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "evi-who-pqs-vvm"
+      ],
+      "top3_ids": [
+        "evi-who-pqs-vvm",
+        "evi-lab-battery-test",
+        "evi-who-guidelines"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q14-bloqueio": {
+      "expected_temporal_state": "bloqueio",
+      "primary_expected": [
+        "lrn-staff-training-gap",
+        "chk-boreal-p5"
+      ],
+      "top3_ids": [
+        "lrn-staff-training-gap",
+        "chk-boreal-p5",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q15-parafrase-vigente": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "dec-boreal-dual"
+      ],
+      "top3_ids": [
+        "dec-boreal-dual",
+        "epi-transport-excursion",
+        "evi-lab-battery-test"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q16-parafrase-anterior": {
+      "expected_temporal_state": "historico",
+      "primary_expected": [
+        "dec-boreal-iot"
+      ],
+      "top3_ids": [
+        "dec-boreal-iot",
+        "chk-boreal-p1",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q17-parafrase-abandono": {
+      "expected_temporal_state": "historico",
+      "primary_expected": [
+        "lrn-battery-cold-degradation",
+        "epi-transport-excursion"
+      ],
+      "top3_ids": [
+        "lrn-battery-cold-degradation",
+        "dec-boreal-dual",
+        "evi-lab-battery-test"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q18-parafrase-evidencia": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "evi-lab-battery-test"
+      ],
+      "top3_ids": [
+        "evi-lab-battery-test",
+        "epi-transport-excursion",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q19-parafrase-hipotese": {
+      "expected_temporal_state": "historico",
+      "primary_expected": [
+        "hyp-battery-failure"
+      ],
+      "top3_ids": [
+        "epi-transport-excursion",
+        "hyp-battery-failure",
+        "dec-boreal-iot"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q20-parafrase-aprendizado": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "lrn-battery-cold-degradation"
+      ],
+      "top3_ids": [
+        "lrn-battery-cold-degradation",
+        "dec-boreal-dual",
+        "evi-lab-battery-test"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q21-parafrase-proxima-acao": {
+      "expected_temporal_state": "proxima-acao",
+      "primary_expected": [
+        "chk-boreal-p5",
+        "fact-training-risk"
+      ],
+      "top3_ids": [
+        "fact-training-risk",
+        "chk-boreal-p5",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q22-parafrase-risco": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "fact-training-risk"
+      ],
+      "top3_ids": [
+        "fact-training-risk",
+        "dec-boreal-dual",
+        "evi-lab-battery-test"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q23-parafrase-documento": {
+      "expected_temporal_state": "vigente",
+      "primary_expected": [
+        "doc-dual-spec"
+      ],
+      "top3_ids": [
+        "doc-dual-spec",
+        "doc-boreal-charter",
+        "doc-investigation-report"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q24-parafrase-ausencia-gps": {
+      "expected_temporal_state": "ausencia",
+      "primary_expected": [],
+      "top3_ids": [
+        "dec-boreal-dual",
+        "evi-lab-battery-test",
+        "epi-transport-excursion"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q25-ausencia-drones": {
+      "expected_temporal_state": "ausencia",
+      "primary_expected": [],
+      "top3_ids": [
+        "dec-boreal-dual",
+        "evi-lab-battery-test",
+        "epi-transport-excursion"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q26-ausencia-blackout": {
+      "expected_temporal_state": "ausencia",
+      "primary_expected": [],
+      "top3_ids": [
+        "dec-boreal-dual",
+        "evi-lab-battery-test",
+        "epi-transport-excursion"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    },
+    "q27-ausencia-anvisa": {
+      "expected_temporal_state": "ausencia",
+      "primary_expected": [],
+      "top3_ids": [
+        "dec-boreal-dual",
+        "evi-lab-battery-test",
+        "epi-transport-excursion"
+      ],
+      "primary_in_top3": true,
+      "quality": "relevant"
+    }
+  },
+  "memory_counts": {
+    "total": 25,
+    "by_type": {
+      "fact": 4,
+      "decision": 2,
+      "hypothesis": 2,
+      "evidence": 4,
+      "learning": 3,
+      "episode": 2,
+      "checkpoint": 4,
+      "document": 4
+    }
+  }
+}

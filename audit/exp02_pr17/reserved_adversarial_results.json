@@ -1,0 +1,367 @@
+{
+  "total": 15,
+  "absence_total": 4,
+  "absence_correct": 0,
+  "present_queries": 11,
+  "hit_1_count": 7,
+  "hit_3_count": 10,
+  "hit_1_rate": 0.6363636363636364,
+  "hit_3_rate": 0.9090909090909091,
+  "results": [
+    {
+      "query_id": "adv-q01-ausencia-foto-volta",
+      "query": "O projeto utiliza energia solar fotovoltaica para alimentar os loggers IoT nos postos remotos?",
+      "category": "ausencia",
+      "expected_ids": [],
+      "expected_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.31107586612755433,
+      "top_lexical_score": 0.04,
+      "top3_ids": [
+        "dec-boreal-dual",
+        "epi-transport-excursion",
+        "fact-boreal-obj"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": false,
+      "hit_1": false,
+      "hit_3": false,
+      "correct": false
+    },
+    {
+      "query_id": "adv-q02-ausencia-crypto",
+      "query": "Os dados coletados pelos loggers IoT usam assinatura criptografica para garantir integridade contra adulteracao?",
+      "category": "ausencia",
+      "expected_ids": [],
+      "expected_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.33385671110579374,
+      "top_lexical_score": 0.04477611940298507,
+      "top3_ids": [
+        "epi-transport-excursion",
+        "dec-boreal-iot",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": false,
+      "hit_1": false,
+      "hit_3": false,
+      "correct": false
+    },
+    {
+      "query_id": "adv-q03-ausencia-transporte-maritimo",
+      "query": "Existe logistica de transporte maritime ou fluvial para entrega de vacinas em comunidades ribeirinhas?",
+      "category": "ausencia",
+      "expected_ids": [],
+      "expected_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.2809795174203812,
+      "top_lexical_score": 0.030303030303030304,
+      "top3_ids": [
+        "epi-transport-excursion",
+        "dec-boreal-dual",
+        "hyp-battery-failure"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": false,
+      "hit_1": false,
+      "hit_3": false,
+      "correct": false
+    },
+    {
+      "query_id": "adv-q04-ausencia-quantidade-doses",
+      "query": "Quantas doses de vacina foram distribuidas no total durante todo o periodo piloto?",
+      "category": "ausencia",
+      "expected_ids": [],
+      "expected_absent": true,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.27227986778615854,
+      "top_lexical_score": 0.029850746268656716,
+      "top3_ids": [
+        "epi-transport-excursion",
+        "evi-lab-battery-test",
+        "chk-boreal-p1"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": false,
+      "hit_1": false,
+      "hit_3": false,
+      "correct": false
+    },
+    {
+      "query_id": "adv-q05-decisao-vigente",
+      "query": "Qual e a abordagem atual de monitoramento adotada pelo Projeto Boreal?",
+      "category": "decisao-vigente",
+      "expected_ids": [
+        "dec-boreal-dual"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.6148118971975873,
+      "top_lexical_score": 0.07246376811594203,
+      "top3_ids": [
+        "dec-boreal-dual",
+        "epi-transport-excursion",
+        "doc-dual-spec"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": true,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q06-decisao-historica",
+      "query": "Qual foi a primeira escolha tecnologica antes de mudar para sistema dual?",
+      "category": "decisao-historica",
+      "expected_ids": [
+        "dec-boreal-iot"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.3064983739433682,
+      "top_lexical_score": 0.027777777777777776,
+      "top3_ids": [
+        "dec-boreal-dual",
+        "doc-dual-spec",
+        "chk-boreal-p4"
+      ],
+      "primary_in_top3": false,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": false,
+      "hit_3": false,
+      "correct": false
+    },
+    {
+      "query_id": "adv-q07-risco",
+      "query": "Que fator de risco pode comprometer a proxima fase de implantacao do projeto?",
+      "category": "risco",
+      "expected_ids": [
+        "fact-training-risk"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 4,
+      "top_score": 0.41048942021337853,
+      "top_lexical_score": 0.07407407407407407,
+      "top3_ids": [
+        "fact-training-risk",
+        "fact-deployment-status",
+        "fact-boreal-obj"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": true,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q08-bloqueio",
+      "query": "O que impede a equipe de distribuir os VVM adquiridos para os centros piloto?",
+      "category": "bloqueio",
+      "expected_ids": [
+        "lrn-staff-training-gap",
+        "chk-boreal-p5"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.2985094162434159,
+      "top_lexical_score": 0.10638297872340426,
+      "top3_ids": [
+        "chk-boreal-p5",
+        "lrn-staff-training-gap",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": true,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q09-proxima-acao",
+      "query": "Qual a proxima acao prioritaria do projeto?",
+      "category": "proxima-acao",
+      "expected_ids": [
+        "chk-boreal-p5",
+        "fact-training-risk"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.28553208658276374,
+      "top_lexical_score": 0.08888888888888889,
+      "top3_ids": [
+        "chk-boreal-p5",
+        "fact-training-risk",
+        "dec-boreal-dual"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": true,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q10-conflito-decisao",
+      "query": "A decisao de usar sistema dual substituiu ou conflita com alguma decisao anterior do projeto?",
+      "category": "conflito",
+      "expected_ids": [
+        "dec-boreal-dual",
+        "dec-boreal-iot"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.478943060278499,
+      "top_lexical_score": 0.17142857142857143,
+      "top3_ids": [
+        "chk-boreal-p4",
+        "dec-boreal-dual",
+        "dec-boreal-iot"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": false,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q11-delta-checkpoints",
+      "query": "O que mudou entre o primeiro e o ultimo checkpoint do projeto?",
+      "category": "delta",
+      "expected_ids": [
+        "chk-boreal-p5",
+        "chk-boreal-p1"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 4,
+      "top_score": 0.4774597007432484,
+      "top_lexical_score": 0.06666666666666667,
+      "top3_ids": [
+        "chk-boreal-p1",
+        "chk-boreal-p5",
+        "chk-boreal-p4"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": true,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q12-evidencia-vvm-certificate",
+      "query": "Existe alguma certificacao da OMS que valida o uso dos indicadores quimicos VVM na cadeia fria?",
+      "category": "evidencia",
+      "expected_ids": [
+        "evi-who-pqs-vvm"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.3849818251519202,
+      "top_lexical_score": 0.12727272727272726,
+      "top3_ids": [
+        "evi-who-pqs-vvm",
+        "dec-boreal-dual",
+        "doc-dual-spec"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": true,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q13-doc-especificacao",
+      "query": "Tem um documento tecnico que descreve o novo sistema de monitoramento dual?",
+      "category": "documento",
+      "expected_ids": [
+        "doc-dual-spec"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 4,
+      "top_score": 0.6111935540878082,
+      "top_lexical_score": 0.16216216216216217,
+      "top3_ids": [
+        "doc-dual-spec",
+        "doc-boreal-charter",
+        "doc-investigation-report"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": true,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q14-hipotese-confirmada",
+      "query": "A hipotese de que as baterias falham no frio extremo foi confirmada em laboratorio?",
+      "category": "hipotese",
+      "expected_ids": [
+        "hyp-battery-confirmed"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 2,
+      "top_score": 0.4579067869023139,
+      "top_lexical_score": 0.07407407407407407,
+      "top3_ids": [
+        "hyp-battery-failure",
+        "hyp-battery-confirmed"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": false,
+      "hit_3": true,
+      "correct": true
+    },
+    {
+      "query_id": "adv-q15-aprendizado-bATERIA",
+      "query": "O que se aprendeu sobre o comportamento das baterias de litio em temperaturas muito baixas?",
+      "category": "aprendizado",
+      "expected_ids": [
+        "lrn-battery-cold-degradation"
+      ],
+      "expected_absent": false,
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.3447657304186798,
+      "top_lexical_score": 0.05660377358490566,
+      "top3_ids": [
+        "evi-lab-battery-test",
+        "lrn-battery-cold-degradation",
+        "epi-transport-excursion"
+      ],
+      "primary_in_top3": true,
+      "is_absent": false,
+      "absence_correct": null,
+      "hit_1": false,
+      "hit_3": true,
+      "correct": true
+    }
+  ]
+}

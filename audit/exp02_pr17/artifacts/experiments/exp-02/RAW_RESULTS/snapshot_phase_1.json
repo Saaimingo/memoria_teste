@@ -1,0 +1,302 @@
+{
+  "projects": [
+    {
+      "id": "proj-boreal",
+      "name": "Projeto Boreal",
+      "description": "Cadeia fria para distribuicao de vacinas com monitoramento continuo de temperatura",
+      "created_at": "2026-07-26T23:34:47.486465+00:00",
+      "metadata": {}
+    }
+  ],
+  "memories": [
+    {
+      "id": "fact-boreal-obj",
+      "type": "fact",
+      "content": "O objetivo inicial do Projeto Boreal e garantir a integridade termica de vacinas durante toda a cadeia de distribuicao, do armazem central aos postos de vacinacao remotos, mantendo a temperatura controlada entre 2C e 8C em todos os trechos de transporte e armazenamento, com registros de monitoramento continuos.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "termo-abertura-boreal",
+          "source_type": "spec",
+          "description": "Termo de abertura do Projeto Boreal",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.486465Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "Projeto Boreal",
+          "entity_type": "project"
+        },
+        {
+          "name": "vacina",
+          "entity_type": "concept"
+        },
+        {
+          "name": "cadeia fria",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "fact_status": "current",
+      "assertion": "O Projeto Boreal garante a integridade termica de vacinas na cadeia de distribuicao.",
+      "scope": "cadeia-fria-distribuicao",
+      "temporal_context": "",
+      "evidence_ids": [],
+      "contradiction_ids": []
+    },
+    {
+      "id": "dec-boreal-iot",
+      "type": "decision",
+      "content": "A decisao inicial do projeto foi utilizar data loggers IoT com sensor de temperatura digital, programados para registrar leituras a cada 15 minutos. Os dados eram coletados manualmente ao final de cada trecho de transporte via interface USB. Esta abordagem de controle termico foi escolhida por ser simples e de baixo custo. O projeto monitorava as temperaturas desta forma antes da mudanca para o sistema dual com indicadores quimicos VVM. Esta decisao original de usar apenas loggers IoT foi posteriormente abandonada e substituida quando se descobriu que as baterias falham no frio extremo.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "reuniao-logistica-01",
+          "source_type": "meeting",
+          "description": "Reuniao de logistica — decisao inicial",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.486465Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "IoT logger",
+          "entity_type": "equipment"
+        },
+        {
+          "name": "amostragem",
+          "entity_type": "concept"
+        },
+        {
+          "name": "USB",
+          "entity_type": "interface"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "decision_status": "active",
+      "authority": "Coordenador de Logistica do Projeto Boreal",
+      "alternatives": [
+        "Loggers IoT com amostragem de 15 minutos e coleta manual USB",
+        "Loggers com transmissao celular em tempo real",
+        "Indicadores quimicos passivos VVM",
+        "Registro manual em planilha pelo motorista"
+      ],
+      "justification": "Os loggers IoT sao equipamentos disponiveis no mercado nacional, de baixo custo unitario. A amostragem a cada 15 minutos atende a recomendacao da OMS para monitoramento de vacinas. A coleta manual via USB evita dependencia de rede celular instavel nas rotas rurais.",
+      "expected_consequences": "Cobertura de 100% das rotas com dados disponiveis em ate 24h.",
+      "revocation_criteria": "Se houver perda de dados, falha de bateria em frio extremo, ou se a latencia de 24h for inaceitavel.",
+      "superseded_decision_id": null
+    },
+    {
+      "id": "evi-who-guidelines",
+      "type": "evidence",
+      "content": "A diretriz WHO Vaccine Management Handbook recomenda monitoramento continuo de temperatura com registros a intervalos nao superiores a 30 minutos durante o transporte de vacinas. O documento EVID/SCH/2024.3 estabelece que a amostragem a cada 15 minutos e considerada pratica recomendada e fornece evidencia normativa para projetos de cadeia fria com vacinas termossensiveis. Esta evidencia apoiou a decisao inicial de usar loggers IoT com intervalo de 15 minutos no Projeto Boreal.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "who-handbook-2024",
+          "source_type": "document",
+          "description": "WHO Vaccine Management Handbook 2024.3",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "WHO",
+          "entity_type": "organization"
+        },
+        {
+          "name": "monitoramento",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "evidence_type": "artifact",
+      "location": "WHO Vaccine Management Handbook, Module EVID/SCH/2024.3, secao 4.2",
+      "producer": "World Health Organization",
+      "environment": "normativo-internacional",
+      "timestamp": null,
+      "artifact_version": "2024.3",
+      "integrity_hash": "",
+      "supported_claims": [
+        "dec-boreal-iot"
+      ],
+      "contradicted_claims": [],
+      "limitations": "Diretriz geral sem considerar restricoes de infraestrutura local."
+    },
+    {
+      "id": "chk-boreal-p1",
+      "type": "checkpoint",
+      "content": "Primeiro checkpoint do Projeto Boreal. O projeto comecou com a decisao de usar loggers IoT e amostragem a cada 15 minutos. Tres centros piloto foram selecionados: UBS Rio Verde, UBS Agua Fria e UBS Belo Monte. Este checkpoint marca o estado inicial antes dos problemas e mudancas que ocorreriam depois. Comparado com o checkpoint final, mostra toda a evolucao do projeto desde o controle termico inicial ate o sistema dual atual.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "current_state": "Projeto aprovado com decisao IoT. Equipamentos em aquisicao.",
+      "last_completed_action": "Aprovacao do plano de monitoramento e selecao dos centros",
+      "active_decisions": [
+        "dec-boreal-iot"
+      ],
+      "pending_items": [
+        "Aquisicao de 50 loggers",
+        "Treinamento de 12 operadores"
+      ],
+      "blockers": [],
+      "artifacts_and_versions": {
+        "termo-abertura": "v1.0",
+        "plano-monitoramento": "v1.0"
+      },
+      "next_allowed_action": "Iniciar aquisicao dos loggers e primeiro treinamento",
+      "known_risks": [
+        "Atraso na importacao",
+        "Resistencia ao novo equipamento"
+      ],
+      "deep_dive_refs": [
+        "who-handbook-2024",
+        "reuniao-logistica-01"
+      ]
+    },
+    {
+      "id": "doc-boreal-charter",
+      "type": "document",
+      "content": "Carta do Projeto Boreal — documento de abertura que define escopo, objetivos, criterios de sucesso e plano de fases para a cadeia fria de distribuicao de vacinas. Este documento normativo descreve a arquitetura inicial e as partes interessadas do projeto.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "termo-abertura-boreal",
+          "source_type": "spec",
+          "description": "Termo de abertura",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "Projeto Boreal",
+          "entity_type": "project"
+        },
+        {
+          "name": "carta do projeto",
+          "entity_type": "document"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "document_type": "specification",
+      "sections": [
+        "Objetivo",
+        "Escopo",
+        "Criterios de Sucesso",
+        "Plano de Fases"
+      ],
+      "constituent_ids": [
+        "fact-boreal-obj",
+        "dec-boreal-iot"
+      ],
+      "is_normative": true
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel-01-evi-sup-dec",
+      "source_id": "evi-who-guidelines",
+      "target_id": "dec-boreal-iot",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-02-chk-sum-dec",
+      "source_id": "chk-boreal-p1",
+      "target_id": "dec-boreal-iot",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-03-doc-ref-evi",
+      "source_id": "doc-boreal-charter",
+      "target_id": "evi-who-guidelines",
+      "relation_type": "references",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-04-fact-der-doc",
+      "source_id": "fact-boreal-obj",
+      "target_id": "doc-boreal-charter",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-05-chk-sum-obj",
+      "source_id": "chk-boreal-p1",
+      "target_id": "fact-boreal-obj",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-06-dec-par-chk",
+      "source_id": "dec-boreal-iot",
+      "target_id": "chk-boreal-p1",
+      "relation_type": "part_of",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    }
+  ]
+}

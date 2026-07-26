@@ -1,0 +1,1094 @@
+{
+  "projects": [
+    {
+      "id": "proj-boreal",
+      "name": "Projeto Boreal",
+      "description": "Cadeia fria para distribuicao de vacinas com monitoramento continuo de temperatura",
+      "created_at": "2026-07-26T23:34:47.486465+00:00",
+      "metadata": {}
+    }
+  ],
+  "memories": [
+    {
+      "id": "fact-boreal-obj",
+      "type": "fact",
+      "content": "O objetivo inicial do Projeto Boreal e garantir a integridade termica de vacinas durante toda a cadeia de distribuicao, do armazem central aos postos de vacinacao remotos, mantendo a temperatura controlada entre 2C e 8C em todos os trechos de transporte e armazenamento, com registros de monitoramento continuos.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "termo-abertura-boreal",
+          "source_type": "spec",
+          "description": "Termo de abertura do Projeto Boreal",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.486465Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "Projeto Boreal",
+          "entity_type": "project"
+        },
+        {
+          "name": "vacina",
+          "entity_type": "concept"
+        },
+        {
+          "name": "cadeia fria",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "fact_status": "current",
+      "assertion": "O Projeto Boreal garante a integridade termica de vacinas na cadeia de distribuicao.",
+      "scope": "cadeia-fria-distribuicao",
+      "temporal_context": "",
+      "evidence_ids": [],
+      "contradiction_ids": []
+    },
+    {
+      "id": "evi-who-guidelines",
+      "type": "evidence",
+      "content": "A diretriz WHO Vaccine Management Handbook recomenda monitoramento continuo de temperatura com registros a intervalos nao superiores a 30 minutos durante o transporte de vacinas. O documento EVID/SCH/2024.3 estabelece que a amostragem a cada 15 minutos e considerada pratica recomendada e fornece evidencia normativa para projetos de cadeia fria com vacinas termossensiveis. Esta evidencia apoiou a decisao inicial de usar loggers IoT com intervalo de 15 minutos no Projeto Boreal.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "who-handbook-2024",
+          "source_type": "document",
+          "description": "WHO Vaccine Management Handbook 2024.3",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "WHO",
+          "entity_type": "organization"
+        },
+        {
+          "name": "monitoramento",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "evidence_type": "artifact",
+      "location": "WHO Vaccine Management Handbook, Module EVID/SCH/2024.3, secao 4.2",
+      "producer": "World Health Organization",
+      "environment": "normativo-internacional",
+      "timestamp": null,
+      "artifact_version": "2024.3",
+      "integrity_hash": "",
+      "supported_claims": [
+        "dec-boreal-iot"
+      ],
+      "contradicted_claims": [],
+      "limitations": "Diretriz geral sem considerar restricoes de infraestrutura local."
+    },
+    {
+      "id": "chk-boreal-p1",
+      "type": "checkpoint",
+      "content": "Primeiro checkpoint do Projeto Boreal. O projeto comecou com a decisao de usar loggers IoT e amostragem a cada 15 minutos. Tres centros piloto foram selecionados: UBS Rio Verde, UBS Agua Fria e UBS Belo Monte. Este checkpoint marca o estado inicial antes dos problemas e mudancas que ocorreriam depois. Comparado com o checkpoint final, mostra toda a evolucao do projeto desde o controle termico inicial ate o sistema dual atual.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "current_state": "Projeto aprovado com decisao IoT. Equipamentos em aquisicao.",
+      "last_completed_action": "Aprovacao do plano de monitoramento e selecao dos centros",
+      "active_decisions": [
+        "dec-boreal-iot"
+      ],
+      "pending_items": [
+        "Aquisicao de 50 loggers",
+        "Treinamento de 12 operadores"
+      ],
+      "blockers": [],
+      "artifacts_and_versions": {
+        "termo-abertura": "v1.0",
+        "plano-monitoramento": "v1.0"
+      },
+      "next_allowed_action": "Iniciar aquisicao dos loggers e primeiro treinamento",
+      "known_risks": [
+        "Atraso na importacao",
+        "Resistencia ao novo equipamento"
+      ],
+      "deep_dive_refs": [
+        "who-handbook-2024",
+        "reuniao-logistica-01"
+      ]
+    },
+    {
+      "id": "doc-boreal-charter",
+      "type": "document",
+      "content": "Carta do Projeto Boreal — documento de abertura que define escopo, objetivos, criterios de sucesso e plano de fases para a cadeia fria de distribuicao de vacinas. Este documento normativo descreve a arquitetura inicial e as partes interessadas do projeto.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "termo-abertura-boreal",
+          "source_type": "spec",
+          "description": "Termo de abertura",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "Projeto Boreal",
+          "entity_type": "project"
+        },
+        {
+          "name": "carta do projeto",
+          "entity_type": "document"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "document_type": "specification",
+      "sections": [
+        "Objetivo",
+        "Escopo",
+        "Criterios de Sucesso",
+        "Plano de Fases"
+      ],
+      "constituent_ids": [
+        "fact-boreal-obj",
+        "dec-boreal-iot"
+      ],
+      "is_normative": true
+    },
+    {
+      "id": "epi-transport-excursion",
+      "type": "episode",
+      "content": "Episodio critico de excursao de temperatura durante o transporte de vacinas para a UBS Belo Monte em 15/03/2026. O logger IoT registrou aquecimento acima de 8C por 2 horas, seguido de um apagao de dados de 4 horas sem nenhum registro — uma falha de monitoramento que resultou no descarte de 200 doses. Este episodio foi a causa principal do abandono da abordagem inicial com apenas loggers IoT. A falha de dados ocorreu exatamente no trecho mais frio da rota onde a temperatura externa estava entre -12C e -18C. O palpite inicial foi que as baterias falharam no frio extremo, parando os registros temporariamente. A decisao de usar apenas loggers IoT foi questionada apos este incidente.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "relatorio-incidente-001",
+          "source_type": "report",
+          "description": "Relatorio de incidente Belo Monte",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.557051Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "UBS Belo Monte",
+          "entity_type": "location"
+        },
+        {
+          "name": "vacina",
+          "entity_type": "product"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "initial_state": "Rota de 8h entre armazem central e UBS Belo Monte, temp externa -15C",
+      "goal": "Entregar 200 doses de vacina com integridade termica comprovada",
+      "plan": "Transporte em caixa termica passiva monitorada por logger TL-2000",
+      "actions": [
+        "Carregamento da caixa termica as 06:00",
+        "Verificacao inicial do logger: bateria 95%",
+        "Inicio do transporte as 06:30"
+      ],
+      "observations": [
+        "09:15: temperatura 9.1C (acima do limite de 8C)",
+        "09:30: temperatura 11.4C",
+        "09:45: ultimo registro valido 8.2C",
+        "09:45 as 13:45: lacuna de dados de 4 horas",
+        "13:50: logger voltou com temperatura 3.5C",
+        "Temp externa na rota: -12C a -18C"
+      ],
+      "deviations": [
+        "Excurso de temperatura acima de 8C por 2 horas",
+        "Lacuna de dados de 4 horas sem registro"
+      ],
+      "corrections": [
+        "Descarte de 200 doses por seguranca",
+        "Abertura de relatorio de incidente"
+      ],
+      "result": "200 doses descartadas. Causa-raiz nao identificada. Logger enviado para analise.",
+      "consequences": "Confianca nos loggers IoT abalada. Necessidade de investigacao urgente.",
+      "learning_summary": "Loggers IoT podem falhar em temperaturas negativas extremas, causando perda de dados e comprometendo a rastreabilidade."
+    },
+    {
+      "id": "evi-logger-gap",
+      "type": "evidence",
+      "content": "Arquivo de log do data logger TL-2000 (SN: TL-4521) extraido apos o incidente da UBS Belo Monte. Esta evidencia mostra registros normais das 06:00 as 09:30, seguidos de ausencia total de dados entre 09:45 e 13:45 — um apagao de 4 horas. Apos 13:50 os registros retornam com valores normais. O contador interno indica 16 amostragens perdidas. Esta falha de registro ocorreu durante transporte em temperatura externa entre -12C e -18C. O arquivo sugere que as baterias falham no frio extremo, mas nao registra a causa exata da interrupcao.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.557051Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "TL-2000",
+          "entity_type": "equipment"
+        },
+        {
+          "name": "lacuna de dados",
+          "entity_type": "anomaly"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "evidence_type": "log",
+      "location": "Arquivo TL4521_20260315.csv, hash SHA256: a3f8b2c...",
+      "producer": "Data logger TL-2000 SN: TL-4521",
+      "environment": "transporte rodoviario, temp externa -12C a -18C",
+      "timestamp": null,
+      "artifact_version": "firmware v3.1.2",
+      "integrity_hash": "",
+      "supported_claims": [
+        "hyp-battery-failure"
+      ],
+      "contradicted_claims": [],
+      "limitations": "O arquivo nao registra a causa da interrupcao nem o estado da bateria."
+    },
+    {
+      "id": "lrn-single-logger-insufficient",
+      "type": "learning",
+      "content": "Um unico ponto de monitoramento com logger IoT nao oferece redundancia para garantir a integridade dos dados em rotas longas com variacao termica extrema. A falha de um unico componente eletronico compromete toda a rastreabilidade da cadeia fria. Este aprendizado contribuiu para o motivo do abandono da abordagem inicial baseada exclusivamente em loggers IoT. A decisao de usar apenas loggers foi abandonada porque aprendemos que baterias quimicas nao sao confiaveis em ambientes gelados com temperatura abaixo de -10C.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.557051Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "medium",
+      "entities": [
+        {
+          "name": "redundancia",
+          "entity_type": "concept"
+        },
+        {
+          "name": "logger IoT",
+          "entity_type": "equipment"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "learning_state": "observed",
+      "origin_episode_ids": [
+        "epi-transport-excursion"
+      ],
+      "evidence_ids": [
+        "evi-logger-gap"
+      ],
+      "works_under_conditions": "Rotas curtas com temperatura externa acima de 0C",
+      "fails_under_conditions": "Rotas longas com temperatura abaixo de -10C, onde bateria pode falhar sem redundancia",
+      "generalization_degree": "Especifico para equipamentos eletronicos com bateria operando em frio extremo"
+    },
+    {
+      "id": "chk-boreal-p2",
+      "type": "checkpoint",
+      "content": "Checkpoint Fase 2 do Projeto Boreal. Incidente na UBS Belo Monte registrado com 200 doses perdidas por falha de monitoramento. Hipotese de falha de bateria em investigacao. Aprendizado sobre insuficiencia de logger unico documentado. Operacoes suspensas para rotas com temperatura abaixo de -5C ate que o problema de confiabilidade das baterias seja resolvido.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.557051Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "current_state": "Incidente documentado, hipotese registrada, investigacao autorizada.",
+      "last_completed_action": "Registro do incidente e abertura de investigacao",
+      "active_decisions": [
+        "dec-boreal-iot"
+      ],
+      "pending_items": [
+        "Teste de bateria em camara fria",
+        "Analise do logger pelo fabricante"
+      ],
+      "blockers": [
+        "Operacoes suspensas em rotas com temperatura abaixo de -5C"
+      ],
+      "artifacts_and_versions": {
+        "relatorio-incidente": "v1.0"
+      },
+      "next_allowed_action": "Executar teste de laboratorio para verificar hipotese de bateria",
+      "known_risks": [
+        "Mais perdas se hipotese confirmada sem alternativa"
+      ],
+      "deep_dive_refs": [
+        "relatorio-incidente-001",
+        "hyp-battery-failure"
+      ]
+    },
+    {
+      "id": "evi-lab-battery-test",
+      "type": "evidence",
+      "content": "Teste de laboratorio com 3 unidades do logger TL-2000 em camara fria controlada. Esta evidencia demonstrou que as baterias falham no frio extremo: a -15C, 2 de 3 desligaram em 47 e 52 minutos; a -20C, todas desligaram em menos de 35 minutos; a -25C, todas desligaram em menos de 12 minutos. Apos retorno a temperatura ambiente, todas religaram. Este teste prova que o frio realmente estraga as baterias de litio, com queda de tensao de 3.7V para abaixo de 2.8V durante a exposicao ao frio. A evidencia do teste de baterias confirmou que baterias quimicas nao sao confiaveis em temperaturas negativas.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "lab-2026-0421",
+          "source_type": "report",
+          "description": "Relatorio de ensaio termico",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "camara fria",
+          "entity_type": "equipment"
+        },
+        {
+          "name": "tensao de bateria",
+          "entity_type": "metric"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "evidence_type": "test_result",
+      "location": "Laboratorio de Ensaios Termicos, Relatorio LAB-2026-0421",
+      "producer": "Equipe de Qualidade do Projeto Boreal",
+      "environment": "Camara fria -30C a +25C, umidade 45%",
+      "timestamp": null,
+      "artifact_version": "TL-2000 firmware v3.1.2, bateria CR123A nova",
+      "integrity_hash": "",
+      "supported_claims": [
+        "hyp-battery-confirmed",
+        "fact-battery-threshold"
+      ],
+      "contradicted_claims": [],
+      "limitations": "Teste apenas com modelo TL-2000. Outros modelos nao testados."
+    },
+    {
+      "id": "lrn-battery-cold-degradation",
+      "type": "learning",
+      "content": "O aprendizado principal do Projeto Boreal sobre baterias quimicas em temperaturas negativas: baterias de litio perdem capacidade de forma nao linear abaixo de -10C, com queda de tensao abrupta e silenciosa a partir de -15C. A falha e subita e imprevisivel — o equipamento nao emite alerta antes de desligar. Acima de -5C a bateria recupera tensao. Esta foi a razao principal que fez a equipe desistir dos sensores eletronicos que usavam pilhas. A decisao de usar apenas loggers IoT foi abandonada por causa deste aprendizado sobre o comportamento de baterias no frio. A licao sobre pilhas em ambientes gelados e que nenhum equipamento eletronico com bateria quimica deve ser o unico ponto de monitoramento em rotas com risco de temperatura negativa.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "bateria de litio",
+          "entity_type": "component"
+        },
+        {
+          "name": "degradacao termica",
+          "entity_type": "failure mode"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "learning_state": "promoted",
+      "origin_episode_ids": [
+        "epi-transport-excursion"
+      ],
+      "evidence_ids": [
+        "evi-lab-battery-test"
+      ],
+      "works_under_conditions": "Temperaturas acima de -5C",
+      "fails_under_conditions": "Temperaturas abaixo de -10C, falha subita a partir de -15C",
+      "generalization_degree": "Aplicavel a qualquer equipamento com bateria de litio em frio extremo"
+    },
+    {
+      "id": "fact-battery-threshold",
+      "type": "fact",
+      "content": "A bateria de litio CR123A do logger TL-2000 torna-se nao confiavel abaixo de -10C. O ponto de falha observado em laboratorio foi -15C, com tempo medio ate desligamento de 42 minutos. Abaixo de -20C, o desligamento ocorre em menos de 35 minutos em 100% das unidades testadas. Este fato sobre o limite de temperatura de baterias confirma que o frio realmente estraga as baterias e foi determinante para a mudanca de abordagem do Projeto Boreal.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "CR123A",
+          "entity_type": "component"
+        },
+        {
+          "name": "-15C",
+          "entity_type": "threshold"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "fact_status": "current",
+      "assertion": "A bateria CR123A falha abaixo de -15C com desligamento em menos de 60 min.",
+      "scope": "especificacao-tecnica-baterias",
+      "temporal_context": "",
+      "evidence_ids": [
+        "evi-lab-battery-test"
+      ],
+      "contradiction_ids": []
+    },
+    {
+      "id": "doc-investigation-report",
+      "type": "document",
+      "content": "Relatorio de Investigacao do incidente da UBS Belo Monte no Projeto Boreal. Documento que compila toda a analise de causa-raiz da perda de 200 doses durante transporte. Inclui descricao do episodio, analise dos logs, hipotese inicial, teste de laboratorio confirmando que as baterias falham no frio extremo, e recomendacoes para substituicao da abordagem de monitoramento.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "relatorio-investigacao-001",
+          "source_type": "report",
+          "description": "Relatorio final de investigacao",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "UBS Belo Monte",
+          "entity_type": "location"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "document_type": "report",
+      "sections": [
+        "Descricao do Incidente",
+        "Analise de Evidencias",
+        "Teste de Laboratorio",
+        "Conclusoes",
+        "Recomendacoes"
+      ],
+      "constituent_ids": [
+        "epi-transport-excursion",
+        "evi-lab-battery-test",
+        "hyp-battery-confirmed"
+      ],
+      "is_normative": false
+    },
+    {
+      "id": "hyp-battery-failure",
+      "type": "hypothesis",
+      "content": "A hipotese inicial do Projeto Boreal sobre o apagao de dados na rota de entrega para UBS Belo Monte: a bateria de litio do logger TL-2000 sofre queda abrupta de tensao quando exposta a temperaturas inferiores a -10C por periodo prolongado. Esta hipotese propoe que o frio extremo faz o circuito de protecao desligar temporariamente o dispositivo, interrompendo os registros. Ao aquecer, a bateria recupera tensao e o logger religa automaticamente. Este palpite inicial foi posteriormente confirmado por teste de laboratorio. A hipotese explicou as falhas nos dados durante o transporte.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.557051Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "superseded",
+      "confidence": "medium",
+      "entities": [
+        {
+          "name": "bateria de litio",
+          "entity_type": "component"
+        },
+        {
+          "name": "temperatura negativa",
+          "entity_type": "condition"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": "hyp-battery-confirmed",
+      "metadata": {},
+      "hypothesis_state": "proposed",
+      "origin_observation": "Logger parou de registrar no trecho mais frio da rota (-18C) e voltou quando a temperatura subiu para -5C.",
+      "prediction": "Se submetido a -15C em laboratorio, o logger desligara em menos de 60 min.",
+      "test_condition": "Camara fria com 3 unidades TL-2000 a -15C, -20C e -25C",
+      "confirmation_criterion": "Desligamento em 2 de 3 unidades a -15C ou inferior",
+      "rejection_criterion": "Nenhuma unidade desligar em 4h a -25C",
+      "risk": "Se confirmada, 50 loggers precisarao ser substituidos."
+    },
+    {
+      "id": "hyp-battery-confirmed",
+      "type": "hypothesis",
+      "content": "HIPOTESE CONFIRMADA do Projeto Boreal sobre as falhas nos dados durante o transporte: a bateria de litio CR123A do logger TL-2000 sofre queda de tensao abaixo do minimo operacional (2.8V) quando exposta a temperaturas inferiores a -15C. O circuito de protecao entra em shutdown e interrompe os registros. Ao retornar a temperatura acima de -5C, a tensao se recupera e o dispositivo religa, porem sem recuperar os dados perdidos. Esta hipotese sobre a falha de bateria foi validada com 100% de reprodutibilidade a -20C.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "CR123A",
+          "entity_type": "component"
+        },
+        {
+          "name": "shutdown termico",
+          "entity_type": "failure mode"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": "hyp-battery-failure",
+      "superseded_by": null,
+      "metadata": {},
+      "hypothesis_state": "sustained",
+      "origin_observation": "Lacuna de dados de 4h durante transporte com temp -18C",
+      "prediction": "Confirmada: desligamento em 100% das unidades a -20C",
+      "test_condition": "Camara fria com 3 unidades TL-2000 a -15C, -20C, -25C",
+      "confirmation_criterion": "ATINGIDO: 100% desligaram a -20C e -25C",
+      "rejection_criterion": "NAO ATINGIDO: hipotese nao foi rejeitada",
+      "risk": "MITIGADO: causa-raiz identificada"
+    },
+    {
+      "id": "dec-boreal-dual",
+      "type": "decision",
+      "content": "A decisao vigente do Projeto Boreal para monitoramento de temperatura na cadeia fria: substituir o sistema baseado exclusivamente em loggers IoT por uma abordagem dual. (a) loggers IoT mantidos nos pontos fixos de armazenamento onde a temperatura e controlada acima de 0C; (b) indicadores quimicos passivos VVM (Vaccine Vial Monitor) certificados pela OMS para todos os trechos de transporte, sem dependencia de bateria ou eletronica. Esta decisao substitui a decisao original de usar apenas loggers IoT, que foi abandonada porque as baterias falhavam no frio extremo. A nova abordagem de vigilancia de temperatura resolve o conflito entre a necessidade de rastreabilidade e a confiabilidade dos equipamentos eletronicos em condicoes adversas. O sistema de vigilancia atual combina dois principios fisicos diferentes para garantir redundancia.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "reuniao-comite-20260410",
+          "source_type": "meeting",
+          "description": "Aprovacao do sistema dual",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "VVM",
+          "entity_type": "equipment"
+        },
+        {
+          "name": "IoT logger",
+          "entity_type": "equipment"
+        },
+        {
+          "name": "sistema dual",
+          "entity_type": "architecture"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "decision_status": "active",
+      "authority": "Comite Gestor do Projeto Boreal, aprovado em 10/04/2026",
+      "alternatives": [
+        "Sistema dual IoT + VVM",
+        "Loggers com bateria aquecida",
+        "Fonte de alimentacao veicular",
+        "Servico terceirizado com veiculos refrigerados ativos"
+      ],
+      "justification": "Os indicadores VVM sao certificados pela OMS (PQS E006/045), nao usam bateria e funcionam em qualquer temperatura. Os loggers IoT continuam uteis nos pontos fixos. A combinacao elimina o ponto unico de falha.",
+      "expected_consequences": "Eliminacao do risco de falha de bateria. Custo adicional estimado em 15%. Cobertura de rastreabilidade mantida.",
+      "revocation_criteria": "Se VVM apresentar taxa de falsos positivos acima de 2% ou houver desabastecimento no mercado nacional.",
+      "superseded_decision_id": "dec-boreal-iot"
+    },
+    {
+      "id": "evi-who-pqs-vvm",
+      "type": "evidence",
+      "content": "Certificacao WHO PQS E006/045 para indicadores VVM (Vaccine Vial Monitor). Esta evidencia demonstra que os indicadores quimicos VVM funcionam de forma confiavel em qualquer faixa de temperatura ambiente (-30C a +50C) sem necessidade de bateria ou componentes eletronicos. Os VVM mudam de cor de forma irreversivel quando expostos a calor acumulado acima do limite seguro para vacinas. A certificacao PQS garante sensibilidade e especificidade para uso em programas nacionais de imunizacao. O projeto tem evidencia normativa internacional de que os novos indicadores quimicos funcionam para monitoramento de vacinas em cadeia fria.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "WHO PQS",
+          "entity_type": "certification"
+        },
+        {
+          "name": "VVM",
+          "entity_type": "equipment"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "evidence_type": "artifact",
+      "location": "WHO PQS Catalogue, E006/045, revisao 2025.1",
+      "producer": "WHO PQS Working Group",
+      "environment": "normativo-internacional",
+      "timestamp": null,
+      "artifact_version": "2025.1",
+      "integrity_hash": "",
+      "supported_claims": [
+        "dec-boreal-dual"
+      ],
+      "contradicted_claims": [],
+      "limitations": "VVM indica calor acumulado, nao fornece registro temporal detalhado. Nao detecta congelamento."
+    },
+    {
+      "id": "chk-boreal-p4",
+      "type": "checkpoint",
+      "content": "Checkpoint Fase 4 do Projeto Boreal. Nova decisao de arquitetura aprovada: sistema dual IoT + VVM para monitoramento de temperatura. A decisao anterior de usar apenas IoT foi marcada como superseded. Processo de aquisicao dos VVM iniciado. Especificacao do novo sistema documentada. O projeto agora tem duas decisoes que estao em conflito por substituicao: a decisao dual vigente e a decisao IoT substituida.",
+      "project_id": "proj-boreal",
+      "source_refs": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "current_state": "Sistema dual aprovado. IoT mantido em pontos fixos. 5000 VVM em aquisicao. Transporte ainda suspenso aguardando implantacao.",
+      "last_completed_action": "Aprovacao do sistema dual e inicio da aquisicao de VVM",
+      "active_decisions": [
+        "dec-boreal-dual"
+      ],
+      "pending_items": [
+        "Aquisicao de 5000 VVM",
+        "Treinamento para leitura de VVM",
+        "Atualizacao de procedimentos",
+        "Teste piloto"
+      ],
+      "blockers": [
+        "Treinamento nao iniciado — material didatico pendente"
+      ],
+      "artifacts_and_versions": {
+        "especificacao-sistema-dual": "v1.0",
+        "plano-aquisicao": "v1.0"
+      },
+      "next_allowed_action": "Produzir material de treinamento para VVM",
+      "known_risks": [
+        "Atraso na importacao",
+        "Resistencia a nova tecnologia",
+        "Interpretacao incorreta dos VVM"
+      ],
+      "deep_dive_refs": [
+        "evi-who-pqs-vvm",
+        "doc-dual-spec"
+      ]
+    },
+    {
+      "id": "doc-dual-spec",
+      "type": "document",
+      "content": "Especificacao Tecnica do Sistema Dual de Monitoramento do Projeto Boreal. Este documento descreve a arquitetura completa do novo sistema de monitoramento, combinando IoT em pontos fixos e VVM no transporte. Define componentes, procedimentos operacionais, criterios de aceitacao e plano de treinamento. A documentacao do plano de monitoramento atualizado inclui referencias normativas da OMS e especificacoes de desempenho dos indicadores quimicos.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "especificacao-sistema-dual",
+          "source_type": "spec",
+          "description": "Especificacao tecnica v1.0",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "sistema dual",
+          "entity_type": "architecture"
+        },
+        {
+          "name": "especificacao",
+          "entity_type": "document"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "document_type": "specification",
+      "sections": [
+        "Arquitetura",
+        "Componentes",
+        "Procedimentos",
+        "Criterios de Aceitacao",
+        "Plano de Treinamento",
+        "Referencias"
+      ],
+      "constituent_ids": [
+        "dec-boreal-dual",
+        "evi-who-pqs-vvm"
+      ],
+      "is_normative": true
+    },
+    {
+      "id": "dec-boreal-iot",
+      "type": "decision",
+      "content": "A decisao inicial do projeto foi utilizar data loggers IoT com sensor de temperatura digital, programados para registrar leituras a cada 15 minutos. Os dados eram coletados manualmente ao final de cada trecho de transporte via interface USB. Esta abordagem de controle termico foi escolhida por ser simples e de baixo custo. O projeto monitorava as temperaturas desta forma antes da mudanca para o sistema dual com indicadores quimicos VVM. Esta decisao original de usar apenas loggers IoT foi posteriormente abandonada e substituida quando se descobriu que as baterias falham no frio extremo.",
+      "project_id": "proj-boreal",
+      "source_refs": [
+        {
+          "source_id": "reuniao-logistica-01",
+          "source_type": "meeting",
+          "description": "Reuniao de logistica — decisao inicial",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T23:34:47.486465Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "superseded",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "IoT logger",
+          "entity_type": "equipment"
+        },
+        {
+          "name": "amostragem",
+          "entity_type": "concept"
+        },
+        {
+          "name": "USB",
+          "entity_type": "interface"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": "dec-boreal-dual",
+      "metadata": {},
+      "decision_status": "superseded",
+      "authority": "Coordenador de Logistica do Projeto Boreal",
+      "alternatives": [
+        "Loggers IoT com amostragem de 15 minutos e coleta manual USB",
+        "Loggers com transmissao celular em tempo real",
+        "Indicadores quimicos passivos VVM",
+        "Registro manual em planilha pelo motorista"
+      ],
+      "justification": "Os loggers IoT sao equipamentos disponiveis no mercado nacional, de baixo custo unitario. A amostragem a cada 15 minutos atende a recomendacao da OMS para monitoramento de vacinas. A coleta manual via USB evita dependencia de rede celular instavel nas rotas rurais.",
+      "expected_consequences": "Cobertura de 100% das rotas com dados disponiveis em ate 24h.",
+      "revocation_criteria": "Se houver perda de dados, falha de bateria em frio extremo, ou se a latencia de 24h for inaceitavel.",
+      "superseded_decision_id": null
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel-01-evi-sup-dec",
+      "source_id": "evi-who-guidelines",
+      "target_id": "dec-boreal-iot",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-02-chk-sum-dec",
+      "source_id": "chk-boreal-p1",
+      "target_id": "dec-boreal-iot",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-03-doc-ref-evi",
+      "source_id": "doc-boreal-charter",
+      "target_id": "evi-who-guidelines",
+      "relation_type": "references",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-04-fact-der-doc",
+      "source_id": "fact-boreal-obj",
+      "target_id": "doc-boreal-charter",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-05-chk-sum-obj",
+      "source_id": "chk-boreal-p1",
+      "target_id": "fact-boreal-obj",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-06-dec-par-chk",
+      "source_id": "dec-boreal-iot",
+      "target_id": "chk-boreal-p1",
+      "relation_type": "part_of",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.487464Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-07-hyp-der-epi",
+      "source_id": "hyp-battery-failure",
+      "target_id": "epi-transport-excursion",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.558051Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-08-hyp-sup-evi",
+      "source_id": "hyp-battery-failure",
+      "target_id": "evi-logger-gap",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.558051Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-09-lrn-der-epi",
+      "source_id": "lrn-single-logger-insufficient",
+      "target_id": "epi-transport-excursion",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.558051Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-10-evi-par-epi",
+      "source_id": "evi-logger-gap",
+      "target_id": "epi-transport-excursion",
+      "relation_type": "part_of",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.558051Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-11-chk-sum-hyp",
+      "source_id": "chk-boreal-p2",
+      "target_id": "hyp-battery-failure",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.558051Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-12-epi-cau-dec",
+      "source_id": "epi-transport-excursion",
+      "target_id": "dec-boreal-iot",
+      "relation_type": "caused_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.558051Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-13-hypc-sup-evilab",
+      "source_id": "hyp-battery-confirmed",
+      "target_id": "evi-lab-battery-test",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-14-hypc-der-hyp",
+      "source_id": "hyp-battery-confirmed",
+      "target_id": "hyp-battery-failure",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-15-lrnbat-der-evilab",
+      "source_id": "lrn-battery-cold-degradation",
+      "target_id": "evi-lab-battery-test",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-16-lrnbat-sup-evilab",
+      "source_id": "lrn-battery-cold-degradation",
+      "target_id": "evi-lab-battery-test",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-17-factbat-sup-evilab",
+      "source_id": "fact-battery-threshold",
+      "target_id": "evi-lab-battery-test",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-18-docinv-sum-epi",
+      "source_id": "doc-investigation-report",
+      "target_id": "epi-transport-excursion",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-19-docinv-ref-evilab",
+      "source_id": "doc-investigation-report",
+      "target_id": "evi-lab-battery-test",
+      "relation_type": "references",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.693088Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-20-decdual-sup-dec",
+      "source_id": "dec-boreal-dual",
+      "target_id": "dec-boreal-iot",
+      "relation_type": "supersedes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-21-decdual-sup-evipqs",
+      "source_id": "dec-boreal-dual",
+      "target_id": "evi-who-pqs-vvm",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-22-decdual-der-lrnbat",
+      "source_id": "dec-boreal-dual",
+      "target_id": "lrn-battery-cold-degradation",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-23-hypc-res-decdual",
+      "source_id": "hyp-battery-confirmed",
+      "target_id": "dec-boreal-dual",
+      "relation_type": "resolved_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-24-chkp4-sum-decdual",
+      "source_id": "chk-boreal-p4",
+      "target_id": "dec-boreal-dual",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-25-docspec-sup-evipqs",
+      "source_id": "doc-dual-spec",
+      "target_id": "evi-who-pqs-vvm",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-26-docspec-ref-decdual",
+      "source_id": "doc-dual-spec",
+      "target_id": "dec-boreal-dual",
+      "relation_type": "references",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T23:34:47.904472Z",
+      "metadata": {}
+    }
+  ]
+}

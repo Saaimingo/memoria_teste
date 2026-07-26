@@ -1,0 +1,84 @@
+======================================================================
+EXPERIMENTO REAL 02 — PROJETO BOREAL
+======================================================================
+
+=== DETERMINISM CHECK: 3 execucoes identicas ===
+
+--- Run 1/3 ---
+  Phase 1: 5 memories, 6 relations
+  Phase 2: 10 memories, 12 relations
+  Phase 3: 15 memories, 19 relations
+  Phase 4: 19 memories, 26 relations
+  Phase 5: 25 memories, 34 relations
+
+--- Run 2/3 ---
+  Phase 1: 5 memories, 6 relations
+  Phase 2: 10 memories, 12 relations
+  Phase 3: 15 memories, 19 relations
+  Phase 4: 19 memories, 26 relations
+  Phase 5: 25 memories, 34 relations
+
+--- Run 3/3 ---
+  Phase 1: 5 memories, 6 relations
+  Phase 2: 10 memories, 12 relations
+  Phase 3: 15 memories, 19 relations
+  Phase 4: 19 memories, 26 relations
+  Phase 5: 25 memories, 34 relations
+
+Phase 1: run 1 == run 2 OK
+Phase 1: run 1 == run 3 OK
+Phase 2: run 1 == run 2 OK
+Phase 2: run 1 == run 3 OK
+Phase 3: run 1 == run 2 OK
+Phase 3: run 1 == run 3 OK
+Phase 4: run 1 == run 2 OK
+Phase 4: run 1 == run 3 OK
+Phase 5: run 1 == run 2 OK
+Phase 5: run 1 == run 3 OK
+
+DETERMINISM: CONFIRMED — All 3 runs produced identical snapshots.
+
+=== EXECUCAO PROGRESSIVA COM AVALIACAO ===
+
+--- Fase 1 ---
+  Memorias: 5 | Relacoes: 6 | Criadas nesta fase: 5
+  Hit@1=0.111 Hit@3=0.148 MRR=0.130 FakeSrc=0.0000
+
+--- Fase 2 ---
+  Memorias: 10 | Relacoes: 12 | Criadas nesta fase: 5
+  Hit@1=0.222 Hit@3=0.259 MRR=0.241 FakeSrc=0.0000
+
+--- Fase 3 ---
+  Memorias: 15 | Relacoes: 19 | Criadas nesta fase: 5
+  Hit@1=0.370 Hit@3=0.407 MRR=0.398 FakeSrc=0.0000
+
+--- Fase 4 ---
+  Memorias: 19 | Relacoes: 26 | Criadas nesta fase: 4
+  Hit@1=0.519 Hit@3=0.630 MRR=0.574 FakeSrc=0.0000
+
+--- Fase 5 ---
+  Memorias: 25 | Relacoes: 34 | Criadas nesta fase: 6
+  Hit@1=0.704 Hit@3=0.815 MRR=0.759 FakeSrc=0.0000
+
+--- Salvando snapshot final ---
+
+=== AVALIACAO FINAL ===
+
+Fake sources total: 0
+
+=== GERANDO RELATORIO ===
+
+Relatorio salvo em: D:\memoria_teste\audit\exp02_pr17\artifacts\experiments\exp-02\REPORT.md
+
+=== VERIFICACAO DE CRITERIOS ===
+
+  [PASS] Hit@1 >= 0.50: 0.704
+  [PASS] Hit@3 >= 0.75: 0.815
+  [PASS] Fake source rate = 0: 0.0000
+  [PASS] Determinismo confirmado
+  [PASS] Ausencia correta: 5/5 (100%)
+  [PASS] Decisao vigente supera substituida em consultas atuais
+
+==================================================
+RESULTADO FINAL: EXPERIMENT_02_PASSED
+==================================================

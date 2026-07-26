@@ -1,0 +1,152 @@
+{
+  "runs": [
+    {
+      "run": 1,
+      "exit_code": 0,
+      "num_queries": 27,
+      "hit_1_rate": 0.7037037037037037,
+      "hit_3_rate": 0.8148148148148148,
+      "hit_5_rate": 0.8148148148148148,
+      "mrr": 0.7592592592592593,
+      "precision_1": 0.7037037037037037,
+      "fake_source_rate": 0.0,
+      "fake_source_count": 0,
+      "deterministic": true,
+      "absence": {
+        "q10-ausencia-gps": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q24-parafrase-ausencia-gps": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q25-ausencia-drones": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q26-ausencia-blackout": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q27-ausencia-anvisa": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        }
+      }
+    },
+    {
+      "run": 2,
+      "exit_code": 0,
+      "num_queries": 27,
+      "hit_1_rate": 0.7037037037037037,
+      "hit_3_rate": 0.8148148148148148,
+      "hit_5_rate": 0.8148148148148148,
+      "mrr": 0.7592592592592593,
+      "precision_1": 0.7037037037037037,
+      "fake_source_rate": 0.0,
+      "fake_source_count": 0,
+      "deterministic": true,
+      "absence": {
+        "q10-ausencia-gps": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q24-parafrase-ausencia-gps": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q25-ausencia-drones": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q26-ausencia-blackout": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q27-ausencia-anvisa": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        }
+      }
+    },
+    {
+      "run": 3,
+      "exit_code": 0,
+      "num_queries": 27,
+      "hit_1_rate": 0.7037037037037037,
+      "hit_3_rate": 0.8148148148148148,
+      "hit_5_rate": 0.8148148148148148,
+      "mrr": 0.7592592592592593,
+      "precision_1": 0.7037037037037037,
+      "fake_source_rate": 0.0,
+      "fake_source_count": 0,
+      "deterministic": true,
+      "absence": {
+        "q10-ausencia-gps": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q24-parafrase-ausencia-gps": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q25-ausencia-drones": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q26-ausencia-blackout": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        },
+        "q27-ausencia-anvisa": {
+          "is_absent": true,
+          "quality": "relevant",
+          "num_candidates": 20,
+          "top_score": 0.22000000000000003
+        }
+      }
+    }
+  ],
+  "determinism_confirmed": true,
+  "base_metrics": {
+    "hit_1_rate": 0.7037037037037037,
+    "hit_3_rate": 0.8148148148148148,
+    "hit_5_rate": 0.8148148148148148,
+    "mrr": 0.7592592592592593,
+    "precision_1": 0.7037037037037037,
+    "fake_source_rate": 0.0,
+    "fake_source_count": 0,
+    "num_queries": 27,
+    "absence_correct": 5,
+    "absence_total": 5
+  }
+}
