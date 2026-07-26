@@ -1,0 +1,193 @@
+{
+  "num_queries": 20,
+  "precision_1": 0.5,
+  "precision_3": 0.32499999999999996,
+  "hit_1_rate": 0.5,
+  "hit_3_rate": 0.75,
+  "mrr": 0.6283333333333333,
+  "fake_source_count": 0,
+  "fake_source_rate": 0.0,
+  "conflict_detection_rate": 6.0,
+  "per_query": [
+    {
+      "query_id": "q01-decisao-vigente",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q02-abordagem-anterior",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q03-motivo-abandono",
+      "hit_1": false,
+      "hit_3": false,
+      "mrr": 0.2,
+      "precision_1": 0.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q04-evidencia-duplicacao",
+      "hit_1": false,
+      "hit_3": true,
+      "mrr": 0.3333333333333333,
+      "precision_1": 0.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q05-hipotese-replay",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q06-aprendizado-reinicializacao",
+      "hit_1": false,
+      "hit_3": true,
+      "mrr": 0.5,
+      "precision_1": 0.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q07-proximo-trabalho",
+      "hit_1": false,
+      "hit_3": true,
+      "mrr": 0.3333333333333333,
+      "precision_1": 0.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q08-risco-pendente",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q09-documento-arquitetura",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q10-criptografia-ausente",
+      "hit_1": false,
+      "hit_3": false,
+      "mrr": 0.0,
+      "precision_1": 0.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q11-conflitos",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "q12-delta-checkpoints",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "p01-parafrase-vigente",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "p02-parafrase-antigo",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "p03-parafrase-motivo",
+      "hit_1": false,
+      "hit_3": false,
+      "mrr": 0.2,
+      "precision_1": 0.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "p04-parafrase-prova",
+      "hit_1": false,
+      "hit_3": false,
+      "mrr": 0.0,
+      "precision_1": 0.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "p05-parafrase-proxima",
+      "hit_1": false,
+      "hit_3": true,
+      "mrr": 0.5,
+      "precision_1": 0.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "p06-parafrase-bloqueio",
+      "hit_1": true,
+      "hit_3": true,
+      "mrr": 1.0,
+      "precision_1": 1.0,
+      "conflicts_detected": 2,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "p07-parafrase-seguranca",
+      "hit_1": false,
+      "hit_3": false,
+      "mrr": 0.0,
+      "precision_1": 0.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    },
+    {
+      "query_id": "p08-parafrase-evolucao",
+      "hit_1": false,
+      "hit_3": true,
+      "mrr": 0.5,
+      "precision_1": 0.0,
+      "conflicts_detected": 0,
+      "fake_sources": 0
+    }
+  ]
+}

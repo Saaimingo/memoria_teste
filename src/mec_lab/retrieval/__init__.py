@@ -26,7 +26,7 @@ from typing import Any, Protocol
 
 from mec_lab.domain.enums import EpistemicStatus, MemoryType, RelationType
 from mec_lab.domain.models import AnyMemory
-from mec_lab.retrieval.normalize import token_set, tokenize, normalize
+from mec_lab.retrieval.normalize import token_set, tokenize, normalize, stem_pt
 from mec_lab.storage import Storage
 
 
@@ -54,14 +54,18 @@ class Clues:
     wants_historical: bool = False
     wants_current: bool = False
     wants_next_action: bool = False
+    # R3: additional intent hints
+    wants_risk: bool = False
+    wants_blocker: bool = False
+    needs_absence: bool = False
 
 
 def extract_clues(query: str, storage: Storage | None = None) -> Clues:
     """Deterministic heuristic clue extraction using shared tokenizer."""
     clues = Clues(raw_query=query)
 
-    # Terms via shared tokenizer (stopwords already removed)
-    clues.terms = tokenize(query)
+    # Terms via shared tokenizer (stopwords already removed, R3: stemmed to bridge vocabulary gaps)
+    clues.terms = tokenize(query, stem=True)
 
     # Entities: capitalised sequences (pre-normalization)
     import re as _re
@@ -106,6 +110,11 @@ def extract_clues(query: str, storage: Storage | None = None) -> Clues:
     current_words = {"atual", "agora", "vigente", "hoje", "corrente"}
     action_words = {"trabalhar", "proximo", "pendente", "fazer", "falta"}
 
+    # R3: additional intent triggers
+    risk_words = {"risco", "bloqueio", "bloquear", "bloqueando", "impede", "impedir", "travar", "travado"}
+    blocker_words = {"bloqueio", "bloquear", "bloqueando", "impede", "conclusao", "finalizar", "finalizacao", "terminar"}
+    absence_words = {"existe", "ha", "tem", "algum", "alguma", "registrado", "registrada", "decidido", "decidiu"}
+
     raw_tokens = tokenize(query, remove_stopwords=False)
     for token in raw_tokens:
         if token in historical_words:
@@ -114,6 +123,12 @@ def extract_clues(query: str, storage: Storage | None = None) -> Clues:
             clues.wants_current = True
         if token in action_words:
             clues.wants_next_action = True
+        if token in risk_words:
+            clues.wants_risk = True
+        if token in blocker_words:
+            clues.wants_blocker = True
+        if token in absence_words:
+            clues.needs_absence = True
 
     return clues
 
@@ -160,7 +175,7 @@ class RetrievalResult:
     explanation: str = ""
     source_ids: list[str] = field(default_factory=list)
     # R1 additions
-    quality: str = "none"  # "relevant", "weak", "none"
+    quality: str = "none"  # "relevant", "weak", "absent"
 
 
 # ---------------------------------------------------------------------------
@@ -184,10 +199,10 @@ class TfidfAdapter:
             self.build(storage)
 
     def build(self, storage: Storage) -> None:
-        """Build vocabulary and IDF from all stored memories."""
+        """Build vocabulary and IDF from all stored memories (R3: stemmed)."""
         docs: list[list[str]] = []
         for mem in storage.list_all_memories():
-            docs.append(tokenize(mem.content))
+            docs.append(tokenize(mem.content, stem=True))
         if not docs:
             self._built = True
             return
@@ -206,13 +221,13 @@ class TfidfAdapter:
         self._built = True
 
     def embed(self, texts: list[str]) -> list[list[float]]:
-        """Return TF-IDF weighted vectors."""
+        """Return TF-IDF weighted vectors (R3: stemmed tokens)."""
         if not self._built or not self._vocab:
             return [[0.0] for _ in texts]
 
         vectors: list[list[float]] = []
         for text in texts:
-            tokens = tokenize(text)
+            tokens = tokenize(text, stem=True)
             tf = Counter(tokens)
             vec = [0.0] * len(self._vocab)
             sum_sq = 0.0
@@ -258,7 +273,7 @@ class RetrievalConfig:
     type_weight: float = 0.3
     relation_weight: float = 0.4
     temporal_weight: float = 0.0    # disabled: valid_from/to rarely set
-    state_weight: float = 0.2       # reduced from 0.4 to minimize noise
+    state_weight: float = 0.6       # R3: increased from 0.2 to give state more influence
     project_weight: float = 0.6
 
     # Ablation flags
@@ -271,9 +286,9 @@ class RetrievalConfig:
 
     top_k: int = 20
 
-    # R1: relevance thresholds
-    min_relevant_score: float = 0.08
-    min_weak_score: float = 0.02
+    # R3: relevance thresholds (raised to require lexical presence)
+    min_relevant_score: float = 0.12
+    min_weak_score: float = 0.03
 
 
 # ---------------------------------------------------------------------------
@@ -290,7 +305,7 @@ class LexicalRetriever:
     def search(
         self, query: str, project_id: str | None = None, top_k: int = 20
     ) -> list[tuple[AnyMemory, float]]:
-        query_tokens = token_set(query)  # stopwords removed
+        query_tokens = token_set(query, stem=True)  # stopwords removed, stemmed
         if not query_tokens:
             return []
 
@@ -300,7 +315,7 @@ class LexicalRetriever:
         for mem in candidates:
             if project_id and mem.project_id != project_id:
                 continue
-            content_tokens = token_set(mem.content)
+            content_tokens = token_set(mem.content, stem=True)
             overlap = query_tokens & content_tokens
             if not overlap:
                 continue
@@ -341,7 +356,11 @@ class HybridRetriever:
         """Execute hybrid search and return full RetrievalResult."""
         top_k = top_k or self.config.top_k
         clues = extract_clues(query, self.storage)
-        query_tokens = token_set(query)
+        query_tokens = token_set(query, stem=True)
+
+        # R3: explicit project_id overrides / supplements name-based detection
+        if project_id and not clues.probable_project:
+            clues.probable_project = project_id
 
         # Candidate pool
         candidates = self.storage.list_all_memories()
@@ -364,14 +383,19 @@ class HybridRetriever:
         top = scored[:top_k]
 
         # Determine quality
-        quality = self._assess_quality(top)
+        quality = self._assess_quality(top, clues)
 
         # Build result
         result = RetrievalResult(query=query, quality=quality)
         result.candidate_scores = top
 
+        # R3: for genuine absence queries, clear results
+        if quality == "absent" and clues.needs_absence:
+            result.candidate_scores = []
+            top = []
+
         for cs in top:
-            if cs.total_score < self.config.min_weak_score and quality == "none":
+            if cs.total_score < 0:
                 continue
             mem = self.storage.get_memory(cs.memory_id)
             if mem is None:
@@ -411,8 +435,8 @@ class HybridRetriever:
         cs = CandidateScore(memory_id=mem.id, total_score=0.0)
         decomp: dict[str, float] = {}
 
-        # Lexical (R1: stopword-filtered Jaccard)
-        content_tokens = token_set(mem.content)
+        # Lexical (R1: stopword-filtered Jaccard, R3: stemmed to bridge vocabulary gaps)
+        content_tokens = token_set(mem.content, stem=True)
         overlap = query_tokens & content_tokens
         if overlap and query_tokens:
             union = query_tokens | content_tokens
@@ -426,13 +450,13 @@ class HybridRetriever:
                 cs.semantic_score = _cosine(query_vec, mem_vecs[0])
         decomp["semantic"] = cs.semantic_score
 
-        # Entity (R1: fixed to work with entity objects)
+        # Entity (R1: fixed to work with entity objects, R3: stemmed entity names)
         if cfg.enable_typing and cfg.entity_weight > 0:
             entity_names: set[str] = set()
             for e in mem.entities:
                 name = e.name if hasattr(e, "name") else e.get("name", "") if isinstance(e, dict) else ""
                 if name:
-                    entity_names.add(name.lower())
+                    entity_names.add(stem_pt(name.lower()))
             for ent in entity_names:
                 for term in clues.terms:
                     if term in ent or ent in term:
@@ -463,16 +487,30 @@ class HybridRetriever:
             # else: no temporal data, leave at 0.0
         decomp["temporal"] = cs.temporal_score
 
-        # State (R1: reduced weight, more nuanced)
+        # State (R3: stronger penalties and bonuses)
         if cfg.enable_state:
+            # Base state score from EpistemicStatus
             if mem.status == EpistemicStatus.VERIFIED:
-                cs.state_score = 0.1
+                cs.state_score = 0.15
             elif mem.status == EpistemicStatus.PARTIALLY_SUPPORTED:
                 cs.state_score = 0.05
             elif mem.status in (EpistemicStatus.OBSOLETE, EpistemicStatus.SUPERSEDED):
-                cs.state_score = -0.1
+                cs.state_score = -0.30
             elif mem.status == EpistemicStatus.CONTRADICTED:
-                cs.state_score = -0.15
+                cs.state_score = -0.25
+            # R3: Decision-specific status — only amplify when query context supports it
+            # (current/historical hints, or explicit decision type hint)
+            if hasattr(mem, "decision_status") and (
+                clues.wants_current or clues.wants_historical
+                or clues.memory_type_hint == MemoryType.DECISION
+            ):
+                ds = getattr(mem, "decision_status", None)
+                if ds == "active":
+                    cs.state_score = max(cs.state_score, 0.20)
+                elif ds == "superseded":
+                    cs.state_score = min(cs.state_score, -0.30)
+                elif ds in ("revoked", "expired"):
+                    cs.state_score = min(cs.state_score, -0.20)
         decomp["state"] = cs.state_score
 
         # Project bonus
@@ -480,27 +518,8 @@ class HybridRetriever:
             cs.project_score = 0.4
         decomp["project"] = cs.project_score
 
-        # Checkpoint boost (R1: increased when query suggests next action)
-        if cfg.enable_checkpoint_boost and mem.type == MemoryType.CHECKPOINT:
-            boost = 0.15 if clues.wants_next_action else 0.1
-            cs.total_score += boost
-
-        # R1: temporal hints — boost historical or current items
-        if clues.wants_historical:
-            if mem.status in (EpistemicStatus.OBSOLETE, EpistemicStatus.SUPERSEDED):
-                cs.total_score += 0.25
-            if mem.superseded_by:
-                cs.total_score += 0.05
-            # Penalize verified items when asking for historical
-            if mem.status == EpistemicStatus.VERIFIED and not mem.supersedes:
-                cs.total_score -= 0.05
-        if clues.wants_current:
-            if mem.status == EpistemicStatus.VERIFIED:
-                cs.total_score += 0.08
-            if mem.status in (EpistemicStatus.OBSOLETE, EpistemicStatus.SUPERSEDED):
-                cs.total_score -= 0.05
-
-        # Weighted sum
+        # ---- R3 FIX: Compute weighted sum FIRST ----
+        # All hint bonuses below are additive on top of this base.
         weights = {
             "lexical": cfg.lexical_weight,
             "semantic": cfg.semantic_weight,
@@ -516,25 +535,105 @@ class HybridRetriever:
         )
         cs.explanation_decomposition = decomp
 
+        # ---- Bonus signals (additive on top of weighted sum) ----
+
+        # Checkpoint boost (R1: increased when query suggests next action)
+        if cfg.enable_checkpoint_boost and mem.type == MemoryType.CHECKPOINT:
+            boost = 0.15 if clues.wants_next_action else 0.1
+            cs.total_score += boost
+
+        # R3: temporal hints — recalibrated for stronger signal
+        if clues.wants_historical:
+            if mem.status in (EpistemicStatus.OBSOLETE, EpistemicStatus.SUPERSEDED):
+                cs.total_score += 0.40
+            elif hasattr(mem, "decision_status") and getattr(mem, "decision_status", None) == "superseded":
+                cs.total_score += 0.40
+            if mem.superseded_by:
+                cs.total_score += 0.05
+            # Penalize verified/active items when asking for historical
+            if mem.status == EpistemicStatus.VERIFIED and not mem.supersedes:
+                cs.total_score -= 0.10
+            if hasattr(mem, "decision_status") and getattr(mem, "decision_status", None) == "active":
+                cs.total_score -= 0.15
+        if clues.wants_current:
+            if mem.status == EpistemicStatus.VERIFIED:
+                cs.total_score += 0.12
+            if hasattr(mem, "decision_status") and getattr(mem, "decision_status", None) == "active":
+                cs.total_score += 0.30
+            if mem.status in (EpistemicStatus.OBSOLETE, EpistemicStatus.SUPERSEDED):
+                cs.total_score -= 0.15
+            if hasattr(mem, "decision_status") and getattr(mem, "decision_status", None) == "superseded":
+                cs.total_score -= 0.30
+
+        # R3: next action / risk / blocker boosts (content-based, not hardcoded)
+        if clues.wants_next_action:
+            content_lower = mem.content.lower()
+            action_kw = {"proximo", "pendente", "trabalhar", "tarefa", "acao", "seguinte", "fazer", "falta"}
+            action_hits = sum(1 for kw in action_kw if kw in content_lower)
+            if action_hits > 0:
+                cs.total_score += 0.15 * min(action_hits, 3)
+        if clues.wants_risk or clues.wants_blocker:
+            content_lower = mem.content.lower()
+            risk_kw = {"risco", "bloqueio", "bloquear", "impede", "pendente", "conclusao", "finalizar"}
+            risk_hits = sum(1 for kw in risk_kw if kw in content_lower)
+            if risk_hits > 0:
+                cs.total_score += 0.15 * min(risk_hits, 3)
+
         return cs
 
-    def _assess_quality(self, scored: list[CandidateScore]) -> str:
-        """R1: classify result quality."""
+    def _assess_quality(self, scored: list[CandidateScore], clues: Clues | None = None) -> str:
+        """R3: classify result quality.
+
+        - 'relevant': best score >= threshold AND has lexical or semantic signal,
+                      OR best score is very high (>= 0.5) even from non-lexical signals
+        - 'weak': some signal but below threshold or below very-high bar
+        - 'absent': no meaningful signal — true absence of evidence
+
+        When clues.needs_absence is set and NO candidate has lexical signal,
+        quality is forced to 'absent' regardless of relation scores.
+        """
         if not scored:
-            return "none"
-        best = scored[0].total_score
-        if best >= self.config.min_relevant_score:
+            return "absent"
+        best = scored[0]
+        total = best.total_score
+        has_lexical = best.lexical_score > 0.0
+        has_semantic = best.semantic_score > 0.15
+        relation_only = not has_lexical and best.relation_score > 0 and best.semantic_score < 0.15
+
+        # R3: queries asking for absence should not fabricate relevance,
+        # even if a single coincidental stem overlap exists
+        if clues is not None and clues.needs_absence:
+            if not has_lexical:
+                return "absent"
+            # R3/stem: if lexical overlap exists but is trivial (single token,
+            # very low Jaccard), treat as absent to avoid stemmer false positives
+            if best.lexical_score < 0.08:
+                return "absent"
+
+        if relation_only:
+            # R3: relationships alone cannot fabricate relevance — return 'absent'
+            return "absent"
+
+        if total >= self.config.min_relevant_score and (has_lexical or has_semantic):
             return "relevant"
-        if best >= self.config.min_weak_score:
+        # R3: Also accept very high non-lexical scores (>=0.5) as at least weak
+        if total >= self.config.min_relevant_score and total >= 0.5:
             return "weak"
-        return "none"
+        if total >= self.config.min_weak_score:
+            return "weak"
+        return "absent"
 
     # ------------------------------------------------------------------
     # Conflict detection (R1: covers SUPERSEDES, OBSOLETE, CONTRADICTED_BY)
     # ------------------------------------------------------------------
 
     def _detect_conflicts(self, result: RetrievalResult) -> list[str]:
-        """Detect conflicts: CONTRADICTED_BY, SUPERSEDES, OBSOLETE, version conflicts."""
+        """R3: detect conflicts with deduplication.
+
+        - STATE_CONFLICT and superseded_by are merged into a single entry
+        - A given SUPERSEDES pair is only reported once regardless of direction
+        - Conflict detection limited to when state/relation conflicts are actually present
+        """
         conflicts: list[str] = []
         mems = (
             list(result.retrieved_facts)
@@ -542,25 +641,33 @@ class HybridRetriever:
             + list(result.retrieved_hypotheses)
         )
 
+        # R3: Track IDs already covered by STATE_CONFLICT to avoid duplicating with superseded_by
+        state_conflict_ids: set[str] = set()
+
         conflict_types = [RelationType.CONTRADICTED_BY, RelationType.SUPERSEDES]
+        # R3: Track relation pairs to avoid duplicate reports
+        seen_relation_pairs: set[tuple[str, str, str]] = set()
 
         for i in range(len(mems)):
             mi = mems[i]
 
-            # Check for OBSOLETE / SUPERSEDED state
+            # Check for OBSOLETE / SUPERSEDED state (R3: merged with superseded_by info)
             if mi.status in (EpistemicStatus.OBSOLETE, EpistemicStatus.SUPERSEDED):
-                conflicts.append(
-                    f"STATE_CONFLICT: {mi.id} is {mi.status}"
-                )
+                line = f"STATE_CONFLICT: {mi.id} is {mi.status}"
                 if mi.superseded_by:
-                    conflicts.append(
-                        f"  superseded_by: {mi.superseded_by}"
-                    )
+                    line += f" (superseded_by: {mi.superseded_by})"
+                conflicts.append(line)
+                state_conflict_ids.add(mi.id)
 
-            # Check relation-based conflicts
+            # Check relation-based conflicts (R3: deduplicated pairs)
             for j in range(i + 1, len(mems)):
                 mj = mems[j]
                 for ct in conflict_types:
+                    pair_key = tuple(sorted([mi.id, mj.id])) + (ct.value,)
+                    if pair_key in seen_relation_pairs:
+                        continue
+                    seen_relation_pairs.add(pair_key)
+
                     rels = self.storage.search_relations(
                         source_id=mi.id, target_id=mj.id,
                         relation_type=ct,
@@ -569,6 +676,7 @@ class HybridRetriever:
                         conflicts.append(
                             f"CONFLICT: {mi.id} {ct.value} {mj.id}"
                         )
+                        continue  # found, don't check reverse
                     # Check reverse
                     rels2 = self.storage.search_relations(
                         source_id=mj.id, target_id=mi.id,
@@ -592,10 +700,12 @@ class HybridRetriever:
         return conflicts
 
     def _detect_missing(self, clues: Clues, result: RetrievalResult) -> list[str]:
-        """R1: enhanced missing detection."""
+        """R3: enhanced missing detection with absence awareness."""
         missing: list[str] = []
-        if result.quality == "none":
+        if result.quality == "absent":
             missing.append("No relevant memories found for this query")
+            if clues.needs_absence:
+                missing.append("This query likely expects a 'no evidence' answer — absence is the correct response")
         elif result.quality == "weak":
             if clues.memory_type_hint:
                 missing.append(
@@ -629,11 +739,11 @@ class HybridRetriever:
         return "\n".join(lines)
 
     def _generate_inferences(self, clues: Clues, result: RetrievalResult) -> list[str]:
-        """R1: more nuanced inference generation."""
+        """R3: more nuanced inference generation."""
         inferences: list[str] = []
-        if result.quality == "none":
+        if result.quality == "absent":
             inferences.append(
-                "No direct matches; any answer would be speculative."
+                "No direct matches; this represents a genuine absence of evidence."
             )
         elif result.quality == "weak":
             inferences.append(

@@ -22,7 +22,8 @@ from mec_lab.storage import Storage
 class TestClueExtraction(unittest.TestCase):
     def test_basic_terms(self) -> None:
         clues = extract_clues("simulador de futebol com calendário")
-        self.assertIn("simulador", clues.terms)
+        # R3: terms are stemmed — "simulador" → "simul"
+        self.assertIn("simul", clues.terms)
         self.assertNotIn("de", clues.terms)  # stopword removed
 
     def test_memory_type_hint_decision(self) -> None:
@@ -103,9 +104,10 @@ class TestClueExtraction(unittest.TestCase):
         for sw in ["como", "era", "o", "antes", "da"]:
             self.assertNotIn(sw, clues.terms,
                             f"Stopword '{sw}' leaked into terms: {clues.terms}")
-        self.assertIn("calendario", clues.terms)
-        self.assertIn("mudanca", clues.terms)
-        self.assertIn("atual", clues.terms)  # 'atual' is not a stopword
+        # R3: terms are stemmed — "calendario" → "calendari", "mudanca" → "mudanc"
+        self.assertIn("calendari", clues.terms)
+        self.assertIn("mudanc", clues.terms)
+        self.assertIn("atual", clues.terms)  # 'atual' is not a stopword and stays as-is
 
 
 # ---------------------------------------------------------------------------
@@ -256,7 +258,7 @@ class TestHybridRetriever(unittest.TestCase):
         retriever = HybridRetriever(self.store)
         result = retriever.search("o que foi isso")
         # With stopwords removed, no lexical signal; graph may give weak score
-        self.assertIn(result.quality, ("none", "weak"))
+        self.assertIn(result.quality, ("absent", "weak"))
 
 
 # ---------------------------------------------------------------------------

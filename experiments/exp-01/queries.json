@@ -1,0 +1,242 @@
+{
+  "name": "exp-01-projeto-atlas",
+  "version": "1.0",
+  "description": "Consultas do Experimento Real 01 — Projeto Atlas (12 obrigatórias + 8 parafraseadas)",
+  "metadata": {
+    "created_by": "Agente Executor",
+    "created_at": "2026-07-26",
+    "project": "proj-atlas"
+  },
+  "queries": [
+    {
+      "query_id": "q01-decisao-vigente",
+      "query": "Qual abordagem está vigente para processar os alertas?",
+      "expected_ids": ["dec-atlas-queue"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "dec-atlas-queue": 3.0,
+        "chk-atlas-04": 1.0,
+        "chk-atlas-03": 1.0
+      },
+      "expected_conflicts": ["SUPERSEDES"],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q02-abordagem-anterior",
+      "query": "Como o sistema fazia isso antes da mudança?",
+      "expected_ids": ["dec-atlas-batch"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "dec-atlas-batch": 3.0,
+        "chk-atlas-01": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q03-motivo-abandono",
+      "query": "Por que a abordagem inicial foi abandonada?",
+      "expected_ids": ["lrn-atlas-idem", "epi-atlas-dup"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "lrn-atlas-idem": 3.0,
+        "epi-atlas-dup": 2.0,
+        "hyp-atlas-replay": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q04-evidencia-duplicacao",
+      "query": "Que evidência demonstrou o problema de duplicação?",
+      "expected_ids": ["evi-atlas-log"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "evi-atlas-log": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q05-hipotese-replay",
+      "query": "Qual hipótese explicou os alertas repetidos?",
+      "expected_ids": ["hyp-atlas-replay"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "hyp-atlas-replay": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q06-aprendizado-reinicializacao",
+      "query": "O que aprendemos com a reinicialização?",
+      "expected_ids": ["lrn-atlas-idem"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "lrn-atlas-idem": 3.0,
+        "epi-atlas-dup": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q07-proximo-trabalho",
+      "query": "Em que devo trabalhar agora?",
+      "expected_ids": ["fact-atlas-next", "chk-atlas-04"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "fact-atlas-next": 3.0,
+        "chk-atlas-04": 2.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q08-risco-pendente",
+      "query": "Qual risco ainda impede a conclusão?",
+      "expected_ids": ["fact-atlas-risk"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "fact-atlas-risk": 3.0,
+        "chk-atlas-04": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q09-documento-arquitetura",
+      "query": "Que documento descreve a arquitetura atual?",
+      "expected_ids": ["doc-atlas-arch"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "doc-atlas-arch": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q10-criptografia-ausente",
+      "query": "Existe decisão registrada sobre criptografia ponta a ponta?",
+      "expected_ids": [],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {},
+      "expected_conflicts": [],
+      "expected_missing": ["No relevant memories found"]
+    },
+    {
+      "query_id": "q11-conflitos",
+      "query": "Quais versões ou memórias estão em conflito?",
+      "expected_ids": ["dec-atlas-batch", "dec-atlas-queue"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "dec-atlas-batch": 2.0,
+        "dec-atlas-queue": 2.0
+      },
+      "expected_conflicts": ["SUPERSEDES", "STATE_CONFLICT"],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q12-delta-checkpoints",
+      "query": "O que mudou entre o primeiro e o último checkpoint?",
+      "expected_ids": ["chk-atlas-01", "chk-atlas-04"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "chk-atlas-01": 2.0,
+        "chk-atlas-04": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "p01-parafrase-vigente",
+      "query": "Como vocês estão tratando as notificações hoje em dia?",
+      "expected_ids": ["dec-atlas-queue"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "dec-atlas-queue": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "p02-parafrase-antigo",
+      "query": "Qual era o método antigo de lidar com as mensagens?",
+      "expected_ids": ["dec-atlas-batch"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "dec-atlas-batch": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "p03-parafrase-motivo",
+      "query": "O que motivou a troca do sistema original de processamento?",
+      "expected_ids": ["lrn-atlas-idem", "epi-atlas-dup"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "lrn-atlas-idem": 3.0,
+        "epi-atlas-dup": 2.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "p04-parafrase-prova",
+      "query": "Tem como provar que as notificações realmente saíram repetidas?",
+      "expected_ids": ["evi-atlas-log"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "evi-atlas-log": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "p05-parafrase-proxima",
+      "query": "Qual é a próxima tarefa que preciso executar?",
+      "expected_ids": ["fact-atlas-next", "chk-atlas-04"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "fact-atlas-next": 3.0,
+        "chk-atlas-04": 2.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "p06-parafrase-bloqueio",
+      "query": "O que está bloqueando a finalização do projeto?",
+      "expected_ids": ["fact-atlas-risk", "chk-atlas-04"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "fact-atlas-risk": 3.0,
+        "chk-atlas-04": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "p07-parafrase-seguranca",
+      "query": "Alguém decidiu algo sobre segurança de ponta a ponta?",
+      "expected_ids": [],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {},
+      "expected_conflicts": [],
+      "expected_missing": ["No relevant memories found"]
+    },
+    {
+      "query_id": "p08-parafrase-evolucao",
+      "query": "Compare o começo do projeto com o estado atual — o que evoluiu?",
+      "expected_ids": ["chk-atlas-01", "chk-atlas-04"],
+      "expected_project_id": "proj-atlas",
+      "relevance_grades": {
+        "chk-atlas-01": 2.0,
+        "chk-atlas-04": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    }
+  ]
+}
