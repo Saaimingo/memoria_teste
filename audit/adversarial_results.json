@@ -1,0 +1,74 @@
+[
+  {
+    "test_id": "ADV-1",
+    "description": "Decisão atual (NoSQL) supera obsoleta (SQL) mesmo com maior overlap lexical",
+    "status": "FAIL",
+    "detail": "top3=['dec-clinica-sql', 'dec-clinica-doc', 'fact-clinica-next'], scores=[0.7584807255835588, 0.5919337662681268, 0.467367725924218]"
+  },
+  {
+    "test_id": "ADV-2",
+    "description": "Consulta histórica recupera decisão obsoleta (SQL)",
+    "status": "PASS",
+    "detail": "top3=['dec-clinica-sql', 'chk-clinica-01', 'fact-clinica-risk']"
+  },
+  {
+    "test_id": "ADV-3",
+    "description": "Consulta sem evidência retorna quality=absent e sem resultados",
+    "status": "PASS",
+    "detail": "quality=absent, num_results=0"
+  },
+  {
+    "test_id": "ADV-4",
+    "description": "Relações isoladas não fabricam relevância para tópico não relacionado (medicamentos)",
+    "status": "FAIL",
+    "detail": "quality=relevant, top3=['fact-clinica-agenda', 'dec-clinica-doc', 'chk-clinica-01']"
+  },
+  {
+    "test_id": "ADV-5",
+    "description": "Próxima ação prioriza memória pendente (fact-clinica-next)",
+    "status": "FAIL",
+    "detail": "top3=['dec-clinica-doc', 'chk-clinica-01', 'fact-clinica-risk']"
+  },
+  {
+    "test_id": "ADV-6",
+    "description": "Risco pendente é recuperável (paráfrase com 'travando')",
+    "status": "PASS",
+    "detail": "top3=['chk-clinica-01', 'fact-clinica-risk', 'dec-clinica-doc']"
+  },
+  {
+    "test_id": "ADV-7",
+    "description": "Consulta neutra (agendamento) não recebe bônus indevido de risco/ação",
+    "status": "PASS",
+    "detail": "top3=['fact-clinica-agenda', 'dec-clinica-doc', 'chk-clinica-01']"
+  },
+  {
+    "test_id": "ADV-8",
+    "description": "Conflitos deduplicados (máx 1 STATE_CONFLICT, máx 1 CONFLICT SUPERSEDES)",
+    "status": "PASS",
+    "detail": "state_conflicts=1, supersedes=1, all=['CONFLICT: dec-clinica-doc supersedes dec-clinica-sql', 'STATE_CONFLICT: dec-clinica-sql is superseded (superseded_by: dec-clinica-doc)']"
+  },
+  {
+    "test_id": "ADV-9",
+    "description": "Ausência com paráfrase nova (regras de acesso) retorna absent",
+    "status": "FAIL",
+    "detail": "quality=relevant, num_results=6"
+  },
+  {
+    "test_id": "ADV-10",
+    "description": "Decisão atual recuperada com paráfrase informal (NoSQL)",
+    "status": "PASS",
+    "detail": "top3=['dec-clinica-doc', 'fact-clinica-agenda', 'fact-clinica-risk']"
+  },
+  {
+    "test_id": "ADV-11",
+    "description": "Bloqueio com paráfrase nova (impedindo) recupera risco",
+    "status": "PASS",
+    "detail": "top3=['chk-clinica-01', 'fact-clinica-risk', 'dec-clinica-doc']"
+  },
+  {
+    "test_id": "ADV-12",
+    "description": "Ausência com tópico exótico (IoT) retorna absent",
+    "status": "PASS",
+    "detail": "quality=absent, num_results=0"
+  }
+]

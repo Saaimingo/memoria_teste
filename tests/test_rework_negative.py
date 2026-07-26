@@ -70,7 +70,7 @@ class TestEmptyDatabase(unittest.TestCase):
     def test_hybrid_search_empty_quality_none(self) -> None:
         retriever = HybridRetriever(self.store)
         result = retriever.search("anything")
-        self.assertEqual(result.quality, "none")
+        self.assertEqual(result.quality, "absent")
         self.assertEqual(len(result.source_ids), 0)
 
     def test_relations_empty(self) -> None:
