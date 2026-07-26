@@ -1,0 +1,109 @@
+{
+  "name": "reaudit-holdout-r2",
+  "version": "1.0",
+  "description": "Holdout queries from reaudit PR #6, reused for PR #9 independent verification.",
+  "queries": [
+    {
+      "query_id": "hold-001-mixed-domain-search",
+      "query": "qual sistema usava banco local em vez de servico externo para deduplicacao",
+      "expected_ids": ["decision-queue-001", "fact-queue-003", "episode-queue-001"],
+      "expected_project_id": "proj-queue",
+      "relevance_grades": {
+        "decision-queue-001": 3.0,
+        "fact-queue-003": 3.0,
+        "episode-queue-001": 2.0
+      }
+    },
+    {
+      "query_id": "hold-002-vague-temporal",
+      "query": "como funcionava o sistema antes da correcao da duplicacao",
+      "expected_ids": ["fact-fin-002", "fact-fb-005-obsolete", "episode-fin-001", "episode-queue-001"],
+      "expected_project_id": null,
+      "relevance_grades": {
+        "fact-fin-002": 3.0,
+        "fact-fb-005-obsolete": 2.0,
+        "episode-fin-001": 1.0,
+        "episode-queue-001": 1.0
+      }
+    },
+    {
+      "query_id": "hold-003-entity-driven",
+      "query": "quais decisoes mencionam Redis ou SQLite para persistencia",
+      "expected_ids": ["decision-fin-001", "decision-queue-001"],
+      "expected_project_id": null,
+      "relevance_grades": {
+        "decision-fin-001": 3.0,
+        "decision-queue-001": 3.0
+      }
+    },
+    {
+      "query_id": "hold-004-conflict-aware",
+      "query": "o calendario do simulador mudou depois de qual problema",
+      "expected_ids": ["episode-fb-001", "fact-fb-005-v2", "fact-fb-005-obsolete"],
+      "expected_project_id": "proj-football",
+      "expected_conflicts": ["fact-fb-005-v2 SUPERSEDES fact-fb-005-obsolete"],
+      "relevance_grades": {
+        "episode-fb-001": 3.0,
+        "fact-fb-005-v2": 3.0,
+        "fact-fb-005-obsolete": 2.0
+      }
+    },
+    {
+      "query_id": "hold-005-cross-domain-analogy",
+      "query": "aprendizados sobre como evitar duplicacao apos reinicializacao",
+      "expected_ids": ["learning-fin-001", "learning-queue-001", "episode-fin-001", "episode-queue-001"],
+      "expected_project_id": null,
+      "relevance_grades": {
+        "learning-fin-001": 3.0,
+        "learning-queue-001": 3.0,
+        "episode-fin-001": 2.0,
+        "episode-queue-001": 2.0
+      }
+    },
+    {
+      "query_id": "hold-006-obsolete-navigation",
+      "query": "qual era a regra que foi substituida e qual a regra atual",
+      "expected_ids": ["fact-fb-005-obsolete", "fact-fb-005-v2"],
+      "expected_project_id": null,
+      "expected_conflicts": ["fact-fb-005-v2 SUPERSEDES fact-fb-005-obsolete"],
+      "relevance_grades": {
+        "fact-fb-005-obsolete": 3.0,
+        "fact-fb-005-v2": 3.0
+      }
+    },
+    {
+      "query_id": "hold-007-missing-tool",
+      "query": "qual a latencia do redis cluster em producao",
+      "expected_ids": [],
+      "expected_project_id": null,
+      "expected_missing": ["No Redis Cluster latency data exists in dataset"],
+      "relevance_grades": {}
+    },
+    {
+      "query_id": "hold-008-inference-separation",
+      "query": "o sistema financeiro e mais confiavel que o de filas",
+      "expected_ids": [],
+      "expected_project_id": null,
+      "relevance_grades": {}
+    },
+    {
+      "query_id": "hold-009-single-word-clue",
+      "query": "aposentadoria",
+      "expected_ids": ["fact-fb-002", "episode-fb-002"],
+      "expected_project_id": "proj-football",
+      "relevance_grades": {
+        "fact-fb-002": 3.0,
+        "episode-fb-002": 3.0
+      }
+    },
+    {
+      "query_id": "hold-010-checkpoint-next-step",
+      "query": "o que esta pendente no sistema de filas",
+      "expected_ids": ["checkpoint-queue-001"],
+      "expected_project_id": "proj-queue",
+      "relevance_grades": {
+        "checkpoint-queue-001": 3.0
+      }
+    }
+  ]
+}
