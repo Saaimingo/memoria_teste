@@ -1,6 +1,6 @@
-"""MEC Lab — Retrieval layer (rework R1).
+"""MEC Lab — Retrieval layer (rework R2).
 
-Fixes applied:
+Fixes applied (R1):
 - Unified stopword filtering via normalize.py
 - TF-IDF semantic adapter replacing MD5 hash (deterministic, local, real vector space)
 - Lexical scoring uses shared stopwords (Jaccard on content-bearing tokens)
@@ -8,6 +8,12 @@ Fixes applied:
 - Score thresholds distinguish relevant / weak / absent
 - Entity scoring activated; temporal scoring uses created_at fallback
 - Weights documented with calibration rationale
+
+Fixes applied (R2):
+- Temporal hint detection uses raw tokens (incl. stopwords) so that
+  trigger words that overlap with the stopword list ("antes", "era",
+  "agora", "fazer") actually fire.  Detection pass is separate from
+  lexical terms — no stopword leakage into clues.terms.
 """
 
 from __future__ import annotations
@@ -92,12 +98,16 @@ def extract_clues(query: str, storage: Storage | None = None) -> Clues:
                 clues.probable_project = proj.id
                 break
 
-    # R1: detect temporal / action hints from natural language patterns
+    # R2: detect temporal / action hints from NATURAL language patterns.
+    # Use raw tokens (including stopwords) because several hint trigger
+    # words ("antes", "era", "agora", "fazer") overlap with the stopword
+    # list and would be invisible if checked against clues.terms.
     historical_words = {"antes", "anterior", "antigo", "velho", "obsoleto", "era", "antiga"}
     current_words = {"atual", "agora", "vigente", "hoje", "corrente"}
     action_words = {"trabalhar", "proximo", "pendente", "fazer", "falta"}
 
-    for token in clues.terms:
+    raw_tokens = tokenize(query, remove_stopwords=False)
+    for token in raw_tokens:
         if token in historical_words:
             clues.wants_historical = True
         if token in current_words:

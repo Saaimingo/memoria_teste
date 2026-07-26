@@ -51,6 +51,62 @@ class TestClueExtraction(unittest.TestCase):
             self.assertNotIn(sw, clues.terms)
         self.assertIn("futebol", clues.terms)
 
+    # R2: behavioral tests for temporal / action hint triggers
+    def test_historical_hint_antes(self) -> None:
+        """R2: 'antes' triggers wants_historical even though it's a stopword."""
+        clues = extract_clues("como era o calendario antes da mudanca")
+        self.assertTrue(clues.wants_historical,
+                        f"Expected wants_historical=True, got {clues.wants_historical}")
+
+    def test_historical_hint_era(self) -> None:
+        """R2: 'era' triggers wants_historical even though it's a stopword."""
+        clues = extract_clues("o que era aquilo")
+        self.assertTrue(clues.wants_historical)
+
+    def test_current_hint_agora(self) -> None:
+        """R2: 'agora' triggers wants_current even though it's a stopword."""
+        clues = extract_clues("o que fazer agora")
+        self.assertTrue(clues.wants_current)
+
+    def test_current_hint_atual(self) -> None:
+        """R2: 'atual' triggers wants_current."""
+        clues = extract_clues("qual a regra atual")
+        self.assertTrue(clues.wants_current)
+
+    def test_action_hint_fazer(self) -> None:
+        """R2: 'fazer' triggers wants_next_action even though it's a stopword."""
+        clues = extract_clues("o que devo fazer")
+        self.assertTrue(clues.wants_next_action)
+
+    def test_action_hint_pendente(self) -> None:
+        """R2: 'pendente' triggers wants_next_action."""
+        clues = extract_clues("o que esta pendente")
+        self.assertTrue(clues.wants_next_action)
+
+    def test_no_hint_on_neutral_query(self) -> None:
+        """R2: neutral query triggers no temporal/action hints."""
+        clues = extract_clues("futebol calendario simulador")
+        self.assertFalse(clues.wants_historical)
+        self.assertFalse(clues.wants_current)
+        self.assertFalse(clues.wants_next_action)
+
+    def test_multiple_hints_together(self) -> None:
+        """R2: a query may trigger multiple hint types simultaneously."""
+        clues = extract_clues("antes de fazer o trabalho atual")
+        self.assertTrue(clues.wants_historical)
+        self.assertTrue(clues.wants_current)
+        self.assertTrue(clues.wants_next_action)
+
+    def test_terms_still_clean_with_hints(self) -> None:
+        """R2: hint detection must not leak stopwords into clues.terms."""
+        clues = extract_clues("como era o calendario antes da mudanca atual")
+        for sw in ["como", "era", "o", "antes", "da"]:
+            self.assertNotIn(sw, clues.terms,
+                            f"Stopword '{sw}' leaked into terms: {clues.terms}")
+        self.assertIn("calendario", clues.terms)
+        self.assertIn("mudanca", clues.terms)
+        self.assertIn("atual", clues.terms)  # 'atual' is not a stopword
+
 
 # ---------------------------------------------------------------------------
 # Lexical retriever
