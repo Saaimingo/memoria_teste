@@ -1,0 +1,318 @@
+{
+  "name": "exp-02-projeto-boreal",
+  "version": "1.0",
+  "description": "Consultas do Experimento Real 02 — Projeto Boreal (17 diretas + 10 parafraseadas adversariais, 4 ausencia)",
+  "metadata": {
+    "created_by": "Agente Executor",
+    "created_at": "2026-07-26",
+    "project": "proj-boreal"
+  },
+  "queries": [
+    {
+      "query_id": "q01-decisao-vigente",
+      "query": "Qual abordagem esta vigente para o monitoramento de temperatura na cadeia fria?",
+      "expected_ids": ["dec-boreal-dual"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "dec-boreal-dual": 3.0,
+        "chk-boreal-p5": 1.0,
+        "chk-boreal-p4": 1.0
+      },
+      "expected_conflicts": ["SUPERSEDES"],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q02-abordagem-anterior",
+      "query": "Como o projeto monitorava as temperaturas antes da mudanca?",
+      "expected_ids": ["dec-boreal-iot"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "dec-boreal-iot": 3.0,
+        "chk-boreal-p1": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q03-motivo-mudanca",
+      "query": "Por que a decisao inicial de usar apenas loggers IoT foi abandonada?",
+      "expected_ids": ["lrn-battery-cold-degradation", "epi-transport-excursion"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "lrn-battery-cold-degradation": 3.0,
+        "epi-transport-excursion": 2.0,
+        "fact-battery-threshold": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q04-evidencia-falha-bateria",
+      "query": "Que evidencia demonstrou que as baterias falham no frio extremo?",
+      "expected_ids": ["evi-lab-battery-test"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "evi-lab-battery-test": 3.0,
+        "evi-logger-gap": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q05-hipotese-falha",
+      "query": "Qual hipotese explicou as falhas nos dados durante o transporte?",
+      "expected_ids": ["hyp-battery-confirmed"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "hyp-battery-confirmed": 3.0,
+        "hyp-battery-failure": 1.5
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q06-aprendizado-baterias",
+      "query": "O que aprendemos sobre o uso de baterias quimicas em temperaturas negativas?",
+      "expected_ids": ["lrn-battery-cold-degradation"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "lrn-battery-cold-degradation": 3.0,
+        "fact-battery-threshold": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q07-proxima-acao",
+      "query": "Qual e a proxima acao prioritaria do projeto?",
+      "expected_ids": ["chk-boreal-p5", "fact-training-risk"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "chk-boreal-p5": 3.0,
+        "fact-training-risk": 2.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q08-risco-pendente",
+      "query": "Que risco ainda pode atrasar a implantacao?",
+      "expected_ids": ["fact-training-risk"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "fact-training-risk": 3.0,
+        "chk-boreal-p5": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q09-documento-arquitetura",
+      "query": "Qual documento descreve a arquitetura do novo sistema de monitoramento?",
+      "expected_ids": ["doc-dual-spec"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "doc-dual-spec": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q10-ausencia-gps",
+      "query": "rastreamento GPS",
+      "expected_ids": [],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {},
+      "expected_conflicts": [],
+      "expected_missing": ["Nenhum registro sobre rastreamento GPS"]
+    },
+    {
+      "query_id": "q11-conflitos",
+      "query": "Quais decisoes estao em conflito ou foram substituidas?",
+      "expected_ids": ["dec-boreal-dual", "dec-boreal-iot"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "dec-boreal-dual": 3.0,
+        "dec-boreal-iot": 3.0
+      },
+      "expected_conflicts": ["SUPERSEDES", "STATE_CONFLICT"],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q12-delta-checkpoints",
+      "query": "O que mudou entre o primeiro checkpoint e o estado atual do projeto?",
+      "expected_ids": ["chk-boreal-p5", "chk-boreal-p1"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "chk-boreal-p5": 3.0,
+        "chk-boreal-p1": 2.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q13-evidencia-vvm",
+      "query": "O projeto tem evidencia de que os novos indicadores quimicos funcionam?",
+      "expected_ids": ["evi-who-pqs-vvm"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "evi-who-pqs-vvm": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q14-bloqueio",
+      "query": "Qual e o bloqueio que impede a implantacao completa?",
+      "expected_ids": ["lrn-staff-training-gap", "chk-boreal-p5"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "lrn-staff-training-gap": 3.0,
+        "chk-boreal-p5": 2.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q15-parafrase-vigente",
+      "query": "Que sistema de vigilancia de temperatura esta sendo usado agora na operacao de vacinas?",
+      "expected_ids": ["dec-boreal-dual"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "dec-boreal-dual": 3.0,
+        "chk-boreal-p5": 1.0
+      },
+      "expected_conflicts": ["SUPERSEDES"],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q16-parafrase-anterior",
+      "query": "No comeco do projeto, qual era o metodo de controle termico empregado?",
+      "expected_ids": ["dec-boreal-iot"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "dec-boreal-iot": 3.0,
+        "chk-boreal-p1": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q17-parafrase-abandono",
+      "query": "O que fez a equipe desistir dos sensores eletronicos que usavam pilhas?",
+      "expected_ids": ["lrn-battery-cold-degradation", "epi-transport-excursion"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "lrn-battery-cold-degradation": 3.0,
+        "epi-transport-excursion": 2.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q18-parafrase-evidencia",
+      "query": "Tem algum teste que prove que o frio realmente estraga as baterias?",
+      "expected_ids": ["evi-lab-battery-test"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "evi-lab-battery-test": 3.0,
+        "evi-logger-gap": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q19-parafrase-hipotese",
+      "query": "Qual foi o palpite inicial sobre o apagao de dados na rota de entrega?",
+      "expected_ids": ["hyp-battery-failure"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "hyp-battery-failure": 3.0,
+        "hyp-battery-confirmed": 1.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q20-parafrase-aprendizado",
+      "query": "Que licao tiramos sobre pilhas em ambientes gelados?",
+      "expected_ids": ["lrn-battery-cold-degradation"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "lrn-battery-cold-degradation": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q21-parafrase-proxima-acao",
+      "query": "No que a equipe deveria focar agora para avancar?",
+      "expected_ids": ["chk-boreal-p5", "fact-training-risk"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "chk-boreal-p5": 3.0,
+        "fact-training-risk": 2.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q22-parafrase-risco",
+      "query": "Existe algum perigo que ainda pode melar a instalacao do sistema?",
+      "expected_ids": ["fact-training-risk"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "fact-training-risk": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q23-parafrase-documento",
+      "query": "Queremos saber sobre documentacao do plano de monitoramento atualizado — tem algo?",
+      "expected_ids": ["doc-dual-spec"],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {
+        "doc-dual-spec": 3.0
+      },
+      "expected_conflicts": [],
+      "expected_missing": []
+    },
+    {
+      "query_id": "q24-parafrase-ausencia-gps",
+      "query": "satelite rastreamento localizacao",
+      "expected_ids": [],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {},
+      "expected_conflicts": [],
+      "expected_missing": ["Nenhum registro de rastreamento satelital"]
+    },
+    {
+      "query_id": "q25-ausencia-drones",
+      "query": "drones aereos",
+      "expected_ids": [],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {},
+      "expected_conflicts": [],
+      "expected_missing": ["Nenhuma mencao a drones no projeto"]
+    },
+    {
+      "query_id": "q26-ausencia-blackout",
+      "query": "blackout eletrico",
+      "expected_ids": [],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {},
+      "expected_conflicts": [],
+      "expected_missing": ["Nenhum protocolo de contingencia para blackout eletrico"]
+    },
+    {
+      "query_id": "q27-ausencia-anvisa",
+      "query": "anvisa regulatorio",
+      "expected_ids": [],
+      "expected_project_id": "proj-boreal",
+      "relevance_grades": {},
+      "expected_conflicts": [],
+      "expected_missing": ["Nenhuma documentacao sobre conformidade com ANVISA"]
+    }
+  ]
+}

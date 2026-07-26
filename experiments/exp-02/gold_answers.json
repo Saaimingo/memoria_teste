@@ -1,0 +1,256 @@
+{
+  "name": "exp-02-projeto-boreal-gold",
+  "version": "1.0",
+  "description": "Gabarito do Experimento Real 02 — criado ANTES da avaliacao final, sem consulta aos resultados",
+  "metadata": {
+    "created_by": "Agente Executor",
+    "created_at": "2026-07-26",
+    "project": "proj-boreal",
+    "status": "PRE-EVALUATION"
+  },
+  "answers": [
+    {
+      "query_id": "q01-decisao-vigente",
+      "primary_expected_ids": ["dec-boreal-dual"],
+      "secondary_acceptable_ids": ["chk-boreal-p5", "chk-boreal-p4"],
+      "expected_answer": "O sistema dual: loggers IoT nos pontos fixos de armazenamento e indicadores quimicos VVM no transporte.",
+      "temporal_state": "vigente",
+      "expected_conflict": "SUPERSEDES — a decisao dual substitui a decisao anterior de IoT puro",
+      "justification": "dec-boreal-dual e a decisao ativa atual. dec-boreal-iot esta marcada como SUPERSEDED."
+    },
+    {
+      "query_id": "q02-abordagem-anterior",
+      "primary_expected_ids": ["dec-boreal-iot"],
+      "secondary_acceptable_ids": ["chk-boreal-p1"],
+      "expected_answer": "Utilizava apenas data loggers IoT com amostragem a cada 15 minutos e coleta manual via USB.",
+      "temporal_state": "historico",
+      "expected_conflict": null,
+      "justification": "dec-boreal-iot e a decisao original, agora superseded. Deve continuar recuperavel."
+    },
+    {
+      "query_id": "q03-motivo-mudanca",
+      "primary_expected_ids": ["lrn-battery-cold-degradation", "epi-transport-excursion"],
+      "secondary_acceptable_ids": ["fact-battery-threshold"],
+      "expected_answer": "Baterias de litio falham abaixo de -15C, causando perda de dados. O episodio de transporte para UBS Belo Monte resultou em 200 doses perdidas por falta de rastreabilidade no trecho critico.",
+      "temporal_state": "historico",
+      "expected_conflict": null,
+      "justification": "O aprendizado sobre baterias e o episodio de excursao sao as causas diretas do abandono."
+    },
+    {
+      "query_id": "q04-evidencia-falha-bateria",
+      "primary_expected_ids": ["evi-lab-battery-test"],
+      "secondary_acceptable_ids": ["evi-logger-gap"],
+      "expected_answer": "O teste de laboratorio com 3 unidades TL-2000 em camara fria mostrou que a -20C todas desligaram em menos de 35 minutos, e a -25C em menos de 12 minutos.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "evi-lab-battery-test e a evidencia primaria da falha. evi-logger-gap e o dado de campo que motivou o teste."
+    },
+    {
+      "query_id": "q05-hipotese-falha",
+      "primary_expected_ids": ["hyp-battery-confirmed"],
+      "secondary_acceptable_ids": ["hyp-battery-failure"],
+      "expected_answer": "A bateria de litio do logger sofre queda de tensao abaixo do minimo operacional (2.8V) em temperaturas inferiores a -15C, causando desligamento temporario.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "hyp-battery-confirmed e a versao sustentada (SUSTAINED) da hipotese. hyp-battery-failure e a versao original (PROPOSED, agora superseded)."
+    },
+    {
+      "query_id": "q06-aprendizado-baterias",
+      "primary_expected_ids": ["lrn-battery-cold-degradation"],
+      "secondary_acceptable_ids": ["fact-battery-threshold"],
+      "expected_answer": "Baterias de litio perdem capacidade de forma nao linear abaixo de -10C. A queda de tensao e abrupta e silenciosa. Acima de -5C, a bateria recupera tensao.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "lrn-battery-cold-degradation e o aprendizado promovido (PROMOTED) com maior generalization_degree."
+    },
+    {
+      "query_id": "q07-proxima-acao",
+      "primary_expected_ids": ["chk-boreal-p5", "fact-training-risk"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Concluir e aprovar o material de treinamento e agendar sessoes presenciais para todas as equipes de transporte, antes de 25/05/2026.",
+      "temporal_state": "proxima-acao",
+      "expected_conflict": null,
+      "justification": "O checkpoint final define o next_allowed_action. fact-training-risk descreve a urgencia e o prazo."
+    },
+    {
+      "query_id": "q08-risco-pendente",
+      "primary_expected_ids": ["fact-training-risk"],
+      "secondary_acceptable_ids": ["chk-boreal-p5"],
+      "expected_answer": "O atraso na aprovacao do material de treinamento pode impactar 12.000 doses no proximo ciclo de vacinacao previsto para 01/06/2026.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "fact-training-risk e um fato CURRENT que descreve o risco principal."
+    },
+    {
+      "query_id": "q09-documento-arquitetura",
+      "primary_expected_ids": ["doc-dual-spec"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "A Especificacao Tecnica do Sistema Dual de Monitoramento, documento normativo que define arquitetura, componentes e procedimentos.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "doc-dual-spec e o documento de especificacao normativo (is_normative=true) do sistema dual."
+    },
+    {
+      "query_id": "q10-ausencia-gps",
+      "primary_expected_ids": [],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Nao existe decisao registrada sobre rastreamento GPS em tempo real. Resposta correta e ausencia de evidencia.",
+      "temporal_state": "ausencia",
+      "expected_conflict": null,
+      "justification": "Nenhuma memoria no banco trata de GPS ou rastreamento satelital. O sistema deve retornar vazio ou indicar ausencia."
+    },
+    {
+      "query_id": "q11-conflitos",
+      "primary_expected_ids": ["dec-boreal-dual", "dec-boreal-iot"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "A decisao de usar sistema dual (dec-boreal-dual) SUPERSEDES a decisao original de usar apenas IoT (dec-boreal-iot), que esta marcada como SUPERSEDED.",
+      "temporal_state": "conflito",
+      "expected_conflict": "SUPERSEDES — dec-boreal-dual supersede dec-boreal-iot. STATE_CONFLICT — dec-boreal-iot com status SUPERSEDED.",
+      "justification": "Existe uma relacao SUPERSEDES entre as decisoes e a decisao antiga tem status SUPERSEDED."
+    },
+    {
+      "query_id": "q12-delta-checkpoints",
+      "primary_expected_ids": ["chk-boreal-p5", "chk-boreal-p1"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "No inicio: projeto aprovado com IoT, 3 centros piloto, sem bloqueios. Agora: sistema dual em implantacao parcial, IoT em 2 centros, VVM adquiridos mas bloqueados por treinamento, risco de impacto em 12.000 doses.",
+      "temporal_state": "delta",
+      "expected_conflict": null,
+      "justification": "Os dois checkpoints (p1 e p5) mostram a evolucao do estado do projeto."
+    },
+    {
+      "query_id": "q13-evidencia-vvm",
+      "primary_expected_ids": ["evi-who-pqs-vvm"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Sim. A certificacao WHO PQS E006/045 garante que os VVM sao confiaveis para uso em cadeia fria de vacinas, sem dependencia de bateria ou eletronica.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "evi-who-pqs-vvm e a evidencia que suporta o uso de VVM na nova decisao."
+    },
+    {
+      "query_id": "q14-bloqueio",
+      "primary_expected_ids": ["lrn-staff-training-gap", "chk-boreal-p5"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "O material de treinamento esta pendente de aprovacao e as equipes nao foram treinadas. Sem treinamento, os VVM nao podem ser distribuidos.",
+      "temporal_state": "bloqueio",
+      "expected_conflict": null,
+      "justification": "lrn-staff-training-gap descreve a falha do treinamento remoto. chk-boreal-p5 lista o bloqueio nos blockers."
+    },
+    {
+      "query_id": "q15-parafrase-vigente",
+      "primary_expected_ids": ["dec-boreal-dual"],
+      "secondary_acceptable_ids": ["chk-boreal-p5"],
+      "expected_answer": "Sistema dual com IoT nos pontos fixos e VVM no transporte. Parafrase de q01.",
+      "temporal_state": "vigente",
+      "expected_conflict": "SUPERSEDES",
+      "justification": "Parafrase de q01 usando vocabulario diferente: 'vigilancia de temperatura', 'operacao de vacinas'."
+    },
+    {
+      "query_id": "q16-parafrase-anterior",
+      "primary_expected_ids": ["dec-boreal-iot"],
+      "secondary_acceptable_ids": ["chk-boreal-p1"],
+      "expected_answer": "Data loggers IoT com amostragem a cada 15 minutos. Parafrase de q02.",
+      "temporal_state": "historico",
+      "expected_conflict": null,
+      "justification": "Parafrase de q02: 'no comeco do projeto', 'controle termico'."
+    },
+    {
+      "query_id": "q17-parafrase-abandono",
+      "primary_expected_ids": ["lrn-battery-cold-degradation", "epi-transport-excursion"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Baterias falharam no frio extremo durante o transporte para UBS Belo Monte. Parafrase de q03.",
+      "temporal_state": "historico",
+      "expected_conflict": null,
+      "justification": "Parafrase de q03: 'sensores eletronicos que usavam pilhas'."
+    },
+    {
+      "query_id": "q18-parafrase-evidencia",
+      "primary_expected_ids": ["evi-lab-battery-test"],
+      "secondary_acceptable_ids": ["evi-logger-gap"],
+      "expected_answer": "Teste de laboratorio em camara fria com 3 unidades a -15C, -20C e -25C. Parafrase de q04.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "Parafrase de q04: 'teste', 'frio', 'estraga as baterias'."
+    },
+    {
+      "query_id": "q19-parafrase-hipotese",
+      "primary_expected_ids": ["hyp-battery-failure"],
+      "secondary_acceptable_ids": ["hyp-battery-confirmed"],
+      "expected_answer": "A hipotese inicial era falha de bateria no frio. Parafrase de q05 com foco na versao original.",
+      "temporal_state": "historico",
+      "expected_conflict": null,
+      "justification": "Parafrase de q05: 'palpite inicial', 'apagao de dados'. Deve retornar a hipotese original (PROPOSED)."
+    },
+    {
+      "query_id": "q20-parafrase-aprendizado",
+      "primary_expected_ids": ["lrn-battery-cold-degradation"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Baterias quimicas nao sao confiaveis em ambientes gelados. Parafrase de q06.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "Parafrase de q06: 'licao', 'pilhas', 'gelados'."
+    },
+    {
+      "query_id": "q21-parafrase-proxima-acao",
+      "primary_expected_ids": ["chk-boreal-p5", "fact-training-risk"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Focar no treinamento presencial das equipes. Parafrase de q07.",
+      "temporal_state": "proxima-acao",
+      "expected_conflict": null,
+      "justification": "Parafrase de q07: 'focar agora', 'avancar'."
+    },
+    {
+      "query_id": "q22-parafrase-risco",
+      "primary_expected_ids": ["fact-training-risk"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "O atraso no treinamento pode comprometer a instalacao. Parafrase de q08.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "Parafrase de q08: 'perigo', 'melar', 'instalacao'."
+    },
+    {
+      "query_id": "q23-parafrase-documento",
+      "primary_expected_ids": ["doc-dual-spec"],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "A especificacao tecnica do sistema dual. Parafrase de q09.",
+      "temporal_state": "vigente",
+      "expected_conflict": null,
+      "justification": "Parafrase de q09: 'documentacao', 'plano de monitoramento atualizado'."
+    },
+    {
+      "query_id": "q24-parafrase-ausencia-gps",
+      "primary_expected_ids": [],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Nao ha decisao sobre rastreador satelital. Parafrase de q10.",
+      "temporal_state": "ausencia",
+      "expected_conflict": null,
+      "justification": "Parafrase de q10: 'rastreador satelital'. Mesma resposta: ausencia."
+    },
+    {
+      "query_id": "q25-ausencia-drones",
+      "primary_expected_ids": [],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Nao existe nenhum registro sobre uso de drones para entrega de vacinas. Resposta correta e ausencia.",
+      "temporal_state": "ausencia",
+      "expected_conflict": null,
+      "justification": "Nenhuma memoria no banco menciona drones. O sistema deve indicar ausencia."
+    },
+    {
+      "query_id": "q26-ausencia-blackout",
+      "primary_expected_ids": [],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Nao existe protocolo de contingencia para blackout eletrico registrado. Resposta correta e ausencia.",
+      "temporal_state": "ausencia",
+      "expected_conflict": null,
+      "justification": "Nenhuma memoria aborda blackout ou queda de energia nos centros de armazenamento."
+    },
+    {
+      "query_id": "q27-ausencia-anvisa",
+      "primary_expected_ids": [],
+      "secondary_acceptable_ids": [],
+      "expected_answer": "Nao ha documentacao sobre conformidade com a ANVISA. Resposta correta e ausencia.",
+      "temporal_state": "ausencia",
+      "expected_conflict": null,
+      "justification": "Nenhuma memoria menciona ANVISA ou conformidade regulatoria nacional."
+    }
+  ]
+}
