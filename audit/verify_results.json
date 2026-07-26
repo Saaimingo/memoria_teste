@@ -1,0 +1,644 @@
+[
+  {
+    "query_id": "q01-decisao-vigente",
+    "query": "Qual abordagem está vigente para processar os alertas?",
+    "expected_ids": [
+      "dec-atlas-queue"
+    ],
+    "gold_expected_ids": [
+      "dec-atlas-queue"
+    ],
+    "top5_ids": [
+      "dec-atlas-queue",
+      "evi-atlas-bench",
+      "chk-atlas-04",
+      "chk-atlas-01",
+      "epi-atlas-dup"
+    ],
+    "top5_scores": [
+      1.0985,
+      0.7466,
+      0.7342,
+      0.7212,
+      0.7182
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "q02-abordagem-anterior",
+    "query": "Como o sistema fazia isso antes da mudança?",
+    "expected_ids": [
+      "dec-atlas-batch"
+    ],
+    "gold_expected_ids": [
+      "dec-atlas-batch"
+    ],
+    "top5_ids": [
+      "dec-atlas-batch",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "dec-atlas-queue"
+    ],
+    "top5_scores": [
+      0.63,
+      0.4385,
+      0.41,
+      0.41,
+      0.41
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "absent",
+    "conflicts": [
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)",
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+    ],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "q03-motivo-abandono",
+    "query": "Por que a abordagem inicial foi abandonada?",
+    "expected_ids": [
+      "lrn-atlas-idem",
+      "epi-atlas-dup"
+    ],
+    "gold_expected_ids": [
+      "lrn-atlas-idem",
+      "epi-atlas-dup"
+    ],
+    "top5_ids": [
+      "dec-atlas-queue",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "lrn-atlas-idem"
+    ],
+    "top5_scores": [
+      0.53,
+      0.51,
+      0.51,
+      0.51,
+      0.49
+    ],
+    "hit_1": false,
+    "hit_3": false,
+    "gold_hit_1": false,
+    "gold_hit_3": false,
+    "quality": "absent",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "q04-evidencia-duplicacao",
+    "query": "Que evidência demonstrou o problema de duplicação?",
+    "expected_ids": [
+      "evi-atlas-log"
+    ],
+    "gold_expected_ids": [
+      "evi-atlas-log"
+    ],
+    "top5_ids": [
+      "evi-atlas-queue-bench",
+      "evi-atlas-bench",
+      "evi-atlas-log"
+    ],
+    "top5_scores": [
+      0.6711,
+      0.6,
+      0.56
+    ],
+    "hit_1": false,
+    "hit_3": true,
+    "gold_hit_1": false,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "q05-hipotese-replay",
+    "query": "Qual hipótese explicou os alertas repetidos?",
+    "expected_ids": [
+      "hyp-atlas-replay"
+    ],
+    "gold_expected_ids": [
+      "hyp-atlas-replay"
+    ],
+    "top5_ids": [
+      "hyp-atlas-replay",
+      "hyp-atlas-cap"
+    ],
+    "top5_scores": [
+      0.6455,
+      0.5
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "q06-aprendizado-reinicializacao",
+    "query": "O que aprendemos com a reinicialização?",
+    "expected_ids": [
+      "lrn-atlas-idem"
+    ],
+    "gold_expected_ids": [
+      "lrn-atlas-idem"
+    ],
+    "top5_ids": [
+      "chk-atlas-02",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "hyp-atlas-replay",
+      "dec-atlas-queue"
+    ],
+    "top5_scores": [
+      0.6727,
+      0.636,
+      0.5738,
+      0.5335,
+      0.53
+    ],
+    "hit_1": false,
+    "hit_3": true,
+    "gold_hit_1": false,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "q07-proximo-trabalho",
+    "query": "Em que devo trabalhar agora?",
+    "expected_ids": [
+      "fact-atlas-next",
+      "chk-atlas-04"
+    ],
+    "gold_expected_ids": [
+      "chk-atlas-04",
+      "fact-atlas-next"
+    ],
+    "top5_ids": [
+      "dec-atlas-queue",
+      "fact-atlas-next",
+      "fact-atlas-risk",
+      "chk-atlas-04",
+      "chk-atlas-02"
+    ],
+    "top5_scores": [
+      0.98,
+      0.683,
+      0.68,
+      0.68,
+      0.68
+    ],
+    "hit_1": false,
+    "hit_3": true,
+    "gold_hit_1": false,
+    "gold_hit_3": true,
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "q08-risco-pendente",
+    "query": "Qual risco ainda impede a conclusão?",
+    "expected_ids": [
+      "fact-atlas-risk"
+    ],
+    "gold_expected_ids": [
+      "fact-atlas-risk"
+    ],
+    "top5_ids": [
+      "fact-atlas-risk",
+      "chk-atlas-04",
+      "dec-atlas-queue",
+      "chk-atlas-02",
+      "chk-atlas-01"
+    ],
+    "top5_scores": [
+      0.8315,
+      0.8001,
+      0.53,
+      0.51,
+      0.51
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "q09-documento-arquitetura",
+    "query": "Que documento descreve a arquitetura atual?",
+    "expected_ids": [
+      "doc-atlas-arch"
+    ],
+    "gold_expected_ids": [
+      "doc-atlas-arch"
+    ],
+    "top5_ids": [
+      "doc-atlas-arch"
+    ],
+    "top5_scores": [
+      1.1131
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "q10-criptografia-ausente",
+    "query": "Existe decisão registrada sobre criptografia ponta a ponta?",
+    "expected_ids": [],
+    "gold_expected_ids": [],
+    "top5_ids": [],
+    "top5_scores": [],
+    "hit_1": false,
+    "hit_3": false,
+    "gold_hit_1": false,
+    "gold_hit_3": false,
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query",
+      "This query likely expects a 'no evidence' answer — absence is the correct response"
+    ],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "q11-conflitos",
+    "query": "Quais versões ou memórias estão em conflito?",
+    "expected_ids": [
+      "dec-atlas-batch",
+      "dec-atlas-queue"
+    ],
+    "gold_expected_ids": [
+      "dec-atlas-queue",
+      "dec-atlas-batch"
+    ],
+    "top5_ids": [
+      "dec-atlas-queue",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "lrn-atlas-idem"
+    ],
+    "top5_scores": [
+      0.53,
+      0.51,
+      0.51,
+      0.51,
+      0.49
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "absent",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "q12-delta-checkpoints",
+    "query": "O que mudou entre o primeiro e o último checkpoint?",
+    "expected_ids": [
+      "chk-atlas-01",
+      "chk-atlas-04"
+    ],
+    "gold_expected_ids": [
+      "chk-atlas-01",
+      "chk-atlas-04"
+    ],
+    "top5_ids": [
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "chk-atlas-03"
+    ],
+    "top5_scores": [
+      0.66,
+      0.66,
+      0.66,
+      0.62
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "p01-parafrase-vigente",
+    "query": "Como vocês estão tratando as notificações hoje em dia?",
+    "expected_ids": [
+      "dec-atlas-queue"
+    ],
+    "gold_expected_ids": [
+      "dec-atlas-queue"
+    ],
+    "top5_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "fact-atlas-risk",
+      "fact-atlas-next"
+    ],
+    "top5_scores": [
+      1.1051,
+      0.7323,
+      0.6756,
+      0.6733,
+      0.6307
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "p02-parafrase-antigo",
+    "query": "Qual era o método antigo de lidar com as mensagens?",
+    "expected_ids": [
+      "dec-atlas-batch"
+    ],
+    "gold_expected_ids": [
+      "dec-atlas-batch"
+    ],
+    "top5_ids": [
+      "dec-atlas-batch",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "dec-atlas-queue",
+      "chk-atlas-01"
+    ],
+    "top5_scores": [
+      0.63,
+      0.41,
+      0.41,
+      0.41,
+      0.41
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "absent",
+    "conflicts": [
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)",
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+    ],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "p03-parafrase-motivo",
+    "query": "O que motivou a troca do sistema original de processamento?",
+    "expected_ids": [
+      "lrn-atlas-idem",
+      "epi-atlas-dup"
+    ],
+    "gold_expected_ids": [
+      "lrn-atlas-idem",
+      "epi-atlas-dup"
+    ],
+    "top5_ids": [
+      "dec-atlas-queue",
+      "chk-atlas-01",
+      "fact-atlas-risk",
+      "doc-atlas-arch",
+      "lrn-atlas-idem"
+    ],
+    "top5_scores": [
+      0.6345,
+      0.5957,
+      0.5765,
+      0.5613,
+      0.5589
+    ],
+    "hit_1": false,
+    "hit_3": false,
+    "gold_hit_1": false,
+    "gold_hit_3": false,
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "p04-parafrase-prova",
+    "query": "Tem como provar que as notificações realmente saíram repetidas?",
+    "expected_ids": [
+      "evi-atlas-log"
+    ],
+    "gold_expected_ids": [
+      "evi-atlas-log"
+    ],
+    "top5_ids": [],
+    "top5_scores": [],
+    "hit_1": false,
+    "hit_3": false,
+    "gold_hit_1": false,
+    "gold_hit_3": false,
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query",
+      "This query likely expects a 'no evidence' answer — absence is the correct response"
+    ],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "p05-parafrase-proxima",
+    "query": "Qual é a próxima tarefa que preciso executar?",
+    "expected_ids": [
+      "fact-atlas-next",
+      "chk-atlas-04"
+    ],
+    "gold_expected_ids": [
+      "chk-atlas-04",
+      "fact-atlas-next"
+    ],
+    "top5_ids": [
+      "chk-atlas-01",
+      "lrn-atlas-idem",
+      "chk-atlas-04",
+      "chk-atlas-03",
+      "dec-atlas-queue"
+    ],
+    "top5_scores": [
+      0.6526,
+      0.6248,
+      0.6072,
+      0.5975,
+      0.53
+    ],
+    "hit_1": false,
+    "hit_3": true,
+    "gold_hit_1": false,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "p06-parafrase-bloqueio",
+    "query": "O que está bloqueando a finalização do projeto?",
+    "expected_ids": [
+      "fact-atlas-risk",
+      "chk-atlas-04"
+    ],
+    "gold_expected_ids": [
+      "fact-atlas-risk",
+      "chk-atlas-04"
+    ],
+    "top5_ids": [
+      "fact-atlas-risk",
+      "chk-atlas-04",
+      "dec-atlas-queue",
+      "doc-atlas-arch",
+      "chk-atlas-02"
+    ],
+    "top5_scores": [
+      0.7969,
+      0.7618,
+      0.53,
+      0.5153,
+      0.51
+    ],
+    "hit_1": true,
+    "hit_3": true,
+    "gold_hit_1": true,
+    "gold_hit_3": true,
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "num_conflicts": 2
+  },
+  {
+    "query_id": "p07-parafrase-seguranca",
+    "query": "Alguém decidiu algo sobre segurança de ponta a ponta?",
+    "expected_ids": [],
+    "gold_expected_ids": [],
+    "top5_ids": [],
+    "top5_scores": [],
+    "hit_1": false,
+    "hit_3": false,
+    "gold_hit_1": false,
+    "gold_hit_3": false,
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query",
+      "This query likely expects a 'no evidence' answer — absence is the correct response"
+    ],
+    "num_conflicts": 0
+  },
+  {
+    "query_id": "p08-parafrase-evolucao",
+    "query": "Compare o começo do projeto com o estado atual — o que evoluiu?",
+    "expected_ids": [
+      "chk-atlas-01",
+      "chk-atlas-04"
+    ],
+    "gold_expected_ids": [
+      "chk-atlas-01",
+      "chk-atlas-04"
+    ],
+    "top5_ids": [
+      "dec-atlas-queue",
+      "chk-atlas-04",
+      "doc-atlas-arch",
+      "chk-atlas-02",
+      "chk-atlas-01"
+    ],
+    "top5_scores": [
+      0.98,
+      0.8181,
+      0.7125,
+      0.63,
+      0.63
+    ],
+    "hit_1": false,
+    "hit_3": true,
+    "gold_hit_1": false,
+    "gold_hit_3": true,
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "num_conflicts": 0
+  }
+]
