@@ -1,0 +1,65 @@
+{
+  "name": "audit-blind-tests",
+  "version": "1.0",
+  "description": "Blind queries created by independent auditor",
+  "queries": [
+    {
+      "query_id": "blind-001-partial-clue",
+      "query": "aquele sistema que tinha bug de repetição quando ligava de novo",
+      "expected_ids": ["episode-fin-001", "episode-queue-001"],
+      "expected_project_id": null,
+      "relevance_grades": {"episode-fin-001": 3.0, "episode-queue-001": 3.0}
+    },
+    {
+      "query_id": "blind-002-two-similar-projects",
+      "query": "sistema com problema de processar o mesmo evento duas vezes",
+      "expected_ids": ["episode-fin-001", "episode-queue-001"],
+      "expected_project_id": null,
+      "relevance_grades": {"episode-fin-001": 2.0, "episode-queue-001": 2.0}
+    },
+    {
+      "query_id": "blind-003-obsolete-replaced",
+      "query": "como era a regra do calendário antes da mudança das datas FIFA",
+      "expected_ids": ["fact-fb-005-obsolete"],
+      "expected_project_id": "proj-football",
+      "relevance_grades": {"fact-fb-005-obsolete": 3.0, "fact-fb-005-v2": 1.0}
+    },
+    {
+      "query_id": "blind-004-conflict-between-records",
+      "query": "existe alguma contradição nas regras do calendário do simulador",
+      "expected_ids": ["fact-fb-005-v2", "fact-fb-005-obsolete"],
+      "expected_project_id": "proj-football",
+      "expected_conflicts": ["fact-fb-005-v2 SUPERSEDES fact-fb-005-obsolete"],
+      "relevance_grades": {"fact-fb-005-v2": 3.0, "fact-fb-005-obsolete": 2.0}
+    },
+    {
+      "query_id": "blind-005-missing-information",
+      "query": "qual foi a latência do sistema de alertas depois da migração para Kubernetes",
+      "expected_ids": [],
+      "expected_project_id": null,
+      "expected_missing": ["No information about Kubernetes migration exists"],
+      "relevance_grades": {}
+    },
+    {
+      "query_id": "blind-006-checkpoint-resumption",
+      "query": "no que devo trabalhar agora no projeto de estoque",
+      "expected_ids": ["checkpoint-queue-001"],
+      "expected_project_id": "proj-queue",
+      "relevance_grades": {"checkpoint-queue-001": 3.0}
+    },
+    {
+      "query_id": "blind-007-explain-retrieval",
+      "query": "por que o Redis foi escolhido",
+      "expected_ids": ["decision-fin-001"],
+      "expected_project_id": null,
+      "relevance_grades": {"decision-fin-001": 3.0}
+    },
+    {
+      "query_id": "blind-008-fact-vs-inference",
+      "query": "o sistema de filas é mais rápido que o de alertas financeiros",
+      "expected_ids": [],
+      "expected_project_id": null,
+      "relevance_grades": {}
+    }
+  ]
+}
