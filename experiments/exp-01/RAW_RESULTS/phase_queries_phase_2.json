@@ -24,7 +24,7 @@
       "hyp-atlas-cap"
     ],
     "top_scores": [
-      0.635205144481438,
+      0.6381419776958083,
       0.5
     ],
     "quality": "relevant",
@@ -37,16 +37,16 @@
     "top_ids": [
       "chk-atlas-02",
       "lrn-atlas-idem",
-      "chk-atlas-01",
       "epi-atlas-dup",
-      "evi-atlas-log"
+      "hyp-atlas-replay",
+      "chk-atlas-01"
     ],
     "top_scores": [
-      0.6959924093800004,
-      0.6131802016300771,
-      0.51,
-      0.45,
-      0.41000000000000003
+      0.6717960804968045,
+      0.5941045875813505,
+      0.5719218758075985,
+      0.5330438711110638,
+      0.51
     ],
     "quality": "relevant",
     "conflicts": [],

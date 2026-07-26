@@ -438,6 +438,7 @@ class HybridRetriever:
         # Lexical (R1: stopword-filtered Jaccard, R3: stemmed to bridge vocabulary gaps)
         content_tokens = token_set(mem.content, stem=True)
         overlap = query_tokens & content_tokens
+        decomp["lexical_overlap_tokens"] = len(overlap)
         if overlap and query_tokens:
             union = query_tokens | content_tokens
             cs.lexical_score = len(overlap) / len(union)
@@ -601,13 +602,13 @@ class HybridRetriever:
         relation_only = not has_lexical and best.relation_score > 0 and best.semantic_score < 0.15
 
         # R3: queries asking for absence should not fabricate relevance,
-        # even if a single coincidental stem overlap exists
+        # even if a coincidental single-stem overlap exists
         if clues is not None and clues.needs_absence:
             if not has_lexical:
                 return "absent"
-            # R3/stem: if lexical overlap exists but is trivial (single token,
-            # very low Jaccard), treat as absent to avoid stemmer false positives
-            if best.lexical_score < 0.08:
+            # Require at least 2 overlapping stems; 1 is likely coincidental
+            overlap_count = best.explanation_decomposition.get("lexical_overlap_tokens", 0)
+            if overlap_count < 2:
                 return "absent"
 
         if relation_only:

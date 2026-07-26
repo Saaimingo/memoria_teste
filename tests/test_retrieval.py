@@ -104,10 +104,10 @@ class TestClueExtraction(unittest.TestCase):
         for sw in ["como", "era", "o", "antes", "da"]:
             self.assertNotIn(sw, clues.terms,
                             f"Stopword '{sw}' leaked into terms: {clues.terms}")
-        # R3: terms are stemmed — "calendario" → "calendari", "mudanca" → "mudanc"
+        # R3: terms are stemmed — "calendario" → "calendari", "mudanca" → "mudanc", "atual" → "atu"
         self.assertIn("calendari", clues.terms)
         self.assertIn("mudanc", clues.terms)
-        self.assertIn("atual", clues.terms)  # 'atual' is not a stopword and stays as-is
+        self.assertIn("atu", clues.terms)  # 'atual' stemmed to 'atu' via 'al' suffix
 
 
 # ---------------------------------------------------------------------------

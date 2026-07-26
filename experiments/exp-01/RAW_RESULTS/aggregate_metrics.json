@@ -67,7 +67,7 @@
       "query_id": "q07-proximo-trabalho",
       "hit_1": false,
       "hit_3": true,
-      "mrr": 0.3333333333333333,
+      "mrr": 0.5,
       "precision_1": 0.0,
       "conflicts_detected": 0,
       "fake_sources": 0
@@ -157,7 +157,7 @@
       "query_id": "p05-parafrase-proxima",
       "hit_1": false,
       "hit_3": true,
-      "mrr": 0.5,
+      "mrr": 0.3333333333333333,
       "precision_1": 0.0,
       "conflicts_detected": 2,
       "fake_sources": 0

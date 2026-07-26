@@ -1,6 +1,6 @@
 # Experimento Real 01 — Relatório
 
-**Data**: 2026-07-26T22:30:28.466258+00:00
+**Data**: 2026-07-26T22:41:26.209877+00:00
 **Projeto**: Projeto Atlas
 **Branch**: experiment/mec-live-memory-01
 
@@ -38,7 +38,7 @@
 | q04-evidencia-duplicacao | False | True | 0.333 | 0 |
 | q05-hipotese-replay | True | True | 1.000 | 0 |
 | q06-aprendizado-reinicializacao | False | True | 0.500 | 2 |
-| q07-proximo-trabalho | False | True | 0.333 | 0 |
+| q07-proximo-trabalho | False | True | 0.500 | 0 |
 | q08-risco-pendente | True | True | 1.000 | 2 |
 | q09-documento-arquitetura | True | True | 1.000 | 0 |
 | q10-criptografia-ausente | False | False | 0.000 | 0 |
@@ -48,7 +48,7 @@
 | p02-parafrase-antigo | True | True | 1.000 | 2 |
 | p03-parafrase-motivo | False | False | 0.200 | 2 |
 | p04-parafrase-prova | False | False | 0.000 | 0 |
-| p05-parafrase-proxima | False | True | 0.500 | 2 |
+| p05-parafrase-proxima | False | True | 0.333 | 2 |
 | p06-parafrase-bloqueio | True | True | 1.000 | 2 |
 | p07-parafrase-seguranca | False | False | 0.000 | 0 |
 | p08-parafrase-evolucao | False | True | 0.500 | 0 |

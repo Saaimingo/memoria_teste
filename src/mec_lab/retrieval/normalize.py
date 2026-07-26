@@ -9,27 +9,26 @@ import unicodedata
 
 # ---------------------------------------------------------------------------
 # Portuguese stemming (RSLP-inspired suffix-stripping)
+# All suffixes are de-accented (normalize() strips accents from input)
 # ---------------------------------------------------------------------------
 
-# Ordered steps: each (suffix, min_stem_length, replacement)
-# Applied in order; first match wins per step category.
 _PLURAL_RULES: list[tuple[str, int, str]] = [
-    ("ns", 4, "m"),        # cães → cão (special; simplified as replace ns→m)
-    ("ões", 3, "ão"),      # situações → situação
-    ("ães", 3, "ão"),      # pães → pão
+    ("ns", 4, "m"),        # caes → cao (special)
+    ("oes", 3, "ao"),      # situacoes → situacao
+    ("aes", 3, "ao"),      # paes → pao
     ("ais", 4, "al"),      # normais → normal
-    ("éis", 4, "el"),      # papéis → papel
-    ("is", 5, "il"),       # fósseis → fóssil
+    ("eis", 4, "el"),      # papeis → papel
+    ("is", 5, "il"),       # fosseis → fossil
     ("res", 5, "r"),       # jogadores → jogador
     ("s", 3, ""),          # casas → casa
 ]
 
 _FEMININE_RULES: list[tuple[str, int, str]] = [
-    ("issima", 6, ""),     # importantíssima → important
-    ("ona", 5, "ão"),      # chorona → chorão
+    ("issima", 6, ""),     # importantissima → important
+    ("ona", 5, "ao"),      # chorona → chorao
     ("ora", 4, "or"),      # professora → professor
-    ("inha", 5, "inho"),   # florzinha → florzinho (approx)
-    ("esa", 5, "ês"),      # portuguesa → português
+    ("inha", 5, "inho"),   # florzinha → florzinho
+    ("esa", 5, "es"),      # portuguesa → portugues
     ("a", 3, ""),          # menina → menin
 ]
 
@@ -38,42 +37,42 @@ _ADVERB_RULES: list[tuple[str, int, str]] = [
 ]
 
 _AUG_DIM_RULES: list[tuple[str, int, str]] = [
-    ("issimo", 6, ""),     # importantíssimo → important
+    ("issimo", 6, ""),     # importantissimo → important
     ("inho", 5, ""),       # livrinho → livr
     ("inha", 5, ""),       # florzinha → florz
-    ("zão", 4, ""),        # livrão → livr
+    ("zao", 4, ""),        # livrao → livr
     ("zona", 5, ""),       # mulherzona → mulher
-    ("ão", 4, ""),         # livrão → livr
 ]
 
 _NOUN_SUFFIX_RULES: list[tuple[str, int, str]] = [
     ("acional", 8, ""),    # computacional → comput
-    ("ições", 6, "ição"),  # repetições → repetição (catches before ões)
-    ("ância", 6, ""),      # importância → import
-    ("ência", 6, ""),      # permanência → perman
+    ("icoes", 6, "icao"),  # repeticoes → repeticao
+    ("ancia", 6, ""),      # importancia → import
+    ("encia", 6, ""),      # permanencia → perman
+    ("izacao", 7, ""),     # reinicializacao → reinici
+    ("al", 4, ""),         # reinicial → reinici
     ("idade", 6, ""),      # capacidade → capac
     ("mento", 6, ""),      # processamento → processa
     ("eza", 4, ""),        # beleza → bel
     ("ice", 4, ""),        # velhice → velh
     ("dor", 4, ""),        # nadador → nada
     ("tor", 4, ""),        # editor → edi
-    ("ção", 4, ""),        # duplicação → duplica
-    ("ões", 4, "ão"),      # situações → situação
-    ("ar", 4, ""),         # (also verb ending — handled here as noun)
+    ("cao", 4, ""),        # duplicacao → duplica
+    ("oes", 4, "ao"),      # situacoes → situacao
+    ("ar", 4, ""),         # verb infinitives
     ("er", 4, ""),
     ("ir", 4, ""),
 ]
 
 _VERB_SUFFIX_RULES: list[tuple[str, int, str]] = [
-    ("ássemos", 6, ""),    # falássemos
-    ("êssemos", 6, ""),    # vendêssemos
-    ("íssemos", 6, ""),    # partíssemos
-    ("ássedes", 7, ""),    # (archaic)
-    ("ásseis", 7, ""),     # (archaic)
-    ("áramos", 6, ""),     # faláramos
-    ("êramos", 6, ""),     # vendêramos
-    ("íramos", 6, ""),     # partíramos
-    ("áreis", 6, ""),      # faláreis
+    ("assemos", 6, ""),    # falassemos
+    ("essemos", 6, ""),    # vendessemos
+    ("issemos", 6, ""),    # partissemos
+    ("assedes", 7, ""),    # (archaic)
+    ("asseis", 7, ""),     # (archaic)
+    ("aramos", 6, ""),     # falaramos
+    ("eramos", 6, ""),     # venderamos
+    ("iramos", 6, ""),     # partiramos
     ("areis", 6, ""),      # falareis
     ("ereis", 6, ""),      # vendereis
     ("ireis", 6, ""),      # partireis
@@ -87,10 +86,12 @@ _VERB_SUFFIX_RULES: list[tuple[str, int, str]] = [
     ("eram", 5, ""),       # venderam
     ("iram", 5, ""),       # partiram
     ("avas", 5, ""),       # falavas
-    ("aveis", 6, ""),      # faláveis
+    ("aveis", 6, ""),      # falaveis
     ("ando", 5, ""),       # falando
     ("endo", 5, ""),       # vendendo
     ("indo", 5, ""),       # partindo
+    ("ado", 4, ""),        # falado (past participle)
+    ("ido", 4, ""),        # partido (past participle)
     ("ara", 4, ""),        # falara
     ("era", 4, ""),        # vendera
     ("ira", 4, ""),        # partira
@@ -116,10 +117,23 @@ _VOWEL_RULES: list[tuple[str, int, str]] = [
 
 
 def _apply_rules(word: str, rules: list[tuple[str, int, str]]) -> str:
-    """Apply first matching suffix rule; returns modified word or original."""
+    """Apply first matching suffix rule; returns modified word or original.
+    Skips rules that would produce a stem shorter than 3 characters."""
     for suffix, min_len, replacement in rules:
         if len(word) >= min_len and word.endswith(suffix):
-            return word[: -len(suffix)] + replacement
+            stem = word[: -len(suffix)] + replacement
+            if len(stem) >= 3:
+                return stem
+    return word
+
+
+def _apply_rules_iterative(word: str, rules: list[tuple[str, int, str]], max_iter: int = 5) -> str:
+    """Apply suffix rules iteratively until no more matches (up to max_iter)."""
+    for _ in range(max_iter):
+        changed = word
+        word = _apply_rules(word, rules)
+        if word == changed:
+            break
     return word
 
 
@@ -127,9 +141,9 @@ def stem_pt(word: str) -> str:
     """Simple RSLP-inspired Portuguese stemmer.
 
     Reduces a Portuguese word to its root form, bridging vocabulary gaps
-    like 'processar' ↔ 'processamento' → both stem to 'process'.
+    like 'processar' <-> 'processamento' → both stem to 'process'.
 
-    This is a general improvement, not specific to any query.
+    Input word is expected to already be lowercased and de-accented.
     """
     if len(word) <= 2:
         return word
@@ -146,8 +160,8 @@ def stem_pt(word: str) -> str:
     # Step 4: Augmentative / Diminutive
     word = _apply_rules(word, _AUG_DIM_RULES)
 
-    # Step 5: Noun / general suffixes (including verb infinitives)
-    word = _apply_rules(word, _NOUN_SUFFIX_RULES)
+    # Step 5: Noun / general suffixes (iterative for stacked suffixes)
+    word = _apply_rules_iterative(word, _NOUN_SUFFIX_RULES)
 
     # Step 6: Verb suffixes
     word = _apply_rules(word, _VERB_SUFFIX_RULES)
@@ -155,7 +169,6 @@ def stem_pt(word: str) -> str:
     # Step 7: Remove trailing vowel if stem is long enough
     word = _apply_rules(word, _VOWEL_RULES)
 
-    # If stemming reduced to 1 char, revert to original
     if len(word) <= 1:
         return word
 

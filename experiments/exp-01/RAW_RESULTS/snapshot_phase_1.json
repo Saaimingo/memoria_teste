@@ -4,7 +4,7 @@
       "id": "proj-atlas",
       "name": "Projeto Atlas",
       "description": "Sistema de alertas operacionais com processamento confiável de eventos",
-      "created_at": "2026-07-26T22:30:27.521348+00:00",
+      "created_at": "2026-07-26T22:41:25.191504+00:00",
       "metadata": {}
     }
   ],
@@ -22,7 +22,7 @@
           "uri": null
         }
       ],
-      "created_at": "2026-07-26T22:30:27.521348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "valid_from": null,
       "valid_to": null,
       "status": "verified",
@@ -66,7 +66,7 @@
           "uri": null
         }
       ],
-      "created_at": "2026-07-26T22:30:27.521348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "valid_from": null,
       "valid_to": null,
       "status": "verified",
@@ -111,7 +111,7 @@
           "uri": null
         }
       ],
-      "created_at": "2026-07-26T22:30:27.521348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "valid_from": null,
       "valid_to": null,
       "status": "verified",
@@ -157,7 +157,7 @@
           "uri": null
         }
       ],
-      "created_at": "2026-07-26T22:30:27.521348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "valid_from": null,
       "valid_to": null,
       "status": "partially_supported",
@@ -191,7 +191,7 @@
       "content": "Fase 1 concluída: decisão por processamento em lote registrada, benchmark executado, hipótese de capacidade formulada.",
       "project_id": "proj-atlas",
       "source_refs": [],
-      "created_at": "2026-07-26T22:30:27.521348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "valid_from": null,
       "valid_to": null,
       "status": "verified",
@@ -237,7 +237,7 @@
       "relation_type": "supported_by",
       "confidence": "high",
       "evidence_ids": [],
-      "created_at": "2026-07-26T22:30:27.521348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "metadata": {}
     },
     {
@@ -247,7 +247,7 @@
       "relation_type": "derived_from",
       "confidence": "high",
       "evidence_ids": [],
-      "created_at": "2026-07-26T22:30:27.521348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "metadata": {}
     },
     {
@@ -257,7 +257,7 @@
       "relation_type": "summarizes",
       "confidence": "high",
       "evidence_ids": [],
-      "created_at": "2026-07-26T22:30:27.521348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "metadata": {}
     },
     {
@@ -267,7 +267,7 @@
       "relation_type": "references",
       "confidence": "high",
       "evidence_ids": [],
-      "created_at": "2026-07-26T22:30:27.522348Z",
+      "created_at": "2026-07-26T22:41:25.192505Z",
       "metadata": {}
     }
   ]
