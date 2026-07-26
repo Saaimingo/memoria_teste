@@ -1,0 +1,70 @@
+================================================================================
+R2 TEMPORAL HINT VERIFICATION
+================================================================================
+
+[PASS] antes -> wants_historical
+  Query: 'com o era o calendario antes da mudanca'
+  terms: ['calendario', 'mudanca']
+  wants_historical: True (expected True) OK
+  wants_current:    False (expected False) OK
+  wants_next_action: False (expected False) OK
+
+[PASS] era -> wants_historical (ambiguous but fires)
+  Query: 'o que era aquilo'
+  terms: []
+  wants_historical: True (expected True) OK
+  wants_current:    False (expected False) OK
+  wants_next_action: False (expected False) OK
+
+[PASS] fazer+agora -> wants_next_action+wants_current
+  Query: 'o que fazer agora'
+  terms: []
+  wants_historical: False (expected False) OK
+  wants_current:    True (expected True) OK
+  wants_next_action: True (expected True) OK
+
+[PASS] atual -> wants_current
+  Query: 'qual a regra atual'
+  terms: ['regra', 'atual']
+  wants_historical: False (expected False) OK
+  wants_current:    True (expected True) OK
+  wants_next_action: False (expected False) OK
+
+[PASS] fazer -> wants_next_action
+  Query: 'o que devo fazer'
+  terms: ['devo']
+  wants_historical: False (expected False) OK
+  wants_current:    False (expected False) OK
+  wants_next_action: True (expected True) OK
+
+[PASS] pendente -> wants_next_action
+  Query: 'o que esta pendente'
+  terms: ['esta', 'pendente']
+  wants_historical: False (expected False) OK
+  wants_current:    False (expected False) OK
+  wants_next_action: True (expected True) OK
+
+[PASS] neutral -> all false
+  Query: 'futebol calendario simulador'
+  terms: ['futebol', 'calendario', 'simulador']
+  wants_historical: False (expected False) OK
+  wants_current:    False (expected False) OK
+  wants_next_action: False (expected False) OK
+
+[PASS] multiple hints simultaneously
+  Query: 'antes de fazer o trabalho atual'
+  terms: ['trabalho', 'atual']
+  wants_historical: True (expected True) OK
+  wants_current:    True (expected True) OK
+  wants_next_action: True (expected True) OK
+
+[PASS] stopwords not in terms
+  Query: 'como era o calendario antes da mudanca atual'
+  terms: ['calendario', 'mudanca', 'atual']
+  wants_historical: True (expected True) OK
+  wants_current:    True (expected True) OK
+  wants_next_action: False (expected False) OK
+
+================================================================================
+ALL VERIFICATIONS PASSED
+================================================================================

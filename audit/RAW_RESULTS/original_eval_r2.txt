@@ -1,0 +1,10 @@
+Evaluating dataset: mec-lab-eval-dataset (15 queries)
+
+Results:
+  Hit@1: 0.667
+  Hit@3: 0.867
+  MRR:   0.756
+  Precision@1: 0.667
+  Fake source rate: 0.0000
+  Capsule avg chars: 715
+  Reduction vs raw: 0.0%

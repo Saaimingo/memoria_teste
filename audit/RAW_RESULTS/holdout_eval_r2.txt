@@ -1,0 +1,10 @@
+Evaluating dataset: reaudit-holdout-r2 (10 queries)
+
+Results:
+  Hit@1: 0.500
+  Hit@3: 0.700
+  MRR:   0.573
+  Precision@1: 0.500
+  Fake source rate: 0.0000
+  Capsule avg chars: 917
+  Reduction vs raw: 0.0%

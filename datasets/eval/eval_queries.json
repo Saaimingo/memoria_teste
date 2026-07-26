@@ -1,0 +1,179 @@
+{
+  "name": "mec-lab-eval-dataset",
+  "version": "1.0",
+  "description": "Evaluation queries with expected answers for MEC Lab baseline",
+  "metadata": {
+    "created_by": "Hermes Agent",
+    "created_at": "2026-07-26",
+    "hash": "placeholder-will-be-computed-after-dataset-load"
+  },
+  "queries": [
+    {
+      "query_id": "q001-football-calendar",
+      "query": "Aquele jogo antigo que tinha problema de calendário e aposentadoria",
+      "expected_ids": ["checkpoint-fb-001", "episode-fb-001", "episode-fb-002", "fact-fb-002"],
+      "expected_project_id": "proj-football",
+      "required_clues": ["calendário", "aposentadoria", "jogo"],
+      "relevance_grades": {
+        "checkpoint-fb-001": 3.0,
+        "episode-fb-001": 2.0,
+        "episode-fb-002": 2.0,
+        "fact-fb-002": 1.0
+      }
+    },
+    {
+      "query_id": "q002-finance-duplicate",
+      "query": "O projeto de mercado em que os alertas apareciam duas vezes depois de reiniciar",
+      "expected_ids": ["checkpoint-fin-001", "episode-fin-001", "fact-fin-002"],
+      "expected_project_id": "proj-finance",
+      "required_clues": ["alertas", "duplicados", "reiniciar", "mercado"],
+      "relevance_grades": {
+        "checkpoint-fin-001": 3.0,
+        "episode-fin-001": 3.0,
+        "fact-fin-002": 2.0
+      }
+    },
+    {
+      "query_id": "q003-decision-normative",
+      "query": "Qual decisão definiu que a conversa não era fonte normativa?",
+      "expected_ids": [],
+      "expected_project_id": null,
+      "required_clues": ["decisão", "fonte normativa"],
+      "expected_missing": ["No decision about conversation as normative source exists in dataset"],
+      "relevance_grades": {}
+    },
+    {
+      "query_id": "q004-football-decisions",
+      "query": "Qual foi a decisão sobre a tecnologia usada no simulador de futebol?",
+      "expected_ids": ["decision-fb-001"],
+      "expected_project_id": "proj-football",
+      "required_clues": ["decisão", "tecnologia", "simulador", "futebol"],
+      "relevance_grades": {
+        "decision-fb-001": 3.0
+      }
+    },
+    {
+      "query_id": "q005-finance-solution",
+      "query": "Como foi resolvido o problema de alertas duplicados no sistema financeiro?",
+      "expected_ids": ["episode-fin-001", "learning-fin-001", "fact-fin-003", "evidence-fin-001"],
+      "expected_project_id": "proj-finance",
+      "required_clues": ["alertas", "duplicados", "financeiro", "resolvido"],
+      "relevance_grades": {
+        "episode-fin-001": 3.0,
+        "learning-fin-001": 2.0,
+        "fact-fin-003": 1.0,
+        "evidence-fin-001": 1.0
+      }
+    },
+    {
+      "query_id": "q006-queue-duplicate",
+      "query": "Problema de itens duplicados na fila de estoque depois de reiniciar o sistema",
+      "expected_ids": ["checkpoint-queue-001", "episode-queue-001", "fact-queue-002"],
+      "expected_project_id": "proj-queue",
+      "required_clues": ["duplicados", "fila", "estoque", "reiniciar"],
+      "relevance_grades": {
+        "checkpoint-queue-001": 3.0,
+        "episode-queue-001": 3.0,
+        "fact-queue-002": 2.0
+      }
+    },
+    {
+      "query_id": "q007-football-status",
+      "query": "Qual é o estado atual do projeto de simulador de futebol?",
+      "expected_ids": ["checkpoint-fb-001", "fact-fb-004"],
+      "expected_project_id": "proj-football",
+      "required_clues": ["estado", "atual", "simulador", "futebol"],
+      "relevance_grades": {
+        "checkpoint-fb-001": 3.0,
+        "fact-fb-004": 2.0
+      }
+    },
+    {
+      "query_id": "q008-obsolete-fact",
+      "query": "Como era o calendário do simulador antes da correção das datas FIFA?",
+      "expected_ids": ["fact-fb-005-obsolete", "episode-fb-001"],
+      "expected_project_id": "proj-football",
+      "required_clues": ["calendário", "antes", "correção", "FIFA"],
+      "relevance_grades": {
+        "fact-fb-005-obsolete": 3.0,
+        "episode-fb-001": 1.0,
+        "fact-fb-005-v2": 0.0
+      },
+      "distractors": ["fact-fb-005-v2"]
+    },
+    {
+      "query_id": "q009-analogy-duplication",
+      "query": "Sistemas que tiveram problema de duplicação de eventos após reinicialização",
+      "expected_ids": ["episode-fin-001", "episode-queue-001", "learning-fin-001", "learning-queue-001"],
+      "expected_project_id": null,
+      "required_clues": ["duplicação", "eventos", "reinicialização"],
+      "relevance_grades": {
+        "episode-fin-001": 3.0,
+        "episode-queue-001": 3.0,
+        "learning-fin-001": 2.0,
+        "learning-queue-001": 2.0
+      }
+    },
+    {
+      "query_id": "q010-missing-project",
+      "query": "Qual foi o resultado do teste de carga no sistema de autenticação?",
+      "expected_ids": [],
+      "expected_project_id": null,
+      "required_clues": ["teste", "carga", "autenticação"],
+      "expected_missing": ["No 'authentication system' exists in the dataset"],
+      "relevance_grades": {}
+    },
+    {
+      "query_id": "q011-conflict-test",
+      "query": "Qual é a regra atual para o calendário do simulador de futebol?",
+      "expected_ids": ["fact-fb-005-v2", "fact-fb-005-obsolete"],
+      "expected_project_id": "proj-football",
+      "required_clues": ["calendário", "regra", "atual"],
+      "expected_conflicts": ["fact-fb-005-v2 SUPERSEDES fact-fb-005-obsolete"],
+      "relevance_grades": {
+        "fact-fb-005-v2": 3.0,
+        "fact-fb-005-obsolete": 1.0
+      }
+    },
+    {
+      "query_id": "q012-hypothesis-football",
+      "query": "O que está sendo testado sobre a geração de jogadores no simulador?",
+      "expected_ids": ["hypothesis-fb-001"],
+      "expected_project_id": "proj-football",
+      "required_clues": ["geração", "jogadores", "teste", "hipótese"],
+      "relevance_grades": {
+        "hypothesis-fb-001": 3.0
+      }
+    },
+    {
+      "query_id": "q013-evidence-finance",
+      "query": "Que evidências existem de que a correção dos alertas duplicados funcionou?",
+      "expected_ids": ["evidence-fin-001"],
+      "expected_project_id": "proj-finance",
+      "required_clues": ["evidência", "correção", "alertas", "duplicados", "funcionou"],
+      "relevance_grades": {
+        "evidence-fin-001": 3.0
+      }
+    },
+    {
+      "query_id": "q014-finance-decision",
+      "query": "Por que escolheram Redis em vez de PostgreSQL para idempotência?",
+      "expected_ids": ["decision-fin-001"],
+      "expected_project_id": "proj-finance",
+      "required_clues": ["Redis", "PostgreSQL", "idempotência"],
+      "relevance_grades": {
+        "decision-fin-001": 3.0
+      }
+    },
+    {
+      "query_id": "q015-football-checkpoint",
+      "query": "O que falta fazer no simulador de futebol?",
+      "expected_ids": ["checkpoint-fb-001"],
+      "expected_project_id": "proj-football",
+      "required_clues": ["falta", "fazer", "simulador", "futebol", "pendente"],
+      "relevance_grades": {
+        "checkpoint-fb-001": 3.0
+      }
+    }
+  ]
+}
