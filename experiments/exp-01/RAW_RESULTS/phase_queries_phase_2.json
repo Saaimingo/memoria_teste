@@ -1,0 +1,53 @@
+[
+  {
+    "query_id": "q04-evidencia-duplicacao",
+    "query": "Que evidência demonstrou o problema de duplicação?",
+    "top_ids": [
+      "evi-atlas-log",
+      "evi-atlas-bench"
+    ],
+    "top_scores": [
+      0.25,
+      0.25
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": []
+  },
+  {
+    "query_id": "q05-hipotese-replay",
+    "query": "Qual hipótese explicou os alertas repetidos?",
+    "top_ids": [
+      "hyp-atlas-replay",
+      "hyp-atlas-cap"
+    ],
+    "top_scores": [
+      0.3295067220562625,
+      0.24000000000000002
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": []
+  },
+  {
+    "query_id": "q06-aprendizado-reinicializacao",
+    "query": "O que aprendemos com a reinicialização?",
+    "top_ids": [
+      "lrn-atlas-idem",
+      "chk-atlas-02",
+      "epi-atlas-dup",
+      "evi-atlas-log",
+      "hyp-atlas-replay"
+    ],
+    "top_scores": [
+      0.299975448220104,
+      0.284468806959317,
+      0.14,
+      0.10000000000000002,
+      0.10000000000000002
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": []
+  }
+]

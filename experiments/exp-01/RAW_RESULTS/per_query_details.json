@@ -1,0 +1,2940 @@
+[
+  {
+    "query_id": "q01-decisao-vigente",
+    "query": "Qual abordagem está vigente para processar os alertas?",
+    "expected_ids": [
+      "dec-atlas-queue"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-batch",
+      "evi-atlas-bench",
+      "dec-atlas-queue",
+      "epi-atlas-dup",
+      "lrn-atlas-idem",
+      "fact-atlas-risk",
+      "hyp-atlas-replay",
+      "fact-atlas-impl",
+      "fact-atlas-obj",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "hyp-atlas-cap",
+      "chk-atlas-03"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-batch",
+        "score": 0.36308523439222096,
+        "decomp": {
+          "lexical": 0.13333333333333333,
+          "semantic": 0.3243797526472191,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": -0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.22935399593159406,
+        "decomp": {
+          "lexical": 0.05263157894736842,
+          "semantic": 0.09180604246056398,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.21307132453353922,
+        "decomp": {
+          "lexical": 0.043478260869565216,
+          "semantic": 0.07398265915993489,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.17944518709855717,
+        "decomp": {
+          "lexical": 0.034482758620689655,
+          "semantic": 0.11240607119466878,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "hyp-atlas-replay",
+        "score": 0.17306923161486387,
+        "decomp": {
+          "lexical": 0.043478260869565216,
+          "semantic": 0.07397742686324664,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-impl",
+        "score": 0.1499811144850981,
+        "decomp": {
+          "lexical": 0.038461538461538464,
+          "semantic": 0.12879894005889905,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-obj",
+        "score": 0.11426256454893587,
+        "decomp": {
+          "lexical": 0.058823529411764705,
+          "semantic": 0.08859758784292787,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.0,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue",
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual abordagem está vigente para processar os alertas?\nQuality: relevant | Retrieved 18 items.\n  [0.363] dec-atlas-batch (decision): Processar alertas em lote a cada 60 segundos, agrupando eventos por tipo de métr\n       decomposition: {'lexical': 0.13333333333333333, 'semantic': 0.3243797526472191, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': -0.1, 'project': 0.0}\n  [0.229] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.05263157894736842, 'semantic': 0.09180604246056398, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.213] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.043478260869565216, 'semantic': 0.07398265915993489, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+  },
+  {
+    "query_id": "q02-abordagem-anterior",
+    "query": "Como o sistema fazia isso antes da mudança?",
+    "expected_ids": [
+      "dec-atlas-batch"
+    ],
+    "retrieved_ids": [
+      "doc-atlas-arch",
+      "dec-atlas-queue",
+      "fact-atlas-obj",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.22773716372001607,
+        "decomp": {
+          "lexical": 0.045454545454545456,
+          "semantic": 0.2057065456636764,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-obj",
+        "score": 0.19172817292759714,
+        "decomp": {
+          "lexical": 0.06666666666666667,
+          "semantic": 0.2626537656523261,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.0,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Como o sistema fazia isso antes da mudança?\nQuality: relevant | Retrieved 18 items.\n  [0.228] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical': 0.045454545454545456, 'semantic': 0.2057065456636764, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.192] fact-atlas-obj (fact): O Projeto Atlas tem como objetivo construir um sistema de alertas operacionais q\n       decomposition: {'lexical': 0.06666666666666667, 'semantic': 0.2626537656523261, 'entity': 0.0, 'type': 0.0, 'relation': 0.0, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "q03-motivo-abandono",
+    "query": "Por que a abordagem inicial foi abandonada?",
+    "expected_ids": [
+      "lrn-atlas-idem",
+      "epi-atlas-dup"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Por que a abordagem inicial foi abandonada?\nQuality: relevant | Retrieved 18 items.\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.100] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "q04-evidencia-duplicacao",
+    "query": "Que evidência demonstrou o problema de duplicação?",
+    "expected_ids": [
+      "evi-atlas-log"
+    ],
+    "retrieved_ids": [
+      "evi-atlas-bench",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.29000000000000004,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.25,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.25,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Que evidência demonstrou o problema de duplicação?\nQuality: relevant | Retrieved 3 items.\n  [0.290] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.250] evi-atlas-queue-bench (evidence): Benchmark de fila persistente (Redis Streams): 5000 eventos/segundo com latência\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.250] evi-atlas-log (evidence): Trecho de log mostrando alerta #4821 enviado às 14:32 (pré-reinício) e reenviado\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}"
+  },
+  {
+    "query_id": "q05-hipotese-replay",
+    "query": "Qual hipótese explicou os alertas repetidos?",
+    "expected_ids": [
+      "hyp-atlas-replay"
+    ],
+    "retrieved_ids": [
+      "hyp-atlas-replay",
+      "hyp-atlas-cap"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "hyp-atlas-replay",
+        "score": 0.335486795352562,
+        "decomp": {
+          "lexical": 0.045454545454545456,
+          "semantic": 0.10008062474504122,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "hyp-atlas-cap",
+        "score": 0.24000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.05,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual hipótese explicou os alertas repetidos?\nQuality: relevant | Retrieved 2 items.\n  [0.335] hyp-atlas-replay (hypothesis): A duplicação de alertas é causada pela ausência de checkpoint de posição de leit\n       decomposition: {'lexical': 0.045454545454545456, 'semantic': 0.10008062474504122, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.240] hyp-atlas-cap (hypothesis): O processamento em lote suportará até 500 métricas ativas sem degradação de latê\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.05, 'project': 0.0}"
+  },
+  {
+    "query_id": "q06-aprendizado-reinicializacao",
+    "query": "O que aprendemos com a reinicialização?",
+    "expected_ids": [
+      "lrn-atlas-idem"
+    ],
+    "retrieved_ids": [
+      "lrn-atlas-idem",
+      "chk-atlas-02",
+      "evi-atlas-queue-bench",
+      "dec-atlas-queue",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.3325933680305919,
+        "decomp": {
+          "lexical": 0.0625,
+          "semantic": 0.2252334200764796,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.2774477535523744,
+        "decomp": {
+          "lexical": 0.07692307692307693,
+          "semantic": 0.25131169157324357,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.2258628289719285,
+        "decomp": {
+          "lexical": 0.045454545454545456,
+          "semantic": 0.20102070879345754,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: O que aprendemos com a reinicialização?\nQuality: relevant | Retrieved 18 items.\n  [0.333] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0625, 'semantic': 0.2252334200764796, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.277] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical': 0.07692307692307693, 'semantic': 0.25131169157324357, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.226] evi-atlas-queue-bench (evidence): Benchmark de fila persistente (Redis Streams): 5000 eventos/segundo com latência\n       decomposition: {'lexical': 0.045454545454545456, 'semantic': 0.20102070879345754, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "q07-proximo-trabalho",
+    "query": "Em que devo trabalhar agora?",
+    "expected_ids": [
+      "fact-atlas-next",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Em que devo trabalhar agora?\nQuality: relevant | Retrieved 18 items.\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.100] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "q08-risco-pendente",
+    "query": "Qual risco ainda impede a conclusão?",
+    "expected_ids": [
+      "fact-atlas-risk"
+    ],
+    "retrieved_ids": [
+      "chk-atlas-04",
+      "dec-atlas-queue",
+      "fact-atlas-risk",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "chk-atlas-04",
+        "score": 0.2355049545153668,
+        "decomp": {
+          "lexical": 0.047619047619047616,
+          "semantic": 0.21971476724079791,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.21330696765692564,
+        "decomp": {
+          "lexical": 0.037037037037037035,
+          "semantic": 0.19067482654972137,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual risco ainda impede a conclusão?\nQuality: relevant | Retrieved 18 items.\n  [0.236] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical': 0.047619047619047616, 'semantic': 0.21971476724079791, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.213] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.037037037037037035, 'semantic': 0.19067482654972137, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "q09-documento-arquitetura",
+    "query": "Que documento descreve a arquitetura atual?",
+    "expected_ids": [
+      "doc-atlas-arch"
+    ],
+    "retrieved_ids": [
+      "doc-atlas-arch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.680873444682411,
+        "decomp": {
+          "lexical": 0.2,
+          "semantic": 0.5771836117060275,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Que documento descreve a arquitetura atual?\nQuality: relevant | Retrieved 1 items.\n  [0.681] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical': 0.2, 'semantic': 0.5771836117060275, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}"
+  },
+  {
+    "query_id": "q10-criptografia-ausente",
+    "query": "Existe decisão registrada sobre criptografia ponta a ponta?",
+    "expected_ids": [],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.37,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "dec-atlas-batch",
+        "score": 0.25,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": -0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Existe decisão registrada sobre criptografia ponta a ponta?\nQuality: relevant | Retrieved 2 items.\n  [0.370] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.250] dec-atlas-batch (decision): Processar alertas em lote a cada 60 segundos, agrupando eventos por tipo de métr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': -0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "q11-conflitos",
+    "query": "Quais versões ou memórias estão em conflito?",
+    "expected_ids": [
+      "dec-atlas-batch",
+      "dec-atlas-queue"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Quais versões ou memórias estão em conflito?\nQuality: relevant | Retrieved 18 items.\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.100] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "q12-delta-checkpoints",
+    "query": "O que mudou entre o primeiro e o último checkpoint?",
+    "expected_ids": [
+      "chk-atlas-01",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "chk-atlas-03"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "chk-atlas-04",
+        "score": 0.25,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.25,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.25,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.21000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: O que mudou entre o primeiro e o último checkpoint?\nQuality: relevant | Retrieved 4 items.\n  [0.250] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.250] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.250] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.210] chk-atlas-03 (checkpoint): Fase 3 concluída: decisão de migrar para fila persistente registrada. Processame\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.1, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}"
+  },
+  {
+    "query_id": "p01-parafrase-vigente",
+    "query": "Como vocês estão tratando as notificações hoje em dia?",
+    "expected_ids": [
+      "dec-atlas-queue"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-batch",
+      "epi-atlas-dup",
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-batch",
+        "score": 0.2760565258789198,
+        "decomp": {
+          "lexical": 0.058823529411764705,
+          "semantic": 0.29308249116788765,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": -0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.26939738030993016,
+        "decomp": {
+          "lexical": 0.041666666666666664,
+          "semantic": 0.21932678410815862,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue",
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Como vocês estão tratando as notificações hoje em dia?\nQuality: relevant | Retrieved 18 items.\n  [0.276] dec-atlas-batch (decision): Processar alertas em lote a cada 60 segundos, agrupando eventos por tipo de métr\n       decomposition: {'lexical': 0.058823529411764705, 'semantic': 0.29308249116788765, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': -0.1, 'project': 0.0}\n  [0.269] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.041666666666666664, 'semantic': 0.21932678410815862, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+  },
+  {
+    "query_id": "p02-parafrase-antigo",
+    "query": "Qual era o método antigo de lidar com as mensagens?",
+    "expected_ids": [
+      "dec-atlas-batch"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual era o método antigo de lidar com as mensagens?\nQuality: relevant | Retrieved 18 items.\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.100] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "p03-parafrase-motivo",
+    "query": "O que motivou a troca do sistema original de processamento?",
+    "expected_ids": [
+      "lrn-atlas-idem",
+      "epi-atlas-dup"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "doc-atlas-arch",
+      "fact-atlas-risk",
+      "evi-atlas-bench",
+      "chk-atlas-01",
+      "hyp-atlas-cap",
+      "lrn-atlas-idem",
+      "chk-atlas-03",
+      "fact-atlas-obj",
+      "epi-atlas-dup",
+      "fact-atlas-impl",
+      "fact-atlas-next",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.3205935964575113,
+        "decomp": {
+          "lexical": 0.05263157894736842,
+          "semantic": 0.11990504377535707,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.2561362259394922,
+        "decomp": {
+          "lexical": 0.08695652173913043,
+          "semantic": 0.17294926050090434,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.24976879827789367,
+        "decomp": {
+          "lexical": 0.07142857142857142,
+          "semantic": 0.1958505671233055,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.21768823898830963,
+        "decomp": {
+          "lexical": 0.05263157894736842,
+          "semantic": 0.06264165010235295,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.19621016421877702,
+        "decomp": {
+          "lexical": 0.06666666666666667,
+          "semantic": 0.07385874388027575,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "hyp-atlas-cap",
+        "score": 0.18434128846760015,
+        "decomp": {
+          "lexical": 0.06666666666666667,
+          "semantic": 0.06918655450233363,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.05,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.14548702543793635,
+        "decomp": {
+          "lexical": 0.058823529411764705,
+          "semantic": 0.06665874006542906,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-obj",
+        "score": 0.1429737725957862,
+        "decomp": {
+          "lexical": 0.058823529411764705,
+          "semantic": 0.16037560796005376,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.0,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: O que motivou a troca do sistema original de processamento?\nQuality: relevant | Retrieved 18 items.\n  [0.321] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.05263157894736842, 'semantic': 0.11990504377535707, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.256] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical': 0.08695652173913043, 'semantic': 0.17294926050090434, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.250] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.07142857142857142, 'semantic': 0.1958505671233055, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.218] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.05263157894736842, 'semantic': 0.06264165010235295, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.196] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical': 0.06666666666666667, 'semantic': 0.07385874388027575, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "p04-parafrase-prova",
+    "query": "Tem como provar que as notificações realmente saíram repetidas?",
+    "expected_ids": [
+      "evi-atlas-log"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-batch",
+      "epi-atlas-dup",
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-batch",
+        "score": 0.2797329964671551,
+        "decomp": {
+          "lexical": 0.0625,
+          "semantic": 0.29308249116788765,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": -0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.2712089745128287,
+        "decomp": {
+          "lexical": 0.043478260869565216,
+          "semantic": 0.21932678410815862,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue",
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Tem como provar que as notificações realmente saíram repetidas?\nQuality: relevant | Retrieved 18 items.\n  [0.280] dec-atlas-batch (decision): Processar alertas em lote a cada 60 segundos, agrupando eventos por tipo de métr\n       decomposition: {'lexical': 0.0625, 'semantic': 0.29308249116788765, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': -0.1, 'project': 0.0}\n  [0.271] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.043478260869565216, 'semantic': 0.21932678410815862, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+  },
+  {
+    "query_id": "p05-parafrase-proxima",
+    "query": "Qual é a próxima tarefa que preciso executar?",
+    "expected_ids": [
+      "fact-atlas-next",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual é a próxima tarefa que preciso executar?\nQuality: relevant | Retrieved 18 items.\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.100] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "p06-parafrase-bloqueio",
+    "query": "O que está bloqueando a finalização do projeto?",
+    "expected_ids": [
+      "fact-atlas-risk",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "doc-atlas-arch",
+      "fact-atlas-risk",
+      "lrn-atlas-idem",
+      "fact-atlas-impl",
+      "fact-atlas-obj",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-next",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "chk-atlas-03"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.20166085821886354,
+        "decomp": {
+          "lexical": 0.043478260869565216,
+          "semantic": 0.1454564933732458,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.18964527085623645,
+        "decomp": {
+          "lexical": 0.03571428571428571,
+          "semantic": 0.13482746285487673,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-impl",
+        "score": 0.16179607247891192,
+        "decomp": {
+          "lexical": 0.04,
+          "semantic": 0.15449018119727975,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-obj",
+        "score": 0.15678970351877686,
+        "decomp": {
+          "lexical": 0.0625,
+          "semantic": 0.1857242587969421,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.0,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: O que está bloqueando a finalização do projeto?\nQuality: relevant | Retrieved 18 items.\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.202] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical': 0.043478260869565216, 'semantic': 0.1454564933732458, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.190] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.03571428571428571, 'semantic': 0.13482746285487673, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.162] fact-atlas-impl (fact): O consumidor de fila persistente está parcialmente implementado: consome eventos\n       decomposition: {'lexical': 0.04, 'semantic': 0.15449018119727975, 'entity': 0.0, 'type': 0.0, 'relation': 0.1, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "p07-parafrase-seguranca",
+    "query": "Alguém decidiu algo sobre segurança de ponta a ponta?",
+    "expected_ids": [],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Alguém decidiu algo sobre segurança de ponta a ponta?\nQuality: relevant | Retrieved 18 items.\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.100] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  },
+  {
+    "query_id": "p08-parafrase-evolucao",
+    "query": "Compare o começo do projeto com o estado atual — o que evoluiu?",
+    "expected_ids": [
+      "chk-atlas-01",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "chk-atlas-04",
+      "doc-atlas-arch",
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-obj",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "dec-atlas-batch",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "chk-atlas-03"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "chk-atlas-04",
+        "score": 0.29839510732257646,
+        "decomp": {
+          "lexical": 0.08695652173913043,
+          "semantic": 0.27859646395861504,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.27385148659150177,
+        "decomp": {
+          "lexical": 0.08333333333333333,
+          "semantic": 0.22629538314542103,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.22000000000000003,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.18000000000000005,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.14,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-obj",
+        "score": 0.13334402732354578,
+        "decomp": {
+          "lexical": 0.05555555555555555,
+          "semantic": 0.14447117941997553,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.0,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.10000000000000002,
+        "decomp": {
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.1,
+          "project": 0.0
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Compare o começo do projeto com o estado atual — o que evoluiu?\nQuality: relevant | Retrieved 18 items.\n  [0.298] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical': 0.08695652173913043, 'semantic': 0.27859646395861504, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.274] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical': 0.08333333333333333, 'semantic': 0.22629538314542103, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.220] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.180] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\n  [0.140] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.1, 'project': 0.0}\nConflicts detected: 3\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded\n    superseded_by: dec-atlas-queue"
+  }
+]

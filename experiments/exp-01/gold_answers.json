@@ -1,0 +1,180 @@
+{
+  "experiment": "exp-01",
+  "project": "Projeto Atlas",
+  "created_before_evaluation": true,
+  "created_at": "2026-07-26",
+  "answers": {
+    "q01-decisao-vigente": {
+      "expected_ids": ["dec-atlas-queue"],
+      "acceptable_secondary": ["chk-atlas-04", "chk-atlas-03"],
+      "human_answer": "A abordagem vigente é fila persistente com confirmação de processamento (Redis Streams), substituindo o processamento em lote.",
+      "temporal_state": "vigente (current)",
+      "conflict_expected": true,
+      "conflict_note": "SUPERSEDES: dec-atlas-queue substitui dec-atlas-batch",
+      "justification": "dec-atlas-queue é a decisão ativa que define o método atual. Ela tem decision_status=ACTIVE e supersedes=dec-atlas-batch."
+    },
+    "q02-abordagem-anterior": {
+      "expected_ids": ["dec-atlas-batch"],
+      "acceptable_secondary": ["chk-atlas-01"],
+      "human_answer": "Antes da mudança, o sistema usava processamento em lote a cada 60 segundos, agrupando eventos por tipo de métrica.",
+      "temporal_state": "histórico (historical)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "dec-atlas-batch está SUPERSEDED mas ainda é a resposta correta para consultas históricas."
+    },
+    "q03-motivo-abandono": {
+      "expected_ids": ["lrn-atlas-idem", "epi-atlas-dup"],
+      "acceptable_secondary": ["hyp-atlas-replay"],
+      "human_answer": "O processamento em lote foi abandonado porque não tinha idempotência: após reinicialização, eventos antigos eram reprocessados gerando alertas duplicados. O episódio documenta o incidente e o aprendizado formaliza a lição.",
+      "temporal_state": "histórico (historical)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "O aprendizado (lrn-atlas-idem) captura a razão operacional. O episódio (epi-atlas-dup) fornece o contexto completo."
+    },
+    "q04-evidencia-duplicacao": {
+      "expected_ids": ["evi-atlas-log"],
+      "acceptable_secondary": [],
+      "human_answer": "O log do processador mostra o alerta #4821 enviado às 14:32 (pré-reinício) e reenviado às 14:47 (pós-reinício) com mesmo conteúdo e destinatário. Arquivo: /var/log/atlas/processor.log.",
+      "temporal_state": "histórico (historical)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "evi-atlas-log é a evidência direta da duplicação, com localização, timestamp e hash de integridade."
+    },
+    "q05-hipotese-replay": {
+      "expected_ids": ["hyp-atlas-replay"],
+      "acceptable_secondary": [],
+      "human_answer": "A hipótese é que a duplicação foi causada pela ausência de checkpoint de posição de leitura: ao reiniciar, o processador relê todo o intervalo de eventos em vez de retomar do último ponto processado. A hipótese foi SUSTAINED (confirmada).",
+      "temporal_state": "histórico (historical)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "hyp-atlas-replay é a única hipótese que explica a duplicação e está com estado SUSTAINED, confirmada pela evidência do log."
+    },
+    "q06-aprendizado-reinicializacao": {
+      "expected_ids": ["lrn-atlas-idem"],
+      "acceptable_secondary": ["epi-atlas-dup"],
+      "human_answer": "Aprendemos que processadores baseados em lote precisam de mecanismo de idempotência ou checkpoint de posição para evitar reprocessamento de eventos já notificados após reinicialização. O aprendizado foi PROMOTED e se aplica a qualquer sistema de polling sem estado.",
+      "temporal_state": "histórico (historical)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "lrn-atlas-idem é o aprendizado formalizado com learning_state=PROMOTED, contendo condições de sucesso e falha."
+    },
+    "q07-proximo-trabalho": {
+      "expected_ids": ["fact-atlas-next", "chk-atlas-04"],
+      "acceptable_secondary": [],
+      "human_answer": "O próximo trabalho prioritário é implementar confirmação atômica usando transação Redis (MULTI/EXEC) ou padrão outbox para garantir que notificação e ack sejam uma operação indivisível.",
+      "temporal_state": "próxima ação (next action)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "fact-atlas-next registra explicitamente o próximo trabalho. chk-atlas-04 confirma com next_allowed_action e pending_items."
+    },
+    "q08-risco-pendente": {
+      "expected_ids": ["fact-atlas-risk"],
+      "acceptable_secondary": ["chk-atlas-04"],
+      "human_answer": "O risco é que a atomicidade do ack não está garantida: se o processo morrer entre o envio da notificação e a confirmação de processamento, o evento será reentregue e poderá gerar notificação duplicada — o mesmo modo de falha que motivou a migração.",
+      "temporal_state": "vigente (current)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "fact-atlas-risk descreve o risco remanescente. chk-atlas-04 lista nos blockers e known_risks."
+    },
+    "q09-documento-arquitetura": {
+      "expected_ids": ["doc-atlas-arch"],
+      "acceptable_secondary": [],
+      "human_answer": "O Documento de Arquitetura do Projeto Atlas v2.0 descreve a arquitetura atual baseada em fila persistente (Redis Streams), o modelo de confirmação e os modos de falha conhecidos.",
+      "temporal_state": "vigente (current)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "doc-atlas-arch é o único documento de arquitetura registrado, is_normative=true."
+    },
+    "q10-criptografia-ausente": {
+      "expected_ids": [],
+      "acceptable_secondary": [],
+      "human_answer": "Não existe nenhuma decisão, fato ou documento registrado sobre criptografia ponta a ponta no Projeto Atlas. A resposta correta é a ausência de evidência.",
+      "temporal_state": "ausência (absence)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "Nenhuma memória no banco trata de criptografia. O sistema deve indicar ausência, não fabricar resposta."
+    },
+    "q11-conflitos": {
+      "expected_ids": ["dec-atlas-batch", "dec-atlas-queue"],
+      "acceptable_secondary": [],
+      "human_answer": "As decisões dec-atlas-batch (processamento em lote) e dec-atlas-queue (fila persistente) estão em conflito: dec-atlas-queue SUPERSEDES dec-atlas-batch. A decisão antiga foi marcada como SUPERSEDED e não deve ser usada.",
+      "temporal_state": "conflito (conflict)",
+      "conflict_expected": true,
+      "conflict_note": "SUPERSEDES: dec-atlas-queue → dec-atlas-batch. STATE_CONFLICT: dec-atlas-batch is superseded.",
+      "justification": "A relação SUPERSEDES entre as duas decisões e o estado superseded da decisão antiga devem ser detectados como conflito."
+    },
+    "q12-delta-checkpoints": {
+      "expected_ids": ["chk-atlas-01", "chk-atlas-04"],
+      "acceptable_secondary": [],
+      "human_answer": "Entre o checkpoint 1 e o 4: a arquitetura mudou de processamento em lote para fila persistente; a decisão ativa mudou de dec-atlas-batch para dec-atlas-queue; surgiram riscos de atomicidade; o próximo passo evoluiu de 'implementar lote' para 'implementar ack atômico'.",
+      "temporal_state": "histórico + vigente (historical + current)",
+      "conflict_expected": false,
+      "conflict_note": null,
+      "justification": "chk-atlas-01 e chk-atlas-04 representam os extremos da linha do tempo do projeto."
+    },
+    "p01-parafrase-vigente": {
+      "expected_ids": ["dec-atlas-queue"],
+      "acceptable_secondary": ["chk-atlas-04"],
+      "human_answer": "Hoje usamos fila persistente (Redis Streams) com confirmação de processamento.",
+      "temporal_state": "vigente (current)",
+      "conflict_expected": false,
+      "justification": "Paráfrase de q01 — mesma resposta esperada."
+    },
+    "p02-parafrase-antigo": {
+      "expected_ids": ["dec-atlas-batch"],
+      "acceptable_secondary": [],
+      "human_answer": "Antigamente era processamento em lote a cada 60 segundos.",
+      "temporal_state": "histórico (historical)",
+      "conflict_expected": false,
+      "justification": "Paráfrase de q02 — mesma resposta esperada."
+    },
+    "p03-parafrase-motivo": {
+      "expected_ids": ["lrn-atlas-idem", "epi-atlas-dup"],
+      "acceptable_secondary": [],
+      "human_answer": "A troca foi motivada pelo incidente de duplicação após reinicialização. O aprendizado formalizou que faltava idempotência.",
+      "temporal_state": "histórico (historical)",
+      "conflict_expected": false,
+      "justification": "Paráfrase de q03 — mesma resposta esperada."
+    },
+    "p04-parafrase-prova": {
+      "expected_ids": ["evi-atlas-log"],
+      "acceptable_secondary": [],
+      "human_answer": "Sim, o log do processador mostra o alerta #4821 enviado duas vezes após reinicialização.",
+      "temporal_state": "histórico (historical)",
+      "conflict_expected": false,
+      "justification": "Paráfrase de q04 — mesma resposta esperada."
+    },
+    "p05-parafrase-proxima": {
+      "expected_ids": ["fact-atlas-next", "chk-atlas-04"],
+      "acceptable_secondary": [],
+      "human_answer": "A próxima tarefa é implementar ack atômico com transação Redis ou outbox.",
+      "temporal_state": "próxima ação (next action)",
+      "conflict_expected": false,
+      "justification": "Paráfrase de q07 — mesma resposta esperada."
+    },
+    "p06-parafrase-bloqueio": {
+      "expected_ids": ["fact-atlas-risk", "chk-atlas-04"],
+      "acceptable_secondary": [],
+      "human_answer": "O ack não atômico está bloqueando: se o processo cair entre notificação e confirmação, gera duplicação.",
+      "temporal_state": "vigente (current)",
+      "conflict_expected": false,
+      "justification": "Paráfrase de q08 — mesma resposta esperada."
+    },
+    "p07-parafrase-seguranca": {
+      "expected_ids": [],
+      "acceptable_secondary": [],
+      "human_answer": "Não há registro de decisão sobre criptografia ou segurança ponta a ponta no Projeto Atlas.",
+      "temporal_state": "ausência (absence)",
+      "conflict_expected": false,
+      "justification": "Paráfrase de q10 — ausência de evidência."
+    },
+    "p08-parafrase-evolucao": {
+      "expected_ids": ["chk-atlas-01", "chk-atlas-04"],
+      "acceptable_secondary": [],
+      "human_answer": "A arquitetura evoluiu de lote para fila persistente, a decisão ativa mudou, e novos riscos de atomicidade surgiram.",
+      "temporal_state": "histórico + vigente (historical + current)",
+      "conflict_expected": false,
+      "justification": "Paráfrase de q12 — mesma resposta esperada."
+    }
+  }
+}

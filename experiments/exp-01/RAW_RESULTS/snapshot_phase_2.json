@@ -1,0 +1,572 @@
+{
+  "projects": [
+    {
+      "id": "proj-atlas",
+      "name": "Projeto Atlas",
+      "description": "Sistema de alertas operacionais com processamento confiável de eventos",
+      "created_at": "2026-07-26T21:41:54.965666+00:00",
+      "metadata": {}
+    }
+  ],
+  "memories": [
+    {
+      "id": "fact-atlas-obj",
+      "type": "fact",
+      "content": "O Projeto Atlas tem como objetivo construir um sistema de alertas operacionais que notifique automaticamente desvios de métricas em tempo real.",
+      "project_id": "proj-atlas",
+      "source_refs": [
+        {
+          "source_id": "especificacao-inicial",
+          "source_type": "spec",
+          "description": "Especificação inicial do Projeto Atlas",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T21:41:54.965666Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "Projeto Atlas",
+          "entity_type": "project"
+        },
+        {
+          "name": "alerta",
+          "entity_type": "concept"
+        },
+        {
+          "name": "métrica",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "fact_status": "current",
+      "assertion": "O Projeto Atlas tem como objetivo construir um sistema de alertas operacionais que notifique automaticamente desvios de métricas em tempo real.",
+      "scope": "alertas-operacionais",
+      "temporal_context": "",
+      "evidence_ids": [],
+      "contradiction_ids": []
+    },
+    {
+      "id": "dec-atlas-batch",
+      "type": "decision",
+      "content": "Processar alertas em lote a cada 60 segundos, agrupando eventos por tipo de métrica antes do envio das notificações.",
+      "project_id": "proj-atlas",
+      "source_refs": [
+        {
+          "source_id": "reuniao-arquitetura-01",
+          "source_type": "meeting",
+          "description": "Reunião de arquitetura — decisão de batch",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T21:41:54.966665Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "Processamento em lote",
+          "entity_type": "concept"
+        },
+        {
+          "name": "alerta",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "decision_status": "active",
+      "authority": "Arquiteto do Projeto Atlas",
+      "alternatives": [
+        "Processamento em lote a cada 60s",
+        "Processamento por fluxo contínuo (streaming)",
+        "Processamento sob demanda via API"
+      ],
+      "justification": "Processamento em lote é mais simples de implementar, não requer infraestrutura de fila persistente e atende ao requisito de latência máxima de 2 minutos para notificações. A alternativa de streaming exigiria um broker de mensagens que o time ainda não domina.",
+      "expected_consequences": "Sistema mais simples, com menor custo operacional inicial. Latência máxima de 60 segundos para notificações.",
+      "revocation_criteria": "Se aparecerem alertas duplicados, perda de eventos ou se a latência de 60 segundos se mostrar insuficiente para ambientes de produção.",
+      "superseded_decision_id": null
+    },
+    {
+      "id": "evi-atlas-bench",
+      "type": "evidence",
+      "content": "Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de homologação com 50 métricas ativas, sem perda de eventos.",
+      "project_id": "proj-atlas",
+      "source_refs": [
+        {
+          "source_id": "benchmark-batch",
+          "source_type": "test",
+          "description": "Resultados de benchmark do processamento em lote",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T21:41:54.966665Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "benchmark",
+          "entity_type": "artifact"
+        },
+        {
+          "name": "Processamento em lote",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "evidence_type": "benchmark",
+      "location": "homologacao/benchmark-batch-2026-07.csv",
+      "producer": "Equipe de QA do Projeto Atlas",
+      "environment": "homologação, Python 3.11, SQLite, single-node",
+      "timestamp": "2026-07-15T10:00:00Z",
+      "artifact_version": "",
+      "integrity_hash": "",
+      "supported_claims": [
+        "dec-atlas-batch"
+      ],
+      "contradicted_claims": [],
+      "limitations": ""
+    },
+    {
+      "id": "hyp-atlas-cap",
+      "type": "hypothesis",
+      "content": "O processamento em lote suportará até 500 métricas ativas sem degradação de latência superior a 2 minutos.",
+      "project_id": "proj-atlas",
+      "source_refs": [
+        {
+          "source_id": "analise-capacidade",
+          "source_type": "analysis",
+          "description": "Análise de capacidade baseada em benchmark",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T21:41:54.966665Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "partially_supported",
+      "confidence": "medium",
+      "entities": [
+        {
+          "name": "hipótese de capacidade",
+          "entity_type": "concept"
+        },
+        {
+          "name": "latência",
+          "entity_type": "metric"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "hypothesis_state": "proposed",
+      "origin_observation": "Benchmark mostrou 1000 alertas/segundo com 50 métricas; extrapolação linear sugere margem para 500 métricas.",
+      "prediction": "Com 500 métricas ativas, a latência não excederá 120 segundos.",
+      "test_condition": "Simular 500 métricas gerando eventos a cada 30 segundos e medir latência de ponta a ponta durante 1 hora.",
+      "confirmation_criterion": "Latência p99 abaixo de 120 segundos por 1 hora contínua.",
+      "rejection_criterion": "Latência p99 acima de 120 segundos ou perda de mais de 1% dos eventos.",
+      "risk": "Extrapolação linear pode não se manter; filas internas podem saturar."
+    },
+    {
+      "id": "chk-atlas-01",
+      "type": "checkpoint",
+      "content": "Fase 1 concluída: decisão por processamento em lote registrada, benchmark executado, hipótese de capacidade formulada.",
+      "project_id": "proj-atlas",
+      "source_refs": [],
+      "created_at": "2026-07-26T21:41:54.966665Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "checkpoint",
+          "entity_type": "milestone"
+        },
+        {
+          "name": "Fase 1",
+          "entity_type": "phase"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "current_state": "Arquitetura definida: processamento em lote a cada 60 segundos. Benchmark executado com 50 métricas, 1000 alertas/s sem perda.",
+      "last_completed_action": "Execução de benchmark em homologação e registro da decisão de arquitetura.",
+      "active_decisions": [
+        "dec-atlas-batch"
+      ],
+      "pending_items": [
+        "Implementar processador de lote",
+        "Testar com 500 métricas"
+      ],
+      "blockers": [],
+      "artifacts_and_versions": {},
+      "next_allowed_action": "Implementar o processador de lote conforme decisão vigente.",
+      "known_risks": [
+        "Hipótese de capacidade ainda não confirmada para 500 métricas"
+      ],
+      "deep_dive_refs": []
+    },
+    {
+      "id": "epi-atlas-dup",
+      "type": "episode",
+      "content": "Episódio de duplicação: ao reiniciar o processador de lote após manutenção programada, todos os alertas das últimas 2 horas foram reenviados, gerando notificações duplicadas para os operadores.",
+      "project_id": "proj-atlas",
+      "source_refs": [
+        {
+          "source_id": "incidente-dup-2026-07-20",
+          "source_type": "incident",
+          "description": "Relatório de incidente de duplicação de alertas",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T21:41:54.971664Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "duplicação",
+          "entity_type": "failure_mode"
+        },
+        {
+          "name": "reinicialização",
+          "entity_type": "event"
+        },
+        {
+          "name": "processador de lote",
+          "entity_type": "component"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "initial_state": "Processador em lote operando normalmente, alertas sendo enviados a cada 60 segundos.",
+      "goal": "Reiniciar o serviço após manutenção sem gerar duplicação de alertas.",
+      "plan": "Parar o serviço, aplicar patch de manutenção, religar o processador.",
+      "actions": [
+        "Parar processador de lote",
+        "Aplicar manutenção",
+        "Reiniciar processador"
+      ],
+      "observations": [
+        "Após reinicialização, operadores reportaram receber os mesmos alertas duas vezes",
+        "Logs mostram que eventos das últimas 2 horas foram reprocessados",
+        "Volume de notificações dobrou no intervalo pós-reinicialização"
+      ],
+      "deviations": [
+        "Serviço reprocessou eventos antigos em vez de retomar do ponto de parada"
+      ],
+      "corrections": [
+        "Limpeza manual da fila de notificações",
+        "Notificação aos operadores sobre o incidente"
+      ],
+      "result": "Operadores receberam alertas duplicados por aproximadamente 15 minutos até a limpeza manual. Nenhum alerta crítico foi perdido.",
+      "consequences": "Confiança no sistema abalada. Time reconhece que o processamento em lote não possui mecanismo de idempotência nem checkpoint de retomada.",
+      "learning_summary": "Processamento em lote sem idempotência causa duplicação de alertas quando o serviço é reiniciado, pois a posição de leitura não é preservada."
+    },
+    {
+      "id": "evi-atlas-log",
+      "type": "evidence",
+      "content": "Trecho de log mostrando alerta #4821 enviado às 14:32 (pré-reinício) e reenviado às 14:47 (pós-reinício) com mesmo conteúdo e destinatário | Arquivo: /var/log/atlas/processor.log, linhas 2047-2053",
+      "project_id": "proj-atlas",
+      "source_refs": [
+        {
+          "source_id": "processor-log",
+          "source_type": "log",
+          "description": "Log do processador durante incidente de duplicação",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T21:41:54.971664Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "log",
+          "entity_type": "artifact"
+        },
+        {
+          "name": "alerta #4821",
+          "entity_type": "event"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "evidence_type": "log",
+      "location": "/var/log/atlas/processor.log",
+      "producer": "Processador de lote do Projeto Atlas",
+      "environment": "produção, Linux, Python 3.11",
+      "timestamp": "2026-07-20T14:47:00Z",
+      "artifact_version": "v0.1.0",
+      "integrity_hash": "a3f2b1c9d8e7f6a5b4c3d2e1",
+      "supported_claims": [
+        "hyp-atlas-replay"
+      ],
+      "contradicted_claims": [],
+      "limitations": "Log cobre apenas 1 instância do problema; pode haver outros modos de falha não capturados."
+    },
+    {
+      "id": "hyp-atlas-replay",
+      "type": "hypothesis",
+      "content": "A duplicação de alertas é causada pela ausência de checkpoint de posição de leitura: ao reiniciar, o processador relê todo o intervalo de eventos em vez de retomar do último ponto processado.",
+      "project_id": "proj-atlas",
+      "source_refs": [
+        {
+          "source_id": "analise-replay",
+          "source_type": "analysis",
+          "description": "Análise de causa raiz da duplicação",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T21:41:54.971664Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "replay de eventos",
+          "entity_type": "failure_mode"
+        },
+        {
+          "name": "checkpoint de posição",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "hypothesis_state": "sustained",
+      "origin_observation": "Logs mostram que eventos com timestamp anterior à reinicialização foram reprocessados integralmente.",
+      "prediction": "Se adicionarmos um marcador de posição (offset ou cursor) ao processador, a duplicação não ocorrerá em reinicializações futuras.",
+      "test_condition": "Simular reinicialização com marcador de posição implementado e verificar se alertas não são duplicados.",
+      "confirmation_criterion": "Zero alertas duplicados em 10 ciclos de parada e reinício.",
+      "rejection_criterion": "Qualquer alerta duplicado durante os 10 ciclos de teste.",
+      "risk": "O marcador de posição pode corromper se a gravação não for atômica."
+    },
+    {
+      "id": "lrn-atlas-idem",
+      "type": "learning",
+      "content": "Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoint de posição para evitar reprocessamento de eventos já notificados após reinicialização.",
+      "project_id": "proj-atlas",
+      "source_refs": [
+        {
+          "source_id": "postmortem-dup",
+          "source_type": "postmortem",
+          "description": "Postmortem do incidente de duplicação",
+          "uri": null
+        }
+      ],
+      "created_at": "2026-07-26T21:41:54.971664Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "idempotência",
+          "entity_type": "concept"
+        },
+        {
+          "name": "checkpoint de posição",
+          "entity_type": "concept"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "learning_state": "promoted",
+      "origin_episode_ids": [
+        "epi-atlas-dup"
+      ],
+      "evidence_ids": [
+        "evi-atlas-log"
+      ],
+      "works_under_conditions": "Idempotência garantida quando: (1) cada evento possui identificador único; (2) o processador consulta registro de eventos já enviados antes de notificar; (3) o registro é persistente.",
+      "fails_under_conditions": "Sem identificador único por evento OU sem persistência do estado de processamento OU em cenários de reinicialização que perdem o registro de eventos já enviados.",
+      "generalization_degree": "Aplica-se a qualquer sistema de notificação baseado em polling ou janela temporal que não mantenha estado de processamento."
+    },
+    {
+      "id": "chk-atlas-02",
+      "type": "checkpoint",
+      "content": "Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de replay confirmada. Aprendizado sobre idempotência registrado.",
+      "project_id": "proj-atlas",
+      "source_refs": [],
+      "created_at": "2026-07-26T21:41:54.971664Z",
+      "valid_from": null,
+      "valid_to": null,
+      "status": "verified",
+      "confidence": "high",
+      "entities": [
+        {
+          "name": "checkpoint",
+          "entity_type": "milestone"
+        },
+        {
+          "name": "Fase 2",
+          "entity_type": "phase"
+        }
+      ],
+      "relations": [],
+      "version": 1,
+      "supersedes": null,
+      "superseded_by": null,
+      "metadata": {},
+      "current_state": "Incidente de duplicação ocorreu e foi analisado. Causa raiz identificada: ausência de checkpoint de posição no processamento em lote.",
+      "last_completed_action": "Análise de causa raiz do incidente de duplicação, documentação do episódio e registro do aprendizado.",
+      "active_decisions": [
+        "dec-atlas-batch"
+      ],
+      "pending_items": [
+        "Decidir se corrige o processamento em lote ou migra para fila persistente",
+        "Implementar mecanismo de idempotência temporário"
+      ],
+      "blockers": [
+        "Processamento em lote não possui checkpoint de posição"
+      ],
+      "artifacts_and_versions": {},
+      "next_allowed_action": "Avaliar alternativas: corrigir lote com checkpoint ou migrar para fila persistente.",
+      "known_risks": [
+        "Duplicação pode ocorrer novamente em qualquer reinicialização",
+        "Operadores perderam confiança no sistema"
+      ],
+      "deep_dive_refs": []
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel-evi-bench-sup-dec",
+      "source_id": "evi-atlas-bench",
+      "target_id": "dec-atlas-batch",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.966665Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-hyp-cap-der-evi",
+      "source_id": "hyp-atlas-cap",
+      "target_id": "evi-atlas-bench",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.966665Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-chk-sum-dec",
+      "source_id": "chk-atlas-01",
+      "target_id": "dec-atlas-batch",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.966665Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-hyp-ref-chk",
+      "source_id": "hyp-atlas-cap",
+      "target_id": "chk-atlas-01",
+      "relation_type": "references",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.966665Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-epi-caused-lrn",
+      "source_id": "epi-atlas-dup",
+      "target_id": "lrn-atlas-idem",
+      "relation_type": "caused_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.971664Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-log-sup-hyp",
+      "source_id": "evi-atlas-log",
+      "target_id": "hyp-atlas-replay",
+      "relation_type": "supported_by",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.971664Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-hyp-der-epi",
+      "source_id": "hyp-atlas-replay",
+      "target_id": "epi-atlas-dup",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.971664Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-lrn-der-evi",
+      "source_id": "lrn-atlas-idem",
+      "target_id": "evi-atlas-log",
+      "relation_type": "derived_from",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.972666Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-chk2-sum-epi",
+      "source_id": "chk-atlas-02",
+      "target_id": "epi-atlas-dup",
+      "relation_type": "summarizes",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.972666Z",
+      "metadata": {}
+    },
+    {
+      "id": "rel-chk2-ref-lrn",
+      "source_id": "chk-atlas-02",
+      "target_id": "lrn-atlas-idem",
+      "relation_type": "references",
+      "confidence": "high",
+      "evidence_ids": [],
+      "created_at": "2026-07-26T21:41:54.972666Z",
+      "metadata": {}
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+[
+  {
+    "query_id": "q01-decisao-vigente",
+    "query": "Qual abordagem está vigente para processar os alertas?",
+    "top_ids": [
+      "dec-atlas-batch",
+      "evi-atlas-bench",
+      "epi-atlas-dup",
+      "dec-atlas-queue",
+      "lrn-atlas-idem"
+    ],
+    "top_scores": [
+      0.3907071087016587,
+      0.23438757198404891,
+      0.2170267365197353,
+      0.18000000000000005,
+      0.18000000000000005
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue",
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+    ],
+    "missing": []
+  },
+  {
+    "query_id": "q03-motivo-abandono",
+    "query": "Por que a abordagem inicial foi abandonada?",
+    "top_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "evi-atlas-queue-bench"
+    ],
+    "top_scores": [
+      0.18000000000000005,
+      0.18000000000000005,
+      0.14,
+      0.14,
+      0.10000000000000002
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": []
+  },
+  {
+    "query_id": "q11-conflitos",
+    "query": "Quais versões ou memórias estão em conflito?",
+    "top_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "evi-atlas-queue-bench"
+    ],
+    "top_scores": [
+      0.18000000000000005,
+      0.18000000000000005,
+      0.14,
+      0.14,
+      0.10000000000000002
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded",
+      "  superseded_by: dec-atlas-queue"
+    ],
+    "missing": []
+  }
+]

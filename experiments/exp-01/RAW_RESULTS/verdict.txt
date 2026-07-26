@@ -1,0 +1,1 @@
+EXPERIMENT_01_FAILED — q01: decisao vigente (dec-atlas-queue) nao foi hit@1; a decisao obsoleta (dec-atlas-batch) teve score maior; p01: parafrase — decisao vigente nao foi hit@1; q02: decisao obsoleta nao recuperavel em top-3; q07: proxima acao nao recuperada em top-3; p07: parafrase — consulta de ausencia retornou memorias (num_retrieved=18); q08: risco pendente nao foi hit@1

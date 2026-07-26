@@ -1,0 +1,57 @@
+[
+  {
+    "query_id": "q01-decisao-vigente",
+    "query": "Qual abordagem está vigente para processar os alertas?",
+    "top_ids": [
+      "dec-atlas-batch",
+      "evi-atlas-bench",
+      "fact-atlas-obj",
+      "chk-atlas-01",
+      "hyp-atlas-cap"
+    ],
+    "top_scores": [
+      0.3824937243425052,
+      0.1963688728273173,
+      0.12204058456029486,
+      0.10000000000000002,
+      0.09000000000000002
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": []
+  },
+  {
+    "query_id": "q02-abordagem-anterior",
+    "query": "Como o sistema fazia isso antes da mudança?",
+    "top_ids": [
+      "fact-atlas-obj",
+      "dec-atlas-batch",
+      "evi-atlas-bench",
+      "chk-atlas-01",
+      "hyp-atlas-cap"
+    ],
+    "top_scores": [
+      0.2026353590916718,
+      0.10000000000000002,
+      0.10000000000000002,
+      0.10000000000000002,
+      0.09000000000000002
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": []
+  },
+  {
+    "query_id": "q12-delta-checkpoints",
+    "query": "O que mudou entre o primeiro e o último checkpoint?",
+    "top_ids": [
+      "chk-atlas-01"
+    ],
+    "top_scores": [
+      0.25
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": []
+  }
+]
