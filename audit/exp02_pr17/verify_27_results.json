@@ -1,0 +1,458 @@
+[
+  {
+    "query_id": "q01-decisao-vigente",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "dec-boreal-dual"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q02-abordagem-anterior",
+    "temporal_state": "historico",
+    "gold_primary": [
+      "dec-boreal-iot"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q03-motivo-mudanca",
+    "temporal_state": "historico",
+    "gold_primary": [
+      "lrn-battery-cold-degradation",
+      "epi-transport-excursion"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 2
+  },
+  {
+    "query_id": "q04-evidencia-falha-bateria",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "evi-lab-battery-test"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 4,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q05-hipotese-falha",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "hyp-battery-confirmed"
+    ],
+    "declared_hit_1": false,
+    "declared_hit_3": true,
+    "declared_mrr": 0.5,
+    "reproduced_hit_1": false,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 0.5,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 2,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q06-aprendizado-baterias",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "lrn-battery-cold-degradation"
+    ],
+    "declared_hit_1": false,
+    "declared_hit_3": true,
+    "declared_mrr": 0.5,
+    "reproduced_hit_1": false,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 0.5,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q07-proxima-acao",
+    "temporal_state": "proxima-acao",
+    "gold_primary": [
+      "chk-boreal-p5",
+      "fact-training-risk"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 2
+  },
+  {
+    "query_id": "q08-risco-pendente",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "fact-training-risk"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q09-documento-arquitetura",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "doc-dual-spec"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 4,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q10-ausencia-gps",
+    "temporal_state": "ausencia",
+    "gold_primary": [],
+    "declared_hit_1": false,
+    "declared_hit_3": false,
+    "declared_mrr": 0.0,
+    "reproduced_hit_1": false,
+    "reproduced_hit_3": false,
+    "reproduced_mrr": 0.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 0
+  },
+  {
+    "query_id": "q11-conflitos",
+    "temporal_state": "conflito",
+    "gold_primary": [
+      "dec-boreal-dual",
+      "dec-boreal-iot"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 2,
+    "relevant_retrieved": 2
+  },
+  {
+    "query_id": "q12-delta-checkpoints",
+    "temporal_state": "delta",
+    "gold_primary": [
+      "chk-boreal-p5",
+      "chk-boreal-p1"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 4,
+    "relevant_retrieved": 2
+  },
+  {
+    "query_id": "q13-evidencia-vvm",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "evi-who-pqs-vvm"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 4,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q14-bloqueio",
+    "temporal_state": "bloqueio",
+    "gold_primary": [
+      "lrn-staff-training-gap",
+      "chk-boreal-p5"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 2
+  },
+  {
+    "query_id": "q15-parafrase-vigente",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "dec-boreal-dual"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q16-parafrase-anterior",
+    "temporal_state": "historico",
+    "gold_primary": [
+      "dec-boreal-iot"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q17-parafrase-abandono",
+    "temporal_state": "historico",
+    "gold_primary": [
+      "lrn-battery-cold-degradation",
+      "epi-transport-excursion"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 2
+  },
+  {
+    "query_id": "q18-parafrase-evidencia",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "evi-lab-battery-test"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q19-parafrase-hipotese",
+    "temporal_state": "historico",
+    "gold_primary": [
+      "hyp-battery-failure"
+    ],
+    "declared_hit_1": false,
+    "declared_hit_3": true,
+    "declared_mrr": 0.5,
+    "reproduced_hit_1": false,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 0.5,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q20-parafrase-aprendizado",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "lrn-battery-cold-degradation"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q21-parafrase-proxima-acao",
+    "temporal_state": "proxima-acao",
+    "gold_primary": [
+      "chk-boreal-p5",
+      "fact-training-risk"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 2
+  },
+  {
+    "query_id": "q22-parafrase-risco",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "fact-training-risk"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q23-parafrase-documento",
+    "temporal_state": "vigente",
+    "gold_primary": [
+      "doc-dual-spec"
+    ],
+    "declared_hit_1": true,
+    "declared_hit_3": true,
+    "declared_mrr": 1.0,
+    "reproduced_hit_1": true,
+    "reproduced_hit_3": true,
+    "reproduced_mrr": 1.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 4,
+    "relevant_retrieved": 1
+  },
+  {
+    "query_id": "q24-parafrase-ausencia-gps",
+    "temporal_state": "ausencia",
+    "gold_primary": [],
+    "declared_hit_1": false,
+    "declared_hit_3": false,
+    "declared_mrr": 0.0,
+    "reproduced_hit_1": false,
+    "reproduced_hit_3": false,
+    "reproduced_mrr": 0.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 0
+  },
+  {
+    "query_id": "q25-ausencia-drones",
+    "temporal_state": "ausencia",
+    "gold_primary": [],
+    "declared_hit_1": false,
+    "declared_hit_3": false,
+    "declared_mrr": 0.0,
+    "reproduced_hit_1": false,
+    "reproduced_hit_3": false,
+    "reproduced_mrr": 0.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 0
+  },
+  {
+    "query_id": "q26-ausencia-blackout",
+    "temporal_state": "ausencia",
+    "gold_primary": [],
+    "declared_hit_1": false,
+    "declared_hit_3": false,
+    "declared_mrr": 0.0,
+    "reproduced_hit_1": false,
+    "reproduced_hit_3": false,
+    "reproduced_mrr": 0.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 0
+  },
+  {
+    "query_id": "q27-ausencia-anvisa",
+    "temporal_state": "ausencia",
+    "gold_primary": [],
+    "declared_hit_1": false,
+    "declared_hit_3": false,
+    "declared_mrr": 0.0,
+    "reproduced_hit_1": false,
+    "reproduced_hit_3": false,
+    "reproduced_mrr": 0.0,
+    "match": true,
+    "fake_sources": 0,
+    "num_retrieved": 20,
+    "relevant_retrieved": 0
+  }
+]

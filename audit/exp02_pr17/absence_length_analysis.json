@@ -1,0 +1,116 @@
+{
+  "short": {
+    "q10-ausencia-gps": {
+      "query_id": "q10-ausencia-gps",
+      "query_text": "rastreamento GPS",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "top_lexical_score": 0.0,
+      "top_id": "dec-boreal-dual",
+      "has_lexical_overlap": false,
+      "is_absent": true
+    },
+    "q24-parafrase-ausencia-gps": {
+      "query_id": "q24-parafrase-ausencia-gps",
+      "query_text": "satelite rastreamento localizacao",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "top_lexical_score": 0.0,
+      "top_id": "dec-boreal-dual",
+      "has_lexical_overlap": false,
+      "is_absent": true
+    },
+    "q25-ausencia-drones": {
+      "query_id": "q25-ausencia-drones",
+      "query_text": "drones aereos",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "top_lexical_score": 0.0,
+      "top_id": "dec-boreal-dual",
+      "has_lexical_overlap": false,
+      "is_absent": true
+    },
+    "q26-ausencia-blackout": {
+      "query_id": "q26-ausencia-blackout",
+      "query_text": "blackout eletrico",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "top_lexical_score": 0.0,
+      "top_id": "dec-boreal-dual",
+      "has_lexical_overlap": false,
+      "is_absent": true
+    },
+    "q27-ausencia-anvisa": {
+      "query_id": "q27-ausencia-anvisa",
+      "query_text": "anvisa regulatorio",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.22000000000000003,
+      "top_lexical_score": 0.0,
+      "top_id": "dec-boreal-dual",
+      "has_lexical_overlap": false,
+      "is_absent": true
+    }
+  },
+  "long": {
+    "q10-ausencia-gps": {
+      "query_id": "q10-ausencia-gps",
+      "query_text": "O projeto possui rastreamento GPS em tempo real para as cargas de vacinas durante o transporte?",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.3055989023761627,
+      "top_lexical_score": 0.045454545454545456,
+      "top_id": "epi-transport-excursion",
+      "has_lexical_overlap": true,
+      "is_absent": false
+    },
+    "q24-parafrase-ausencia-gps": {
+      "query_id": "q24-parafrase-ausencia-gps",
+      "query_text": "Existe algum sistema de localizacao satelital que permita rastrear as remessas em tempo real na cadeia fria?",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.30611019553630797,
+      "top_lexical_score": 0.03896103896103896,
+      "top_id": "dec-boreal-dual",
+      "has_lexical_overlap": true,
+      "is_absent": false
+    },
+    "q25-ausencia-drones": {
+      "query_id": "q25-ausencia-drones",
+      "query_text": "O projeto utiliza drones aereos para entrega de vacinas em centros remotos?",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.25596398640883994,
+      "top_lexical_score": 0.08571428571428572,
+      "top_id": "fact-boreal-obj",
+      "has_lexical_overlap": true,
+      "is_absent": false
+    },
+    "q26-ausencia-blackout": {
+      "query_id": "q26-ausencia-blackout",
+      "query_text": "Qual e o protocolo de contingencia para blackout eletrico nos centros de armazenamento?",
+      "quality": "relevant",
+      "num_candidates": 20,
+      "top_score": 0.2562090708077017,
+      "top_lexical_score": 0.0136986301369863,
+      "top_id": "dec-boreal-dual",
+      "has_lexical_overlap": true,
+      "is_absent": false
+    },
+    "q27-ausencia-anvisa": {
+      "query_id": "q27-ausencia-anvisa",
+      "query_text": "O projeto possui documentacao sobre conformidade regulatoria com a ANVISA?",
+      "quality": "relevant",
+      "num_candidates": 4,
+      "top_score": 0.4185808051822455,
+      "top_lexical_score": 0.05,
+      "top_id": "doc-dual-spec",
+      "has_lexical_overlap": true,
+      "is_absent": false
+    }
+  }
+}

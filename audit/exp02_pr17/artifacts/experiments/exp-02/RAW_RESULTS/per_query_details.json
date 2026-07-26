@@ -1,0 +1,431 @@
+[
+  {
+    "query_id": "q01-decisao-vigente",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "dec-boreal-dual"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q02-abordagem-anterior",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "dec-boreal-iot"
+    ],
+    "gold_temporal_state": "historico"
+  },
+  {
+    "query_id": "q03-motivo-mudanca",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 2,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "lrn-battery-cold-degradation",
+      "epi-transport-excursion"
+    ],
+    "gold_temporal_state": "historico"
+  },
+  {
+    "query_id": "q04-evidencia-falha-bateria",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 0,
+    "relevant_retrieved": 1,
+    "num_retrieved": 4,
+    "gold_primary_ids": [
+      "evi-lab-battery-test"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q05-hipotese-falha",
+    "precision_1": 0.0,
+    "precision_3": 0.5,
+    "hit_1": false,
+    "hit_3": true,
+    "mrr": 0.5,
+    "fake_sources": 0,
+    "conflicts_detected": 2,
+    "relevant_retrieved": 1,
+    "num_retrieved": 2,
+    "gold_primary_ids": [
+      "hyp-battery-confirmed"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q06-aprendizado-baterias",
+    "precision_1": 0.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": false,
+    "hit_3": true,
+    "mrr": 0.5,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "lrn-battery-cold-degradation"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q07-proxima-acao",
+    "precision_1": 1.0,
+    "precision_3": 0.6666666666666666,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 2,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "chk-boreal-p5",
+      "fact-training-risk"
+    ],
+    "gold_temporal_state": "proxima-acao"
+  },
+  {
+    "query_id": "q08-risco-pendente",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "fact-training-risk"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q09-documento-arquitetura",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 0,
+    "relevant_retrieved": 1,
+    "num_retrieved": 4,
+    "gold_primary_ids": [
+      "doc-dual-spec"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q10-ausencia-gps",
+    "precision_1": 0.0,
+    "precision_3": 0.0,
+    "hit_1": false,
+    "hit_3": false,
+    "mrr": 0.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 0,
+    "num_retrieved": 20,
+    "gold_primary_ids": [],
+    "gold_temporal_state": "ausencia"
+  },
+  {
+    "query_id": "q11-conflitos",
+    "precision_1": 1.0,
+    "precision_3": 1.0,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 3,
+    "relevant_retrieved": 2,
+    "num_retrieved": 2,
+    "gold_primary_ids": [
+      "dec-boreal-dual",
+      "dec-boreal-iot"
+    ],
+    "gold_temporal_state": "conflito"
+  },
+  {
+    "query_id": "q12-delta-checkpoints",
+    "precision_1": 1.0,
+    "precision_3": 0.6666666666666666,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 0,
+    "relevant_retrieved": 2,
+    "num_retrieved": 4,
+    "gold_primary_ids": [
+      "chk-boreal-p5",
+      "chk-boreal-p1"
+    ],
+    "gold_temporal_state": "delta"
+  },
+  {
+    "query_id": "q13-evidencia-vvm",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 0,
+    "relevant_retrieved": 1,
+    "num_retrieved": 4,
+    "gold_primary_ids": [
+      "evi-who-pqs-vvm"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q14-bloqueio",
+    "precision_1": 1.0,
+    "precision_3": 0.6666666666666666,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 2,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "lrn-staff-training-gap",
+      "chk-boreal-p5"
+    ],
+    "gold_temporal_state": "bloqueio"
+  },
+  {
+    "query_id": "q15-parafrase-vigente",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "dec-boreal-dual"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q16-parafrase-anterior",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "dec-boreal-iot"
+    ],
+    "gold_temporal_state": "historico"
+  },
+  {
+    "query_id": "q17-parafrase-abandono",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 2,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "lrn-battery-cold-degradation",
+      "epi-transport-excursion"
+    ],
+    "gold_temporal_state": "historico"
+  },
+  {
+    "query_id": "q18-parafrase-evidencia",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "evi-lab-battery-test"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q19-parafrase-hipotese",
+    "precision_1": 0.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": false,
+    "hit_3": true,
+    "mrr": 0.5,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "hyp-battery-failure"
+    ],
+    "gold_temporal_state": "historico"
+  },
+  {
+    "query_id": "q20-parafrase-aprendizado",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "lrn-battery-cold-degradation"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q21-parafrase-proxima-acao",
+    "precision_1": 1.0,
+    "precision_3": 0.6666666666666666,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 2,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "chk-boreal-p5",
+      "fact-training-risk"
+    ],
+    "gold_temporal_state": "proxima-acao"
+  },
+  {
+    "query_id": "q22-parafrase-risco",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 1,
+    "num_retrieved": 20,
+    "gold_primary_ids": [
+      "fact-training-risk"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q23-parafrase-documento",
+    "precision_1": 1.0,
+    "precision_3": 0.3333333333333333,
+    "hit_1": true,
+    "hit_3": true,
+    "mrr": 1.0,
+    "fake_sources": 0,
+    "conflicts_detected": 0,
+    "relevant_retrieved": 1,
+    "num_retrieved": 4,
+    "gold_primary_ids": [
+      "doc-dual-spec"
+    ],
+    "gold_temporal_state": "vigente"
+  },
+  {
+    "query_id": "q24-parafrase-ausencia-gps",
+    "precision_1": 0.0,
+    "precision_3": 0.0,
+    "hit_1": false,
+    "hit_3": false,
+    "mrr": 0.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 0,
+    "num_retrieved": 20,
+    "gold_primary_ids": [],
+    "gold_temporal_state": "ausencia"
+  },
+  {
+    "query_id": "q25-ausencia-drones",
+    "precision_1": 0.0,
+    "precision_3": 0.0,
+    "hit_1": false,
+    "hit_3": false,
+    "mrr": 0.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 0,
+    "num_retrieved": 20,
+    "gold_primary_ids": [],
+    "gold_temporal_state": "ausencia"
+  },
+  {
+    "query_id": "q26-ausencia-blackout",
+    "precision_1": 0.0,
+    "precision_3": 0.0,
+    "hit_1": false,
+    "hit_3": false,
+    "mrr": 0.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 0,
+    "num_retrieved": 20,
+    "gold_primary_ids": [],
+    "gold_temporal_state": "ausencia"
+  },
+  {
+    "query_id": "q27-ausencia-anvisa",
+    "precision_1": 0.0,
+    "precision_3": 0.0,
+    "hit_1": false,
+    "hit_3": false,
+    "mrr": 0.0,
+    "fake_sources": 0,
+    "conflicts_detected": 5,
+    "relevant_retrieved": 0,
+    "num_retrieved": 20,
+    "gold_primary_ids": [],
+    "gold_temporal_state": "ausencia"
+  }
+]
