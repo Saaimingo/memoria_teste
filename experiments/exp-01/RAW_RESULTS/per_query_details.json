@@ -1,0 +1,2734 @@
+[
+  {
+    "query_id": "q01-decisao-vigente",
+    "query": "Qual abordagem está vigente para processar os alertas?",
+    "expected_ids": [
+      "dec-atlas-queue"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "evi-atlas-bench",
+      "chk-atlas-04",
+      "chk-atlas-01",
+      "epi-atlas-dup",
+      "hyp-atlas-replay",
+      "fact-atlas-risk",
+      "lrn-atlas-idem",
+      "chk-atlas-03",
+      "fact-atlas-impl",
+      "chk-atlas-02",
+      "evi-atlas-log",
+      "doc-atlas-arch",
+      "fact-atlas-obj",
+      "fact-atlas-next",
+      "evi-atlas-queue-bench",
+      "hyp-atlas-cap",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 1.09847789326644,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05555555555555555,
+          "semantic": 0.15730584427721145,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.2,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.7466159550019149,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.1111111111111111,
+          "semantic": 0.16376210972700947,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.7342059024537595,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.045454545454545456,
+          "semantic": 0.14687839249803505,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.7211813805752523,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.06666666666666667,
+          "semantic": 0.061286784771464056,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.7182057727767117,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.09090909090909091,
+          "semantic": 0.14324170466905214,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "hyp-atlas-replay",
+        "score": 0.6980883922967713,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.09523809523809523,
+          "semantic": 0.18212574264669026,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.6896832129234977,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.07407407407407407,
+          "semantic": 0.21402284712355893,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.6835571381687598,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05263157894736842,
+          "semantic": 0.05231389805347849,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.6712100422980241,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.058823529411764705,
+          "semantic": 0.055966282215648526,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-impl",
+        "score": 0.6504706583007568,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.08333333333333333,
+          "semantic": 0.19284331241855854,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual abordagem está vigente para processar os alertas?\nQuality: relevant | Retrieved 17 items.\n  [1.098] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05555555555555555, 'semantic': 0.15730584427721145, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.2, 'project': 0.4}\n  [0.747] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical_overlap_tokens': 2, 'lexical': 0.1111111111111111, 'semantic': 0.16376210972700947, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.734] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.045454545454545456, 'semantic': 0.14687839249803505, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.721] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.06666666666666667, 'semantic': 0.061286784771464056, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.718] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical_overlap_tokens': 2, 'lexical': 0.09090909090909091, 'semantic': 0.14324170466905214, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}"
+  },
+  {
+    "query_id": "q02-abordagem-anterior",
+    "query": "Como o sistema fazia isso antes da mudança?",
+    "expected_ids": [
+      "dec-atlas-batch"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-batch",
+      "doc-atlas-arch",
+      "chk-atlas-04",
+      "dec-atlas-queue",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "fact-atlas-obj",
+      "lrn-atlas-idem",
+      "chk-atlas-03",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "hyp-atlas-cap",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "fact-atlas-impl"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-batch",
+        "score": 0.6300000000000001,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": -0.3,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.4385269621894531,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.045454545454545456,
+          "semantic": 0.20768104183726913,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.2,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-obj",
+        "score": 0.4042719991797926,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.06666666666666667,
+          "semantic": 0.2690133312828148,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.0,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.39,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.37,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.35,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "absent",
+    "conflicts": [
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)",
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+    ],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Como o sistema fazia isso antes da mudança?\nQuality: absent | Retrieved 18 items.\n  [0.630] dec-atlas-batch (decision): Processar alertas em lote a cada 60 segundos, agrupando eventos por tipo de métr\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': -0.3, 'project': 0.4}\n  [0.439] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.045454545454545456, 'semantic': 0.20768104183726913, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.410] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.410] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.2, 'project': 0.4}\n  [0.410] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\nMissing information:\n  - No relevant memories found for this query"
+  },
+  {
+    "query_id": "q03-motivo-abandono",
+    "query": "Por que a abordagem inicial foi abandonada?",
+    "expected_ids": [
+      "lrn-atlas-idem",
+      "epi-atlas-dup"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "lrn-atlas-idem",
+      "chk-atlas-03",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "fact-atlas-impl",
+      "hyp-atlas-cap",
+      "fact-atlas-obj",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.53,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.49,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.47,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "absent",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Por que a abordagem inicial foi abandonada?\nQuality: absent | Retrieved 18 items.\n  [0.530] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.490] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)\nMissing information:\n  - No relevant memories found for this query"
+  },
+  {
+    "query_id": "q04-evidencia-duplicacao",
+    "query": "Que evidência demonstrou o problema de duplicação?",
+    "expected_ids": [
+      "evi-atlas-log"
+    ],
+    "retrieved_ids": [
+      "evi-atlas-queue-bench",
+      "evi-atlas-bench",
+      "evi-atlas-log"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.6710641825044343,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.043478260869565216,
+          "semantic": 0.16896480408717285,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.6,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-log",
+        "score": 0.56,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Que evidência demonstrou o problema de duplicação?\nQuality: relevant | Retrieved 3 items.\n  [0.671] evi-atlas-queue-bench (evidence): Benchmark de fila persistente (Redis Streams): 5000 eventos/segundo com latência\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.043478260869565216, 'semantic': 0.16896480408717285, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.600] evi-atlas-bench (evidence): Benchmark local: processamento em lote atinge 1000 alertas/segundo | Ambiente de\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.560] evi-atlas-log (evidence): Trecho de log mostrando alerta #4821 enviado às 14:32 (pré-reinício) e reenviado\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}"
+  },
+  {
+    "query_id": "q05-hipotese-replay",
+    "query": "Qual hipótese explicou os alertas repetidos?",
+    "expected_ids": [
+      "hyp-atlas-replay"
+    ],
+    "retrieved_ids": [
+      "hyp-atlas-replay",
+      "hyp-atlas-cap"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "hyp-atlas-replay",
+        "score": 0.6454562514514588,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.047619047619047616,
+          "semantic": 0.09459300958102804,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "hyp-atlas-cap",
+        "score": 0.5,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.05,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual hipótese explicou os alertas repetidos?\nQuality: relevant | Retrieved 2 items.\n  [0.645] hyp-atlas-replay (hypothesis): A duplicação de alertas é causada pela ausência de checkpoint de posição de leit\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.047619047619047616, 'semantic': 0.09459300958102804, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.500] hyp-atlas-cap (hypothesis): O processamento em lote suportará até 500 métricas ativas sem degradação de latê\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.05, 'project': 0.4}"
+  },
+  {
+    "query_id": "q06-aprendizado-reinicializacao",
+    "query": "O que aprendemos com a reinicialização?",
+    "expected_ids": [
+      "lrn-atlas-idem"
+    ],
+    "retrieved_ids": [
+      "chk-atlas-02",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "hyp-atlas-replay",
+      "dec-atlas-queue",
+      "evi-atlas-queue-bench",
+      "chk-atlas-04",
+      "chk-atlas-01",
+      "chk-atlas-03",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "evi-atlas-log",
+      "fact-atlas-impl",
+      "hyp-atlas-cap",
+      "fact-atlas-obj",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "chk-atlas-02",
+        "score": 0.6726507913229232,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.07692307692307693,
+          "semantic": 0.21431928599961553,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.6359931675617948,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.0625,
+          "semantic": 0.20873291890448706,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.5737736122940471,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05,
+          "semantic": 0.18443403073511758,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "hyp-atlas-replay",
+        "score": 0.5335471910969782,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05263157894736842,
+          "semantic": 0.17728903037402446,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.53,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-queue-bench",
+        "score": 0.5252049692539168,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.047619047619047616,
+          "semantic": 0.16896480408717285,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.47,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: O que aprendemos com a reinicialização?\nQuality: relevant | Retrieved 18 items.\n  [0.673] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.07692307692307693, 'semantic': 0.21431928599961553, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.636] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.0625, 'semantic': 0.20873291890448706, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.574] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05, 'semantic': 0.18443403073511758, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.534] hyp-atlas-replay (hypothesis): A duplicação de alertas é causada pela ausência de checkpoint de posição de leit\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05263157894736842, 'semantic': 0.17728903037402446, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.530] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+  },
+  {
+    "query_id": "q07-proximo-trabalho",
+    "query": "Em que devo trabalhar agora?",
+    "expected_ids": [
+      "fact-atlas-next",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "fact-atlas-next",
+      "fact-atlas-risk",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "chk-atlas-03",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "doc-atlas-arch",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "fact-atlas-impl",
+      "fact-atlas-obj",
+      "hyp-atlas-cap",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.98,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.2,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.6829876570622689,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05,
+          "semantic": 0.2574691426556722,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.68,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.68,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.68,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.68,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.64,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.61,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.5700000000000001,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.5700000000000001,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Em que devo trabalhar agora?\nQuality: absent | Retrieved 17 items.\n  [0.980] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.2, 'project': 0.4}\n  [0.683] fact-atlas-next (fact): Próximo trabalho prioritário: implementar confirmação atômica usando transação R\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05, 'semantic': 0.2574691426556722, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.680] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.680] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.680] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nMissing information:\n  - No relevant memories found for this query"
+  },
+  {
+    "query_id": "q08-risco-pendente",
+    "query": "Qual risco ainda impede a conclusão?",
+    "expected_ids": [
+      "fact-atlas-risk"
+    ],
+    "retrieved_ids": [
+      "fact-atlas-risk",
+      "chk-atlas-04",
+      "dec-atlas-queue",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "lrn-atlas-idem",
+      "chk-atlas-03",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "fact-atlas-impl",
+      "hyp-atlas-cap",
+      "fact-atlas-obj",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.8314878861530011,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.038461538461538464,
+          "semantic": 0.20756586922865647,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.8001171664518679,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05,
+          "semantic": 0.2252929161296699,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.53,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.49,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.47,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual risco ainda impede a conclusão?\nQuality: relevant | Retrieved 18 items.\n  [0.831] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.038461538461538464, 'semantic': 0.20756586922865647, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.800] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05, 'semantic': 0.2252929161296699, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.530] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+  },
+  {
+    "query_id": "q09-documento-arquitetura",
+    "query": "Que documento descreve a arquitetura atual?",
+    "expected_ids": [
+      "doc-atlas-arch"
+    ],
+    "retrieved_ids": [
+      "doc-atlas-arch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "doc-atlas-arch",
+        "score": 1.1130895080149552,
+        "decomp": {
+          "lexical_overlap_tokens": 4,
+          "lexical": 0.2,
+          "semantic": 0.5827237700373878,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Que documento descreve a arquitetura atual?\nQuality: relevant | Retrieved 1 items.\n  [1.113] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical_overlap_tokens': 4, 'lexical': 0.2, 'semantic': 0.5827237700373878, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}"
+  },
+  {
+    "query_id": "q10-criptografia-ausente",
+    "query": "Existe decisão registrada sobre criptografia ponta a ponta?",
+    "expected_ids": [],
+    "retrieved_ids": [],
+    "retrieved_scores": [],
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query",
+      "This query likely expects a 'no evidence' answer — absence is the correct response"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Existe decisão registrada sobre criptografia ponta a ponta?\nQuality: absent | Retrieved 0 items.\nMissing information:\n  - No relevant memories found for this query\n  - This query likely expects a 'no evidence' answer — absence is the correct response"
+  },
+  {
+    "query_id": "q11-conflitos",
+    "query": "Quais versões ou memórias estão em conflito?",
+    "expected_ids": [
+      "dec-atlas-batch",
+      "dec-atlas-queue"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "lrn-atlas-idem",
+      "chk-atlas-03",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "fact-atlas-impl",
+      "hyp-atlas-cap",
+      "fact-atlas-obj",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.53,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.49,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.47,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "absent",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Quais versões ou memórias estão em conflito?\nQuality: absent | Retrieved 18 items.\n  [0.530] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.490] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)\nMissing information:\n  - No relevant memories found for this query"
+  },
+  {
+    "query_id": "q12-delta-checkpoints",
+    "query": "O que mudou entre o primeiro e o último checkpoint?",
+    "expected_ids": [
+      "chk-atlas-01",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "chk-atlas-03"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "chk-atlas-04",
+        "score": 0.66,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.66,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.66,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.62,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.5,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: O que mudou entre o primeiro e o último checkpoint?\nQuality: absent | Retrieved 4 items.\n  [0.660] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.660] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.660] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.620] chk-atlas-03 (checkpoint): Fase 3 concluída: decisão de migrar para fila persistente registrada. Processame\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.5, 'relation': 0.1, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nMissing information:\n  - No relevant memories found for this query"
+  },
+  {
+    "query_id": "p01-parafrase-vigente",
+    "query": "Como vocês estão tratando as notificações hoje em dia?",
+    "expected_ids": [
+      "dec-atlas-queue"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "lrn-atlas-idem",
+      "epi-atlas-dup",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "chk-atlas-03",
+      "fact-atlas-impl",
+      "evi-atlas-bench",
+      "doc-atlas-arch",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "fact-atlas-obj",
+      "hyp-atlas-cap",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 1.1051346364635022,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05263157894736842,
+          "semantic": 0.18125764379033424,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.2,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.7323352188895244,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05,
+          "semantic": 0.18083804722381078,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.6755812425463182,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.041666666666666664,
+          "semantic": 0.1597864396991288,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.6733045123876662,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.034482758620689655,
+          "semantic": 0.27205438441744145,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.6307421752371993,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.041666666666666664,
+          "semantic": 0.14768877142633174,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.63,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.63,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.63,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.59,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-impl",
+        "score": 0.5885328026324024,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.038461538461538464,
+          "semantic": 0.15017816042715973,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Como vocês estão tratando as notificações hoje em dia?\nQuality: relevant | Retrieved 17 items.\n  [1.105] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05263157894736842, 'semantic': 0.18125764379033424, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.2, 'project': 0.4}\n  [0.732] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05, 'semantic': 0.18083804722381078, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.676] epi-atlas-dup (episode): Episódio de duplicação: ao reiniciar o processador de lote após manutenção progr\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.041666666666666664, 'semantic': 0.1597864396991288, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.673] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.034482758620689655, 'semantic': 0.27205438441744145, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.631] fact-atlas-next (fact): Próximo trabalho prioritário: implementar confirmação atômica usando transação R\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.041666666666666664, 'semantic': 0.14768877142633174, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}"
+  },
+  {
+    "query_id": "p02-parafrase-antigo",
+    "query": "Qual era o método antigo de lidar com as mensagens?",
+    "expected_ids": [
+      "dec-atlas-batch"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-batch",
+      "chk-atlas-04",
+      "dec-atlas-queue",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "lrn-atlas-idem",
+      "chk-atlas-03",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "hyp-atlas-cap",
+      "fact-atlas-risk",
+      "fact-atlas-next",
+      "doc-atlas-arch",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "fact-atlas-impl",
+      "fact-atlas-obj"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-batch",
+        "score": 0.6300000000000001,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": -0.3,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.2,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.39,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.37,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.35,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.35,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "hyp-atlas-cap",
+        "score": 0.35,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.05,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "absent",
+    "conflicts": [
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)",
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch"
+    ],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Qual era o método antigo de lidar com as mensagens?\nQuality: absent | Retrieved 18 items.\n  [0.630] dec-atlas-batch (decision): Processar alertas em lote a cada 60 segundos, agrupando eventos por tipo de métr\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.30000000000000004, 'temporal': 0.0, 'state': -0.3, 'project': 0.4}\n  [0.410] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.410] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.2, 'project': 0.4}\n  [0.410] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.410] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\nMissing information:\n  - No relevant memories found for this query"
+  },
+  {
+    "query_id": "p03-parafrase-motivo",
+    "query": "O que motivou a troca do sistema original de processamento?",
+    "expected_ids": [
+      "lrn-atlas-idem",
+      "epi-atlas-dup"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "chk-atlas-01",
+      "fact-atlas-risk",
+      "doc-atlas-arch",
+      "lrn-atlas-idem",
+      "chk-atlas-03",
+      "evi-atlas-bench",
+      "chk-atlas-04",
+      "chk-atlas-02",
+      "epi-atlas-dup",
+      "hyp-atlas-replay",
+      "fact-atlas-obj",
+      "hyp-atlas-cap",
+      "fact-atlas-impl",
+      "fact-atlas-next",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.6344873806503389,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05555555555555555,
+          "semantic": 0.12232956273695861,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.5957306388085672,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.06666666666666667,
+          "semantic": 0.047659930354751565,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.5765497223250247,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.07407407407407407,
+          "semantic": 0.23118912062737654,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.5613257559907717,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.08695652173913043,
+          "semantic": 0.16092308562910315,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.5589044295928163,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05263157894736842,
+          "semantic": 0.04068212661361966,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.5462324969244747,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.058823529411764705,
+          "semantic": 0.04352241878177517,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.5190699089121279,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05263157894736842,
+          "semantic": 0.04109582491189856,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.5078567664346785,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.043478260869565216,
+          "semantic": 0.035946263912783244,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: O que motivou a troca do sistema original de processamento?\nQuality: relevant | Retrieved 18 items.\n  [0.634] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05555555555555555, 'semantic': 0.12232956273695861, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.596] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.06666666666666667, 'semantic': 0.047659930354751565, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.577] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical_overlap_tokens': 2, 'lexical': 0.07407407407407407, 'semantic': 0.23118912062737654, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.561] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical_overlap_tokens': 2, 'lexical': 0.08695652173913043, 'semantic': 0.16092308562910315, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.559] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05263157894736842, 'semantic': 0.04068212661361966, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+  },
+  {
+    "query_id": "p04-parafrase-prova",
+    "query": "Tem como provar que as notificações realmente saíram repetidas?",
+    "expected_ids": [
+      "evi-atlas-log"
+    ],
+    "retrieved_ids": [],
+    "retrieved_scores": [],
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query",
+      "This query likely expects a 'no evidence' answer — absence is the correct response"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Tem como provar que as notificações realmente saíram repetidas?\nQuality: absent | Retrieved 0 items.\nMissing information:\n  - No relevant memories found for this query\n  - This query likely expects a 'no evidence' answer — absence is the correct response"
+  },
+  {
+    "query_id": "p05-parafrase-proxima",
+    "query": "Qual é a próxima tarefa que preciso executar?",
+    "expected_ids": [
+      "fact-atlas-next",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "chk-atlas-01",
+      "lrn-atlas-idem",
+      "chk-atlas-04",
+      "chk-atlas-03",
+      "dec-atlas-queue",
+      "chk-atlas-02",
+      "fact-atlas-next",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-risk",
+      "doc-atlas-arch",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "fact-atlas-impl",
+      "hyp-atlas-cap",
+      "fact-atlas-obj",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "chk-atlas-01",
+        "score": 0.652554402126539,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.07142857142857142,
+          "semantic": 0.177814576744919,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.624800688078382,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.05555555555555555,
+          "semantic": 0.19811283130706586,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.6071874720082919,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.047619047619047616,
+          "semantic": 0.12392106097311072,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.5974511689756375,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.0625,
+          "semantic": 0.16237792243909388,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.53,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-next",
+        "score": 0.5050378268199883,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.045454545454545456,
+          "semantic": 0.12395820341360715,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "evi-atlas-bench",
+        "score": 0.45,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.41000000000000003,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: Qual é a próxima tarefa que preciso executar?\nQuality: relevant | Retrieved 18 items.\n  [0.653] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.07142857142857142, 'semantic': 0.177814576744919, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.625] lrn-atlas-idem (learning): Processadores baseados em lote precisam de mecanismo de idempotência ou checkpoi\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.05555555555555555, 'semantic': 0.19811283130706586, 'entity': 0.0, 'type': 0.0, 'relation': 0.4, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.607] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.047619047619047616, 'semantic': 0.12392106097311072, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.597] chk-atlas-03 (checkpoint): Fase 3 concluída: decisão de migrar para fila persistente registrada. Processame\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.0625, 'semantic': 0.16237792243909388, 'entity': 0.0, 'type': 0.0, 'relation': 0.1, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.530] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+  },
+  {
+    "query_id": "p06-parafrase-bloqueio",
+    "query": "O que está bloqueando a finalização do projeto?",
+    "expected_ids": [
+      "fact-atlas-risk",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "fact-atlas-risk",
+      "chk-atlas-04",
+      "dec-atlas-queue",
+      "doc-atlas-arch",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "lrn-atlas-idem",
+      "fact-atlas-obj",
+      "chk-atlas-03",
+      "fact-atlas-impl",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-next",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "hyp-atlas-cap",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.7969306678917811,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.037037037037037035,
+          "semantic": 0.12473407713686041,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.761773816094879,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.047619047619047616,
+          "semantic": 0.13538692118957849,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.53,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.5152589477011646,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.043478260869565216,
+          "semantic": 0.15445171707899852,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.51,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.49,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-obj",
+        "score": 0.47252573670894593,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.0625,
+          "semantic": 0.20006434177236487,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.0,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.47,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-impl",
+        "score": 0.4667507537314064,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.041666666666666664,
+          "semantic": 0.13771021766184932,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "relevant",
+    "conflicts": [
+      "CONFLICT: dec-atlas-queue supersedes dec-atlas-batch",
+      "STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+    ],
+    "missing": [],
+    "inferences": [],
+    "explanation": "Query: O que está bloqueando a finalização do projeto?\nQuality: relevant | Retrieved 18 items.\n  [0.797] fact-atlas-risk (fact): Risco pendente: a atomicidade do ack não está garantida. Se o processo morrer en\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.037037037037037035, 'semantic': 0.12473407713686041, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.762] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.047619047619047616, 'semantic': 0.13538692118957849, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.530] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.515] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical_overlap_tokens': 1, 'lexical': 0.043478260869565216, 'semantic': 0.15445171707899852, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.510] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nConflicts detected: 2\n  CONFLICT: dec-atlas-queue supersedes dec-atlas-batch\n  STATE_CONFLICT: dec-atlas-batch is superseded (superseded_by: dec-atlas-queue)"
+  },
+  {
+    "query_id": "p07-parafrase-seguranca",
+    "query": "Alguém decidiu algo sobre segurança de ponta a ponta?",
+    "expected_ids": [],
+    "retrieved_ids": [],
+    "retrieved_scores": [],
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query",
+      "This query likely expects a 'no evidence' answer — absence is the correct response"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Alguém decidiu algo sobre segurança de ponta a ponta?\nQuality: absent | Retrieved 0 items.\nMissing information:\n  - No relevant memories found for this query\n  - This query likely expects a 'no evidence' answer — absence is the correct response"
+  },
+  {
+    "query_id": "p08-parafrase-evolucao",
+    "query": "Compare o começo do projeto com o estado atual — o que evoluiu?",
+    "expected_ids": [
+      "chk-atlas-01",
+      "chk-atlas-04"
+    ],
+    "retrieved_ids": [
+      "dec-atlas-queue",
+      "chk-atlas-04",
+      "doc-atlas-arch",
+      "chk-atlas-02",
+      "chk-atlas-01",
+      "lrn-atlas-idem",
+      "fact-atlas-risk",
+      "chk-atlas-03",
+      "fact-atlas-impl",
+      "epi-atlas-dup",
+      "evi-atlas-bench",
+      "fact-atlas-obj",
+      "fact-atlas-next",
+      "evi-atlas-queue-bench",
+      "evi-atlas-log",
+      "hyp-atlas-replay",
+      "hyp-atlas-cap",
+      "dec-atlas-batch"
+    ],
+    "retrieved_scores": [
+      {
+        "id": "dec-atlas-queue",
+        "score": 0.98,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.5,
+          "temporal": 0.0,
+          "state": 0.2,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-04",
+        "score": 0.8181421718357714,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.09090909090909091,
+          "semantic": 0.24308270231670137,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "doc-atlas-arch",
+        "score": 0.7124816018145824,
+        "decomp": {
+          "lexical_overlap_tokens": 2,
+          "lexical": 0.08333333333333333,
+          "semantic": 0.24787067120312273,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-02",
+        "score": 0.63,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-01",
+        "score": 0.63,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "lrn-atlas-idem",
+        "score": 0.61,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.4,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-risk",
+        "score": 0.6045184668750716,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.034482758620689655,
+          "semantic": 0.10008927063595498,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.2,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "chk-atlas-03",
+        "score": 0.59,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "fact-atlas-impl",
+        "score": 0.5726621789321287,
+        "decomp": {
+          "lexical_overlap_tokens": 1,
+          "lexical": 0.038461538461538464,
+          "semantic": 0.11050160117647569,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.1,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      },
+      {
+        "id": "epi-atlas-dup",
+        "score": 0.5700000000000001,
+        "decomp": {
+          "lexical_overlap_tokens": 0,
+          "lexical": 0.0,
+          "semantic": 0.0,
+          "entity": 0.0,
+          "type": 0.0,
+          "relation": 0.30000000000000004,
+          "temporal": 0.0,
+          "state": 0.15,
+          "project": 0.4
+        }
+      }
+    ],
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query"
+    ],
+    "inferences": [
+      "No direct matches; this represents a genuine absence of evidence."
+    ],
+    "explanation": "Query: Compare o começo do projeto com o estado atual — o que evoluiu?\nQuality: absent | Retrieved 17 items.\n  [0.980] dec-atlas-queue (decision): Substituir processamento em lote por fila persistente com confirmação de process\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.5, 'temporal': 0.0, 'state': 0.2, 'project': 0.4}\n  [0.818] chk-atlas-04 (checkpoint): Fase 4 — estado atual: implementação parcial da fila persistente. Consumidor fun\n       decomposition: {'lexical_overlap_tokens': 2, 'lexical': 0.09090909090909091, 'semantic': 0.24308270231670137, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.712] doc-atlas-arch (document): Documento de Arquitetura do Projeto Atlas v2.0 — descreve a arquitetura atual ba\n       decomposition: {'lexical_overlap_tokens': 2, 'lexical': 0.08333333333333333, 'semantic': 0.24787067120312273, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.630] chk-atlas-02 (checkpoint): Fase 2: incidente de duplicação após reinicialização documentado. Hipótese de re\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\n  [0.630] chk-atlas-01 (checkpoint): Fase 1 concluída: decisão por processamento em lote registrada, benchmark execut\n       decomposition: {'lexical_overlap_tokens': 0, 'lexical': 0.0, 'semantic': 0.0, 'entity': 0.0, 'type': 0.0, 'relation': 0.2, 'temporal': 0.0, 'state': 0.15, 'project': 0.4}\nMissing information:\n  - No relevant memories found for this query"
+  }
+]

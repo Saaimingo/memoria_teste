@@ -1,0 +1,59 @@
+[
+  {
+    "query_id": "q01-decisao-vigente",
+    "query": "Qual abordagem está vigente para processar os alertas?",
+    "top_ids": [
+      "dec-atlas-batch",
+      "evi-atlas-bench",
+      "chk-atlas-01",
+      "fact-atlas-obj",
+      "hyp-atlas-cap"
+    ],
+    "top_scores": [
+      1.1119994499735637,
+      0.7466389729393718,
+      0.7442734892201097,
+      0.5685866112778231,
+      0.4661260853628817
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": []
+  },
+  {
+    "query_id": "q02-abordagem-anterior",
+    "query": "Como o sistema fazia isso antes da mudança?",
+    "top_ids": [
+      "fact-atlas-obj",
+      "chk-atlas-01",
+      "hyp-atlas-cap",
+      "evi-atlas-bench",
+      "dec-atlas-batch"
+    ],
+    "top_scores": [
+      0.4132797191752533,
+      0.41000000000000003,
+      0.35,
+      0.31000000000000005,
+      0.18999999999999997
+    ],
+    "quality": "relevant",
+    "conflicts": [],
+    "missing": []
+  },
+  {
+    "query_id": "q12-delta-checkpoints",
+    "query": "O que mudou entre o primeiro e o último checkpoint?",
+    "top_ids": [
+      "chk-atlas-01"
+    ],
+    "top_scores": [
+      0.66
+    ],
+    "quality": "absent",
+    "conflicts": [],
+    "missing": [
+      "No relevant memories found for this query"
+    ]
+  }
+]

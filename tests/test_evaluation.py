@@ -126,7 +126,7 @@ class TestEvaluator(unittest.TestCase):
             QueryCase(query_id="q2", query="duplication restart", expected_ids=["f2", "f3"],
                       relevance_grades={"f2": 3.0, "f3": 3.0}),
             QueryCase(query_id="q3", query="nonexistent", expected_ids=[],
-                      expected_missing=["none"], relevance_grades={}),
+                      expected_missing=["absent"], relevance_grades={}),
         ])
 
     def test_evaluate(self) -> None:
