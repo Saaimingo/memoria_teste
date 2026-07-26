@@ -1,0 +1,91 @@
+================================================================================
+PER-QUERY BLIND ANALYSIS (R2)
+================================================================================
+
+[blind-001] quais fatos do simulador de futebol mencionam datas FIFA
+  terms: ['fatos', 'simulador', 'futebol', 'mencionam', 'datas', 'fifa']
+  wants_historical: False
+  wants_current: False
+  wants_next_action: False
+  Top-5: [('fact-fb-005-v2', 0.755), ('fact-fb-001', 0.561), ('fact-fb-005-obsolete', 0.531), ('fact-fb-003', 0.45), ('fact-fb-002', 0.45)]
+  Conflicts: ['CONFLICT: fact-fb-005-v2 supersedes fact-fb-005-obsolete', 'STATE_CONFLICT: fact-fb-005-obsolete is obsolete', '  superseded_by: fact-fb-005-v2']
+  Quality: relevant
+
+[blind-002] existe algum bug conhecido que causa mensagens duplicadas
+  terms: ['existe', 'algum', 'bug', 'conhecido', 'causa', 'mensagens', 'duplicadas']
+  wants_historical: False
+  wants_current: False
+  wants_next_action: False
+  Top-5: [('episode-fb-001', 0.346), ('episode-queue-001', 0.18), ('episode-fin-001', 0.18), ('learning-fin-001', 0.14), ('fact-fin-002', 0.14)]
+  Conflicts: []
+  Quality: relevant
+
+[blind-003] como era a regra do calendario antes da mudanca para incluir pausas FIFA
+  terms: ['regra', 'calendario', 'mudanca', 'incluir', 'pausas', 'fifa']
+  wants_historical: True
+  wants_current: False
+  wants_next_action: False
+  Top-5: [('fact-fb-005-v2', 0.587), ('episode-fb-001', 0.439), ('episode-queue-001', 0.18), ('episode-fin-001', 0.18), ('fact-fb-005-obsolete', 0.163)]
+  Conflicts: ['CONFLICT: fact-fb-005-v2 supersedes fact-fb-005-obsolete', 'STATE_CONFLICT: fact-fb-005-obsolete is obsolete', '  superseded_by: fact-fb-005-v2']
+  Quality: relevant
+
+[blind-004] quais decisoes foram tomadas sobre armazenamento local
+  terms: ['decisoes', 'foram', 'tomadas', 'armazenamento', 'local']
+  wants_historical: False
+  wants_current: False
+  wants_next_action: False
+  Top-5: [('decision-queue-001', 0.376), ('decision-fin-001', 0.25), ('decision-fb-001', 0.21)]
+  Conflicts: []
+  Quality: relevant
+
+[blind-005] qual foi o aprendizado apos o incidente de duplicacao financeira
+  terms: ['aprendizado', 'apos', 'incidente', 'duplicacao', 'financeira']
+  wants_historical: False
+  wants_current: False
+  wants_next_action: False
+  Top-5: [('learning-fin-001', 0.441), ('learning-queue-001', 0.426)]
+  Conflicts: []
+  Quality: relevant
+
+[blind-006] no que devo trabalhar agora no sistema de filas
+  terms: ['devo', 'trabalhar', 'sistema', 'filas']
+  wants_historical: False
+  wants_current: True
+  wants_next_action: True
+  Top-5: [('doc-queue-spec', 0.518), ('episode-fb-002', 0.322), ('learning-queue-001', 0.308), ('doc-finance-spec', 0.283), ('checkpoint-queue-001', 0.262)]
+  Conflicts: []
+  Quality: relevant
+
+[blind-007] onde esta documentada a arquitetura do simulador
+  terms: ['esta', 'documentada', 'arquitetura', 'simulador']
+  wants_historical: False
+  wants_current: False
+  wants_next_action: False
+  Top-5: [('doc-football-spec', 0.658), ('doc-queue-spec', 0.462), ('doc-finance-spec', 0.461)]
+  Conflicts: []
+  Quality: relevant
+
+[blind-008] a hipotese sobre deduplicacao foi verificada ou contradita
+  terms: ['hipotese', 'deduplicacao', 'verificada', 'contradita']
+  wants_historical: False
+  wants_current: False
+  wants_next_action: False
+  Top-5: [('hypothesis-fin-001', 0.25), ('hypothesis-fb-001', 0.19)]
+  Conflicts: []
+  Quality: relevant
+
+================================================================================
+CONFLICT DETECTION VERIFICATION
+================================================================================
+
+Query: 'o calendario do simulador mudou depois de qual problema'
+  Conflicts (3): ['CONFLICT: fact-fb-005-v2 supersedes fact-fb-005-obsolete', 'STATE_CONFLICT: fact-fb-005-obsolete is obsolete', '  superseded_by: fact-fb-005-v2']
+  Top-3: [('fact-fb-005-v2', 0.445), ('fact-fb-005-obsolete', 0.389), ('episode-fb-001', 0.304)]
+
+Query: 'qual era a regra que foi substituida e qual a regra atual'
+  Conflicts (0): []
+  Top-3: [('episode-queue-001', 0.18), ('episode-fin-001', 0.18), ('learning-fin-001', 0.14)]
+
+Query: 'aposentadoria'
+  Conflicts (0): []
+  Top-3: [('episode-fb-002', 0.51), ('episode-queue-001', 0.18), ('episode-fin-001', 0.18)]

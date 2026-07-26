@@ -1,0 +1,107 @@
+================================================================================
+HOLDOUT PER-QUERY ANALYSIS (R2) vs PR #6 AUDIT EXPECTATIONS
+================================================================================
+
+[MATCH] hold-001-mixed-domain-search
+  Query: 'qual sistema usava banco local em vez de servico externo para deduplicacao'
+  R2 hints: hist=False curr=False action=False
+  Top-3: ['decision-queue-001', 'decision-fin-001', 'fact-queue-003']
+  Expected: ['decision-queue-001', 'fact-queue-003', 'episode-queue-001']
+  Hit@1: True (expected: True)
+  Hit@3: True (expected: True)
+  Conflicts: 2 detected
+  PR #6 notes: Strong lexical match
+
+[MATCH] hold-002-vague-temporal
+  Query: 'como funcionava o sistema antes da correcao da duplicacao'
+  R2 hints: hist=True curr=False action=False
+  Top-3: ['checkpoint-fin-001', 'checkpoint-queue-001', 'episode-fin-001']
+  Expected: ['fact-fb-005-obsolete', 'episode-queue-001', 'fact-fin-002', 'episode-fin-001']
+  Hit@1: False (expected: False)
+  Hit@3: True (expected: True)
+  Conflicts: 0 detected
+  PR #6 notes: Temporal hint bug impacts this
+
+[MATCH] hold-003-entity-driven
+  Query: 'quais decisoes mencionam Redis ou SQLite para persistencia'
+  R2 hints: hist=False curr=False action=False
+  Top-3: ['decision-fin-001', 'decision-queue-001', 'decision-fb-001']
+  Expected: ['decision-queue-001', 'decision-fin-001']
+  Hit@1: True (expected: True)
+  Hit@3: True (expected: True)
+  Conflicts: 0 detected
+  PR #6 notes: Entity names match content
+
+[MATCH] hold-004-conflict-aware
+  Query: 'o calendario do simulador mudou depois de qual problema'
+  R2 hints: hist=False curr=False action=False
+  Top-3: ['fact-fb-005-v2', 'fact-fb-005-obsolete', 'episode-fb-001']
+  Expected: ['fact-fb-005-obsolete', 'episode-fb-001', 'fact-fb-005-v2']
+  Hit@1: True (expected: True)
+  Hit@3: True (expected: True)
+  Conflicts: 3 detected
+  PR #6 notes: 3 conflicts detected correctly
+
+[MATCH] hold-005-cross-domain-analogy
+  Query: 'aprendizados sobre como evitar duplicacao apos reinicializacao'
+  R2 hints: hist=False curr=False action=False
+  Top-3: ['learning-queue-001', 'learning-fin-001']
+  Expected: ['episode-fin-001', 'learning-queue-001', 'episode-queue-001', 'learning-fin-001']
+  Hit@1: True (expected: True)
+  Hit@3: True (expected: True)
+  Conflicts: 0 detected
+  PR #6 notes: Shared vocabulary helps
+
+[MATCH] hold-006-obsolete-navigation
+  Query: 'qual era a regra que foi substituida e qual a regra atual'
+  R2 hints: hist=True curr=True action=False
+  Top-3: ['episode-queue-001', 'episode-fin-001', 'learning-fin-001']
+  Expected: ['fact-fb-005-obsolete', 'fact-fb-005-v2']
+  Hit@1: False (expected: False)
+  Hit@3: False (expected: False)
+  Conflicts: 0 detected
+  PR #6 notes: Can't find the version pair
+
+[MATCH] hold-007-missing-tool
+  Query: 'qual a latencia do redis cluster em producao'
+  R2 hints: hist=False curr=False action=False
+  Top-3: ['decision-fin-001', 'fact-fin-003', 'episode-queue-001']
+  Expected: []
+  Hit@1: False (expected: None)
+  Hit@3: False (expected: None)
+  Conflicts: 0 detected
+  PR #6 notes: Correctly returns empty
+
+[MATCH] hold-008-inference-separation
+  Query: 'o sistema financeiro e mais confiavel que o de filas'
+  R2 hints: hist=False curr=False action=False
+  Top-3: ['doc-queue-spec', 'episode-fb-002', 'learning-queue-001']
+  Expected: []
+  Hit@1: False (expected: None)
+  Hit@3: False (expected: None)
+  Conflicts: 0 detected
+  PR #6 notes: Correctly returns empty
+
+[MATCH] hold-009-single-word-clue
+  Query: 'aposentadoria'
+  R2 hints: hist=False curr=False action=False
+  Top-3: ['episode-fb-002', 'episode-queue-001', 'episode-fin-001']
+  Expected: ['fact-fb-002', 'episode-fb-002']
+  Hit@1: True (expected: True)
+  Hit@3: True (expected: True)
+  Conflicts: 0 detected
+  PR #6 notes: 3 conflicts detected
+
+[MISMATCH] hold-010-checkpoint-next-step
+  Query: 'o que esta pendente no sistema de filas'
+  R2 hints: hist=False curr=False action=True
+  Top-3: ['doc-queue-spec', 'episode-fb-002', 'learning-queue-001']
+  Expected: ['checkpoint-queue-001']
+  Hit@1: False (expected: False)
+  Hit@3: False (expected: True)
+  Conflicts: 0 detected
+  PR #6 notes: Checkpoint at rank 3, not 1
+
+================================================================================
+SOME MISMATCHES DETECTED — INVESTIGATION REQUIRED
+================================================================================

@@ -1,0 +1,140 @@
+test_build_capsule (test_context.TestCapsuleBuilder.test_build_capsule) ... ok
+test_capsule_summary (test_context.TestCapsuleBuilder.test_capsule_summary) ... ok
+test_empty_capsule (test_context.TestCapsuleBuilder.test_empty_capsule) ... ok
+test_resumption_prompt (test_context.TestCapsuleBuilder.test_resumption_prompt) ... ok
+test_run_ablation (test_evaluation.TestAblation.test_run_ablation) ... ok
+test_variants_exist (test_evaluation.TestAblation.test_variants_exist) ... ok
+test_build_capsule (test_evaluation.TestCapsuleBuilder.test_build_capsule) ... ok
+test_capsule_summary (test_evaluation.TestCapsuleBuilder.test_capsule_summary) ... ok
+test_empty_capsule (test_evaluation.TestCapsuleBuilder.test_empty_capsule) ... ok
+test_resumption_prompt (test_evaluation.TestCapsuleBuilder.test_resumption_prompt) ... ok
+test_from_json (test_evaluation.TestEvalDataset.test_from_json) ... ok
+test_capsule_metrics (test_evaluation.TestEvaluator.test_capsule_metrics) ... ok
+test_evaluate (test_evaluation.TestEvaluator.test_evaluate) ... ok
+test_fake_source_rate (test_evaluation.TestEvaluator.test_fake_source_rate) ... ok
+test_per_query_results (test_evaluation.TestEvaluator.test_per_query_results) ... ok
+test_hit (test_evaluation.TestMetrics.test_hit) ... ok
+test_mrr (test_evaluation.TestMetrics.test_mrr) ... ok
+test_ndcg_perfect (test_evaluation.TestMetrics.test_ndcg_perfect) ... ok
+test_ndcg_zero (test_evaluation.TestMetrics.test_ndcg_zero) ... ok
+test_precision (test_evaluation.TestMetrics.test_precision) ... ok
+test_generate_report (test_evaluation.TestReport.test_generate_report) ... ok
+test_create (test_models.TestCheckpoint.test_create) ... ok
+test_create_decision (test_models.TestDecision.test_create_decision) ... ok
+test_decision_alternatives (test_models.TestDecision.test_decision_alternatives) ... ok
+test_create (test_models.TestDocumentRecord.test_create) ... ok
+test_causal_chain (test_models.TestEpisode.test_causal_chain) ... ok
+test_create (test_models.TestEpisode.test_create) ... ok
+test_all_values (test_models.TestEpistemicStates.test_all_values) ... ok
+test_create (test_models.TestEvidence.test_create) ... ok
+test_create_minimal_fact (test_models.TestFact.test_create_minimal_fact) ... ok
+test_fact_obsolete (test_models.TestFact.test_fact_obsolete) ... ok
+test_fact_with_evidence (test_models.TestFact.test_fact_with_evidence) ... ok
+test_create (test_models.TestHypothesis.test_create) ... ok
+test_create (test_models.TestLearning.test_create) ... ok
+test_mapping (test_models.TestMemoryClassFor.test_mapping) ... ok
+test_create (test_models.TestMemoryRelation.test_create) ... ok
+test_create (test_models.TestProjectRecord.test_create) ... ok
+test_action_hint_fazer (test_retrieval.TestClueExtraction.test_action_hint_fazer)
+R2: 'fazer' triggers wants_next_action even though it's a stopword. ... ok
+test_action_hint_pendente (test_retrieval.TestClueExtraction.test_action_hint_pendente)
+R2: 'pendente' triggers wants_next_action. ... ok
+test_basic_terms (test_retrieval.TestClueExtraction.test_basic_terms) ... ok
+test_current_hint_agora (test_retrieval.TestClueExtraction.test_current_hint_agora)
+R2: 'agora' triggers wants_current even though it's a stopword. ... ok
+test_current_hint_atual (test_retrieval.TestClueExtraction.test_current_hint_atual)
+R2: 'atual' triggers wants_current. ... ok
+test_historical_hint_antes (test_retrieval.TestClueExtraction.test_historical_hint_antes)
+R2: 'antes' triggers wants_historical even though it's a stopword. ... ok
+test_historical_hint_era (test_retrieval.TestClueExtraction.test_historical_hint_era)
+R2: 'era' triggers wants_historical even though it's a stopword. ... ok
+test_memory_type_hint_decision (test_retrieval.TestClueExtraction.test_memory_type_hint_decision) ... ok
+test_memory_type_hint_fact (test_retrieval.TestClueExtraction.test_memory_type_hint_fact) ... ok
+test_multiple_hints_together (test_retrieval.TestClueExtraction.test_multiple_hints_together)
+R2: a query may trigger multiple hint types simultaneously. ... ok
+test_no_hint_on_neutral_query (test_retrieval.TestClueExtraction.test_no_hint_on_neutral_query)
+R2: neutral query triggers no temporal/action hints. ... ok
+test_no_results_for_unrelated (test_retrieval.TestClueExtraction.test_no_results_for_unrelated) ... ok
+test_project_hint_with_storage (test_retrieval.TestClueExtraction.test_project_hint_with_storage) ... ok
+test_stopwords_filtered (test_retrieval.TestClueExtraction.test_stopwords_filtered)
+R1: verify stopwords are removed from terms. ... ok
+test_terms_still_clean_with_hints (test_retrieval.TestClueExtraction.test_terms_still_clean_with_hints)
+R2: hint detection must not leak stopwords into clues.terms. ... ok
+test_ablation_no_semantic (test_retrieval.TestHybridRetriever.test_ablation_no_semantic) ... ok
+test_ablation_no_typing (test_retrieval.TestHybridRetriever.test_ablation_no_typing) ... ok
+test_basic_search (test_retrieval.TestHybridRetriever.test_basic_search) ... ok
+test_conflict_detection_supersedes (test_retrieval.TestHybridRetriever.test_conflict_detection_supersedes)
+R1: supersedes relations should be detected as conflicts. ... ok
+test_explanation_non_empty (test_retrieval.TestHybridRetriever.test_explanation_non_empty) ... ok
+test_quality_none_for_stopword_query (test_retrieval.TestHybridRetriever.test_quality_none_for_stopword_query)
+R1: stopword-only query may still get weak graph signals. ... ok
+test_quality_relevant (test_retrieval.TestHybridRetriever.test_quality_relevant)
+R1: strong match should be 'relevant'. ... ok
+test_result_structure (test_retrieval.TestHybridRetriever.test_result_structure) ... ok
+test_score_decomposition (test_retrieval.TestHybridRetriever.test_score_decomposition) ... ok
+test_type_filtering_decision (test_retrieval.TestHybridRetriever.test_type_filtering_decision) ... ok
+test_basic_search (test_retrieval.TestLexicalRetriever.test_basic_search) ... ok
+test_no_results (test_retrieval.TestLexicalRetriever.test_no_results) ... ok
+test_project_filter (test_retrieval.TestLexicalRetriever.test_project_filter) ... ok
+test_stopwords_ignored (test_retrieval.TestLexicalRetriever.test_stopwords_ignored)
+R1: query with only stopwords should return no results. ... ok
+test_build_and_available (test_retrieval.TestTfidfAdapter.test_build_and_available) ... ok
+test_consistent_output (test_retrieval.TestTfidfAdapter.test_consistent_output) ... ok
+test_different_inputs_different_vectors (test_retrieval.TestTfidfAdapter.test_different_inputs_different_vectors) ... ok
+test_embed_returns_valid_vectors (test_retrieval.TestTfidfAdapter.test_embed_returns_valid_vectors) ... ok
+test_normalized_vectors (test_retrieval.TestTfidfAdapter.test_normalized_vectors) ... ok
+test_checkpoint_fields (test_rework_negative.TestAllMemoryTypesFieldIntegrity.test_checkpoint_fields) ... ok
+test_decision_fields (test_rework_negative.TestAllMemoryTypesFieldIntegrity.test_decision_fields) ... ok
+test_document_fields (test_rework_negative.TestAllMemoryTypesFieldIntegrity.test_document_fields) ... ok
+test_episode_fields (test_rework_negative.TestAllMemoryTypesFieldIntegrity.test_episode_fields) ... ok
+test_evidence_fields (test_rework_negative.TestAllMemoryTypesFieldIntegrity.test_evidence_fields) ... ok
+test_fact_fields (test_rework_negative.TestAllMemoryTypesFieldIntegrity.test_fact_fields) ... ok
+test_hypothesis_fields (test_rework_negative.TestAllMemoryTypesFieldIntegrity.test_hypothesis_fields) ... ok
+test_learning_fields (test_rework_negative.TestAllMemoryTypesFieldIntegrity.test_learning_fields) ... ok
+test_mutual_relations (test_rework_negative.TestCircularRelations.test_mutual_relations)
+A -> B and B -> A should both exist. ... ok
+test_self_relation_saves (test_rework_negative.TestCircularRelations.test_self_relation_saves)
+Self-referencing relation should not crash. ... ok
+test_count_zero (test_rework_negative.TestEmptyDatabase.test_count_zero) ... ok
+test_export_empty_is_valid (test_rework_negative.TestEmptyDatabase.test_export_empty_is_valid) ... ok
+test_get_nonexistent_returns_none (test_rework_negative.TestEmptyDatabase.test_get_nonexistent_returns_none) ... ok
+test_hybrid_search_empty_quality_none (test_rework_negative.TestEmptyDatabase.test_hybrid_search_empty_quality_none) ... ok
+test_list_empty (test_rework_negative.TestEmptyDatabase.test_list_empty) ... ok
+test_relations_empty (test_rework_negative.TestEmptyDatabase.test_relations_empty) ... ok
+test_search_empty_returns_empty (test_rework_negative.TestEmptyDatabase.test_search_empty_returns_empty) ... ok
+test_duplicate_id_overwrites (test_rework_negative.TestInvalidInput.test_duplicate_id_overwrites)
+Saving memory with same ID should overwrite. ... ok
+test_empty_query_hybrid (test_rework_negative.TestInvalidInput.test_empty_query_hybrid) ... ok
+test_empty_query_lexical (test_rework_negative.TestInvalidInput.test_empty_query_lexical) ... ok
+test_invalid_memory_type_rejected (test_rework_negative.TestInvalidInput.test_invalid_memory_type_rejected) ... ok
+test_invalid_relation_type_rejected (test_rework_negative.TestInvalidInput.test_invalid_relation_type_rejected) ... ok
+test_invalid_status_rejected (test_rework_negative.TestInvalidInput.test_invalid_status_rejected) ... ok
+test_save_memory_without_project_fails_gracefully (test_rework_negative.TestInvalidInput.test_save_memory_without_project_fails_gracefully)
+Fact with empty project_id should still save (no FK constraint). ... ok
+test_missing_queries_key (test_rework_negative.TestMalformedJson.test_missing_queries_key) ... ok
+test_not_json_file (test_rework_negative.TestMalformedJson.test_not_json_file) ... ok
+test_no_project_filter_returns_all (test_rework_negative.TestProjectScopeIsolation.test_no_project_filter_returns_all) ... ok
+test_project_filter_excludes_others (test_rework_negative.TestProjectScopeIsolation.test_project_filter_excludes_others) ... ok
+test_supersedes_conflict_detected (test_rework_negative.TestSupersedesChain.test_supersedes_conflict_detected)
+R1: supersedes should trigger conflict detection. ... ok
+test_three_version_chain (test_rework_negative.TestSupersedesChain.test_three_version_chain) ... ok
+test_persistence (test_storage.TestFilePersistence.test_persistence) ... ok
+test_count_memories (test_storage.TestStorage.test_count_memories) ... ok
+test_export_import_roundtrip (test_storage.TestStorage.test_export_import_roundtrip) ... ok
+test_init_creates_tables (test_storage.TestStorage.test_init_creates_tables) ... ok
+test_list_memories_by_project (test_storage.TestStorage.test_list_memories_by_project) ... ok
+test_list_memories_by_type (test_storage.TestStorage.test_list_memories_by_type) ... ok
+test_list_projects (test_storage.TestStorage.test_list_projects) ... ok
+test_save_and_get_checkpoint (test_storage.TestStorage.test_save_and_get_checkpoint) ... ok
+test_save_and_get_decision (test_storage.TestStorage.test_save_and_get_decision) ... ok
+test_save_and_get_episode (test_storage.TestStorage.test_save_and_get_episode) ... ok
+test_save_and_get_fact (test_storage.TestStorage.test_save_and_get_fact) ... ok
+test_save_and_get_project (test_storage.TestStorage.test_save_and_get_project) ... ok
+test_save_and_get_relation (test_storage.TestStorage.test_save_and_get_relation) ... ok
+test_schema_idempotent (test_storage.TestStorage.test_schema_idempotent) ... ok
+test_supersedes_chain (test_storage.TestStorage.test_supersedes_chain) ... ok
+
+----------------------------------------------------------------------
+Ran 116 tests in 0.187s
+
+OK
