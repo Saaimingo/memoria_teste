@@ -2,11 +2,15 @@
 
 Commands: init-db, load-dataset, add-memory, add-relation, create-episode,
 create-checkpoint, search, explain, build-capsule, evaluate, export-report, show-lineage.
+
+R4 integration: --retrieval-mode assisted enables the structured assisted
+retrieval pipeline with the four canonical states and interactive clarification.
 """
 
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import click
@@ -40,10 +44,16 @@ from mec_lab.evaluation import (
     run_ablation,
 )
 from mec_lab.retrieval import (
+    AssistedRetrievalConfig,
+    AssistedRetrievalResult,
+    AssistedRetriever,
+    ClarificationCycle,
     DeterministicSemanticAdapter,
     HybridRetriever,
     LexicalRetriever,
     RetrievalConfig,
+    RetrievalState,
+    TfidfAdapter,
 )
 from mec_lab.storage import Storage
 
@@ -241,20 +251,216 @@ def create_checkpoint(
 # ---------------------------------------------------------------------------
 
 
+def _format_assisted_result_json(result: AssistedRetrievalResult) -> str:
+    """Serialize an AssistedRetrievalResult to JSON for machine consumption."""
+    scores_out = []
+    for s in result.scores:
+        scores_out.append({
+            "memory_id": s.memory_id,
+            **s.components(),
+            "is_exact_identifier": s.is_exact_identifier,
+            "match_reasons": s.match_reasons,
+        })
+    memories_out = []
+    for m in result.memories:
+        memories_out.append({
+            "id": m.id,
+            "type": str(m.type) if hasattr(m.type, "value") else str(m.type),
+            "content": m.content[:200],
+            "project_id": m.project_id,
+            "status": str(m.status) if hasattr(m.status, "value") else str(m.status),
+        })
+    related_out = []
+    for m in result.related:
+        related_out.append({
+            "id": m.id,
+            "type": str(m.type) if hasattr(m.type, "value") else str(m.type),
+            "content": m.content[:200],
+        })
+    return json.dumps({
+        "state": result.state.value,
+        "query": result.query,
+        "candidates": scores_out,
+        "memories": memories_out,
+        "related": related_out,
+        "explanation": result.explanation,
+        "clarification_dimension": result.clarification_dimension,
+        "clarification_question": result.clarification_question,
+        "clarifications_used": result.clarifications_used,
+        "session_filters": result.session_filters,
+    }, ensure_ascii=False, indent=2)
+
+
+_STATE_ICONS = {
+    RetrievalState.MEMORY_CONFIRMED: "[green]MEMORY_CONFIRMED[/green]",
+    RetrievalState.AMBIGUOUS_CANDIDATES: "[yellow]AMBIGUOUS_CANDIDATES[/yellow]",
+    RetrievalState.CLARIFICATION_REQUIRED: "[cyan]CLARIFICATION_REQUIRED[/cyan]",
+    RetrievalState.MEMORY_NOT_FOUND: "[red]MEMORY_NOT_FOUND[/red]",
+}
+
+_STATE_HUMAN = {
+    RetrievalState.MEMORY_CONFIRMED: "Lembrança confirmada — a memória foi localizada com confiança.",
+    RetrievalState.AMBIGUOUS_CANDIDATES: "Ambiguidade — há múltiplas lembranças possíveis. Refine a consulta.",
+    RetrievalState.CLARIFICATION_REQUIRED: "Esclarecimento necessário — uma informação adicional resolve a busca.",
+    RetrievalState.MEMORY_NOT_FOUND: "Nenhuma lembrança localizada com os parâmetros fornecidos.",
+}
+
+
+def _print_assisted_result(result: AssistedRetrievalResult) -> None:
+    """Pretty-print an assisted retrieval result for human consumption."""
+    state = result.state
+    console.print(f"\n[bold]Estado:[/bold] {_STATE_ICONS.get(state, state.value)}")
+    console.print(f"[bold]Significado:[/bold] {_STATE_HUMAN.get(state, '')}")
+    console.print(f"[bold]Consulta:[/bold] {result.query}")
+    console.print(f"[bold]Esclarecimentos usados:[/bold] {result.clarifications_used}/3")
+
+    if result.session_filters:
+        console.print(f"[bold]Filtros de sessão:[/bold] {result.session_filters}")
+
+    if result.scores:
+        table = Table(title="Candidatos")
+        table.add_column("Rank", style="dim")
+        table.add_column("ID")
+        table.add_column("Tipo")
+        table.add_column("Score", justify="right")
+        table.add_column("ID Exacto", justify="center")
+        table.add_column("Trecho")
+        for i, s in enumerate(result.scores[:10], 1):
+            mem = next((m for m in result.memories if m.id == s.memory_id), None)
+            snippet = (mem.content[:80] + "..." if mem and len(mem.content) > 80 else mem.content) if mem else "(ausente)"
+            mtype = str(mem.type) if mem and hasattr(mem.type, "value") else (str(mem.type) if mem else "?")
+            exact = "S" if s.is_exact_identifier else ""
+            table.add_row(str(i), s.memory_id, mtype, f"{s.final_score:.4f}", exact, snippet)
+        console.print(table)
+
+        # Score breakdown
+        console.print("\n[bold]Decomposição dos scores:[/bold]")
+        for s in result.scores[:5]:
+            comp = s.components()
+            console.print(
+                f"  {s.memory_id}: id={comp['identifier_score']:.3f} "
+                f"meta={comp['metadata_score']:.3f} text={comp['text_score']:.3f} "
+                f"rel={comp['relation_score']:.3f} temp={comp['temporal_score']:.3f} "
+                f"→ final={comp['final_score']:.3f}"
+            )
+            if s.match_reasons:
+                console.print(f"    motivos: {'; '.join(s.match_reasons[:5])}")
+
+    if state == RetrievalState.MEMORY_CONFIRMED and result.related:
+        console.print(f"\n[bold]Memórias relacionadas ({len(result.related)}):[/bold]")
+        for m in result.related:
+            console.print(f"  {m.id} ({m.type}): {m.content[:100]}")
+
+    if state == RetrievalState.CLARIFICATION_REQUIRED and result.clarification_question:
+        console.print(f"\n[bold cyan]Pergunta de esclarecimento:[/bold cyan] {result.clarification_question}")
+        console.print(f"[dim]Dimensão: {result.clarification_dimension}[/dim]")
+
+    if state == RetrievalState.MEMORY_NOT_FOUND:
+        console.print(
+            "\n[dim]Nenhuma lembrança confiável foi localizada com os parâmetros "
+            "e esclarecimentos fornecidos. Resultados aproximados não devem "
+            "ser usados como memória confirmada.[/dim]"
+        )
+
+
+def _run_assisted_search(
+    store: Storage,
+    query: str,
+    project_id: str | None,
+    json_output: bool,
+) -> None:
+    """Run the R4 assisted retrieval pipeline with interactive clarification."""
+    cycle = ClarificationCycle(store)
+    turn = cycle.start(query, project_id=project_id)
+
+    while True:
+        result = turn.result
+
+        if json_output:
+            sys.stdout.write(_format_assisted_result_json(result))
+            sys.stdout.write("\n")
+            sys.stdout.flush()
+        else:
+            _print_assisted_result(result)
+
+        if result.state != RetrievalState.CLARIFICATION_REQUIRED:
+            break
+
+        # Interactive clarification
+        question = result.clarification_question or "Pode fornecer mais detalhes?"
+        dim = result.clarification_dimension or ""
+
+        if json_output:
+            # In JSON mode, the question is already in the JSON output.
+            # Exit so the caller can inspect and re-invoke with the answer.
+            break
+
+        # Human-interactive mode: prompt for answer
+        console.print(f"\n[bold cyan]⚠ {question}[/bold cyan]")
+        try:
+            answer = click.prompt(
+                f"  Resposta ({dim})",
+                default="",
+                show_default=False,
+            )
+        except (EOFError, KeyboardInterrupt):
+            console.print("\n[yellow]Esclarecimento cancelado.[/yellow]")
+            break
+
+        if not answer or answer.strip() == "":
+            answer = "não sei"
+
+        turn = cycle.answer(answer)
+
+
 @cli.command()
 @click.argument("query")
 @click.option("--project", "project_id", default=None)
-@click.option("--strategy", default="hybrid", type=click.Choice(["lexical", "semantic", "hybrid"]))
+@click.option("--strategy", default="hybrid",
+              type=click.Choice(["lexical", "semantic", "hybrid"]),
+              help="Estratégia de busca (modo R3)")
+@click.option("--retrieval-mode", "retrieval_mode", default="hybrid",
+              type=click.Choice(["hybrid", "assisted"]),
+              help="Pipeline de recuperação: hybrid (R3, padrão) ou assisted (R4)")
 @click.option("--top-k", default=10)
 @click.option("--explain/--no-explain", default=False, help="Show score decomposition")
+@click.option("--json", "json_output", is_flag=True, default=False,
+              help="Saída estruturada em JSON (para integração com Harness)")
+@click.option("--clarify-dimension", default=None,
+              help="Dimensão do esclarecimento (usado com --clarify-answer)")
+@click.option("--clarify-answer", default=None,
+              help="Resposta ao esclarecimento anterior")
 @click.pass_context
 def search(
-    ctx: click.Context, query: str, project_id: str | None, strategy: str,
-    top_k: int, explain: bool,
+    ctx: click.Context,
+    query: str,
+    project_id: str | None,
+    strategy: str,
+    retrieval_mode: str,
+    top_k: int,
+    explain: bool,
+    json_output: bool,
+    clarify_dimension: str | None,
+    clarify_answer: str | None,
 ) -> None:
-    """Search memories by clues."""
+    """Search memories by clues.
+
+    Modos de recuperação:
+
+    \b
+    --retrieval-mode hybrid  : pipeline R3 (padrão, HybridRetriever)
+    --retrieval-mode assisted: pipeline R4 (AssistedRetriever com 4 estados)
+
+    No modo assisted, se o estado for CLARIFICATION_REQUIRED, o CLI
+    perguntará interativamente por até 3 esclarecimentos.
+    """
     store = _get_storage(ctx.obj["db"])
 
+    if retrieval_mode == "assisted":
+        _run_assisted_search(store, query, project_id, json_output)
+        return
+
+    # --- R3 / hybrid mode (existing behaviour, preserved) ---
     if strategy == "lexical":
         retriever = LexicalRetriever(store)
         results = retriever.search(query, project_id=project_id, top_k=top_k)
@@ -272,6 +478,29 @@ def search(
         semantic = DeterministicSemanticAdapter()
         retriever = HybridRetriever(store, config=cfg, semantic=semantic)
         result = retriever.search(query, project_id=project_id, top_k=top_k)
+
+        if json_output:
+            scores_out = []
+            for cs in result.candidate_scores:
+                mem = store.get_memory(cs.memory_id)
+                scores_out.append({
+                    "memory_id": cs.memory_id,
+                    "total_score": cs.total_score,
+                    "type": str(mem.type) if mem and hasattr(mem.type, "value") else "?",
+                    "snippet": mem.content[:200] if mem else "",
+                    "decomposition": cs.explanation_decomposition,
+                })
+            sys.stdout.write(json.dumps({
+                "quality": result.quality,
+                "query": result.query,
+                "candidates": scores_out,
+                "conflicts": result.conflicts,
+                "missing_information": result.missing_information,
+            }, ensure_ascii=False, indent=2))
+            sys.stdout.write("\n")
+            sys.stdout.flush()
+            return
+
         table = Table(title=f"Hybrid search: {query}")
         table.add_column("Rank", style="dim")
         table.add_column("ID")

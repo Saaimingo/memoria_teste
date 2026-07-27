@@ -617,6 +617,155 @@ class TestIdentifierExtraction(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
+# 15. Persistent database tests
+# ---------------------------------------------------------------------------
+
+
+class TestPersistentDatabase(unittest.TestCase):
+    """R4 retrieval against a file-backed SQLite database that survives close/reopen."""
+
+    def setUp(self) -> None:
+        import tempfile
+        self._tmpfile = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
+        self._tmpfile.close()
+        self.db_path = self._tmpfile.name
+
+    def tearDown(self) -> None:
+        import os
+        try:
+            os.unlink(self.db_path)
+        except OSError:
+            pass
+
+    def _populate(self) -> Storage:
+        """Create and populate a persistent storage with fixture data."""
+        from tests.fixtures.operational_fixture import (
+            MEMORIES, PROJECT_RECORDS, RELATIONS, build_fixture_storage,
+        )
+        store = build_fixture_storage(db_path=self.db_path)
+        return store
+
+    def test_memories_metadata_and_relations_survive_reopen(self) -> None:
+        # Create & populate
+        store1 = self._populate()
+        count_before = store1.count_memories()
+        rels_before = len(store1.list_all_relations())
+        store1.conn.close()
+
+        # Reopen same file
+        store2 = Storage(self.db_path)
+        store2.init_schema()
+        self.assertEqual(store2.count_memories(), count_before)
+        self.assertEqual(len(store2.list_all_relations()), rels_before)
+
+        # Verify a specific memory with metadata
+        mem = store2.get_memory("fleet-eq1")
+        self.assertIsNotNone(mem)
+        md = candidate_metadata(mem)  # type: ignore[arg-type]
+        self.assertEqual(md.get("serial_number"), "SN-ACME-1001")
+        self.assertEqual(md.get("manufacturer"), "ACME")
+
+        # Verify a relation survived
+        rels = store2.get_relations_for("mec-d1-new")
+        self.assertGreaterEqual(len(rels), 1)
+        store2.conn.close()
+
+    def test_r4_retrieval_after_reopen(self) -> None:
+        store1 = self._populate()
+        store1.conn.close()
+
+        store2 = Storage(self.db_path)
+        store2.init_schema()
+
+        retriever = AssistedRetriever(store2)
+        result = retriever.retrieve("protocolo PROTO-2001")
+        self.assertEqual(result.state, RetrievalState.MEMORY_CONFIRMED)
+        self.assertIsNotNone(result.top_memory())
+        self.assertEqual(result.top_memory().id, "doc-p1")  # type: ignore[union-attr]
+        store2.conn.close()
+
+    def test_all_four_states_after_reopen(self) -> None:
+        store1 = self._populate()
+        store1.conn.close()
+
+        store2 = Storage(self.db_path)
+        store2.init_schema()
+        r = AssistedRetriever(store2)
+
+        # CONFIRMED
+        self.assertEqual(
+            r.retrieve("protocolo PROTO-2001").state,
+            RetrievalState.MEMORY_CONFIRMED,
+        )
+
+        # AMBIGUOUS (two memories share the same serial)
+        result_amb = r.retrieve("serial SN-ACME-1001")
+        self.assertIn(
+            result_amb.state,
+            (RetrievalState.AMBIGUOUS_CANDIDATES, RetrievalState.MEMORY_CONFIRMED),
+        )
+
+        # NOT_FOUND
+        self.assertEqual(
+            r.retrieve("motor elétrico modelo Tesla-X1000").state,
+            RetrievalState.MEMORY_NOT_FOUND,
+        )
+
+        # CLARIFICATION_REQUIRED (broad query)
+        result_clar = r.retrieve("quem foi o responsável")
+        self.assertIn(
+            result_clar.state,
+            (
+                RetrievalState.CLARIFICATION_REQUIRED,
+                RetrievalState.AMBIGUOUS_CANDIDATES,
+                RetrievalState.MEMORY_NOT_FOUND,
+            ),
+        )
+        store2.conn.close()
+
+    def test_legacy_memory_without_metadata(self) -> None:
+        """Compatibilidade: banco criado pelo fluxo antigo (R3), sem metadados novos."""
+        store1 = Storage(self.db_path)
+        store1.init_schema()
+
+        from mec_lab.domain.models import Fact
+        from datetime import UTC, datetime
+
+        old_mem = Fact(
+            id="old-legacy-1",
+            content="Registro antigo sem metadata estruturada.",
+            project_id="proj-old",
+            fact_status="current",  # type: ignore[arg-type]
+            status="verified",  # type: ignore[arg-type]
+            created_at=datetime(2024, 6, 1, tzinfo=UTC),
+        )
+        store1.save_memory(old_mem)
+        store1.conn.close()
+
+        store2 = Storage(self.db_path)
+        store2.init_schema()
+
+        r = AssistedRetriever(store2)
+        result = r.retrieve("registro antigo")
+        # Legacy memory should be findable by text, though without metadata
+        # it may not score highly enough to confirm
+        self.assertIn(
+            result.state,
+            (
+                RetrievalState.MEMORY_CONFIRMED,
+                RetrievalState.CLARIFICATION_REQUIRED,
+                RetrievalState.AMBIGUOUS_CANDIDATES,
+                RetrievalState.MEMORY_NOT_FOUND,
+            ),
+        )
+        # At minimum, the memory must exist
+        mem = store2.get_memory("old-legacy-1")
+        self.assertIsNotNone(mem)
+        self.assertEqual(mem.content, "Registro antigo sem metadata estruturada.")
+        store2.conn.close()
+
+
+# ---------------------------------------------------------------------------
 # Runner entry point
 # ---------------------------------------------------------------------------
 

@@ -26,7 +26,7 @@ from typing import Any, Callable
 
 from mec_lab.domain.enums import EpistemicStatus, MemoryType, RelationType
 from mec_lab.domain.models import AnyMemory, MemoryRelation
-from mec_lab.retrieval import TfidfAdapter, token_set
+from mec_lab.retrieval.normalize import token_set
 from mec_lab.retrieval.identifiers import (
     IDENTIFIER_FIELDS,
     extract_identifier_hints,
@@ -219,7 +219,11 @@ class AssistedRetriever:
     ) -> None:
         self.storage = storage
         self.config = config or AssistedRetrievalConfig()
-        self.semantic = semantic or TfidfAdapter(storage)
+        if semantic is not None:
+            self.semantic = semantic
+        else:
+            from mec_lab.retrieval import TfidfAdapter  # lazy — avoids circular import
+            self.semantic = TfidfAdapter(storage)
         if not self.semantic.is_available():
             self.semantic.build(storage)
         self.clarifications_used = clarifications_used
@@ -829,7 +833,11 @@ class ClarificationCycle:
     ) -> None:
         self.storage = storage
         self.config = config or AssistedRetrievalConfig()
-        self.semantic = semantic or TfidfAdapter(storage)
+        if semantic is not None:
+            self.semantic = semantic
+        else:
+            from mec_lab.retrieval import TfidfAdapter  # lazy — avoids circular import
+            self.semantic = TfidfAdapter(storage)
         if not self.semantic.is_available():
             self.semantic.build(storage)
         self._session_filters: dict[str, Any] = {}
