@@ -289,6 +289,10 @@ def _format_assisted_result_json(result: AssistedRetrievalResult) -> str:
         "clarification_question": result.clarification_question,
         "clarifications_used": result.clarifications_used,
         "session_filters": result.session_filters,
+        "identifier_constraint_applied": result.identifier_constraint_applied,
+        "identifier_constraint_status": result.identifier_constraint_status,
+        "identifier_matches": result.identifier_matches,
+        "identifier_failure_reason": result.identifier_failure_reason,
     }, ensure_ascii=False, indent=2)
 
 
@@ -317,6 +321,14 @@ def _print_assisted_result(result: AssistedRetrievalResult) -> None:
 
     if result.session_filters:
         console.print(f"[bold]Filtros de sessão:[/bold] {result.session_filters}")
+
+    if result.identifier_constraint_applied:
+        console.print(
+            f"[bold]Restrição de identificador:[/bold] "
+            f"{result.identifier_constraint_status}"
+        )
+        if result.identifier_failure_reason:
+            console.print(f"[bold]Motivo:[/bold] {result.identifier_failure_reason}")
 
     if result.scores:
         table = Table(title="Candidatos")

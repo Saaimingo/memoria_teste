@@ -640,11 +640,18 @@ class IngestionPipeline:
     # ------------------------------------------------------------------
 
     def _ingest_git_history(self) -> None:
-        """Ingest reachable commit history as evidence memories with relations."""
+        """Ingest reachable commit history as evidence memories with relations.
+
+        Two-phase: first create all commit memories, then create derived_from
+        relations. This ensures parent commits exist before we try to link to
+        them, making the operation fully idempotent on the first run.
+        """
         commits = self._get_git_log()
         if not commits:
             return
 
+        # Phase 1: Create all commit memories first
+        commit_ids: list[tuple[str, list[str]]] = []
         for commit in commits:
             commit_id = stable_memory_id(
                 self.project_id, "git_history", "commit",
@@ -676,12 +683,15 @@ class IngestionPipeline:
                     "qualified_name": commit["sha"],
                 },
             )
+            commit_ids.append((commit_id, commit["parents"]))
 
-            # Create DERIVED_FROM relation from commit to parent(s)
-            for parent_sha in commit["parents"]:
+        # Phase 2: Create DERIVED_FROM relations now that all commits exist
+        for commit_id, parents in commit_ids:
+            for parent_sha in parents:
                 parent_id = stable_memory_id(
                     self.project_id, "git_history", "commit", parent_sha,
                 )
+                # Check if parent memory exists (it may be outside our range)
                 if self.storage.get_memory(parent_id):
                     self._create_relation(commit_id, parent_id, RelationType.DERIVED_FROM)
 

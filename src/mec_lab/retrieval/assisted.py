@@ -19,6 +19,7 @@ is produced by explicit rules and templates.
 from __future__ import annotations
 
 import math
+import re
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from enum import Enum
@@ -47,6 +48,41 @@ class RetrievalState(str, Enum):
     AMBIGUOUS_CANDIDATES = "AMBIGUOUS_CANDIDATES"
     CLARIFICATION_REQUIRED = "CLARIFICATION_REQUIRED"
     MEMORY_NOT_FOUND = "MEMORY_NOT_FOUND"
+
+
+# ---------------------------------------------------------------------------
+# R4.1 fix: Identifier constraint
+# ---------------------------------------------------------------------------
+
+
+class IdentifierConstraintStatus(str, Enum):
+    """Status of an explicit identifier in the query."""
+
+    NO_EXPLICIT_IDENTIFIER = "NO_EXPLICIT_IDENTIFIER"
+    IDENTIFIER_MATCHED_UNIQUE = "IDENTIFIER_MATCHED_UNIQUE"
+    IDENTIFIER_MATCHED_MULTIPLE = "IDENTIFIER_MATCHED_MULTIPLE"
+    IDENTIFIER_PARTIAL = "IDENTIFIER_PARTIAL"
+    IDENTIFIER_NOT_FOUND = "IDENTIFIER_NOT_FOUND"
+
+
+@dataclass
+class IdentifierMatch:
+    """One extracted identifier and its match status."""
+    field: str
+    raw_value: str
+    normalized_value: str
+    is_complete: bool  # True if full length, False if partial/prefix
+    match_count: int = 0
+    matched_memory_ids: list[str] = field(default_factory=list)
+
+
+@dataclass
+class IdentifierConstraint:
+    """Result of checking explicit identifiers in the query."""
+    status: IdentifierConstraintStatus = IdentifierConstraintStatus.NO_EXPLICIT_IDENTIFIER
+    identifiers: list[IdentifierMatch] = field(default_factory=list)
+    matched_memory_ids: list[str] = field(default_factory=list)  # all matches across all identifiers
+    failure_reason: str = ""
 
 
 # ---------------------------------------------------------------------------
@@ -222,6 +258,11 @@ class AssistedRetrievalResult:
     clarification_question: str | None = None
     clarifications_used: int = 0
     session_filters: dict[str, Any] = field(default_factory=dict)
+    # R4.1 fix: identifier constraint diagnostics
+    identifier_constraint_applied: bool = False
+    identifier_constraint_status: str = "NO_EXPLICIT_IDENTIFIER"
+    identifier_matches: list[dict[str, Any]] = field(default_factory=list)
+    identifier_failure_reason: str = ""
 
     def top_memory(self) -> AnyMemory | None:
         return self.memories[0] if self.memories else None
@@ -289,11 +330,46 @@ class AssistedRetriever:
         # R4.1: Entity grouping — merge segments from the same file
         scored = self._group_entities(scored)
 
+        # Test code can contain the acceptance query itself as a string
+        # literal. A purely textual hit in tests/ is not operational evidence;
+        # path, symbol, CLI and identifier lookups remain fully available.
+        scored = self._exclude_test_literal_only_candidates(scored)
+
+        # R4.1 fix: Evaluate explicit identifier constraints
+        constraint = self._evaluate_identifier_constraint(query, hints, scored)
+
+        # Explicit identifiers constrain the candidate set. Text relevance can
+        # rank valid identifier matches, but cannot replace identity.
+        if constraint.status == IdentifierConstraintStatus.IDENTIFIER_NOT_FOUND:
+            scored = []  # clear all candidates — identifier is authoritative for absence
+        elif constraint.matched_memory_ids:
+            matched_ids = set(constraint.matched_memory_ids)
+            scored = [s for s in scored if s.memory_id in matched_ids]
+
         state = self._classify_state(scored, session_filters)
+        if (
+            constraint.status == IdentifierConstraintStatus.IDENTIFIER_MATCHED_MULTIPLE
+            and len(scored) > 1
+        ):
+            state = RetrievalState.AMBIGUOUS_CANDIDATES
 
         result = AssistedRetrievalResult(
             state=state, query=query, scores=scored, session_filters=session_filters,
             clarifications_used=self.clarifications_used,
+            identifier_constraint_applied=constraint.status != IdentifierConstraintStatus.NO_EXPLICIT_IDENTIFIER,
+            identifier_constraint_status=constraint.status.value,
+            identifier_matches=[
+                {
+                    "field": m.field,
+                    "raw_value": m.raw_value,
+                    "normalized_value": m.normalized_value,
+                    "is_complete": m.is_complete,
+                    "match_count": m.match_count,
+                    "matched_memory_ids": m.matched_memory_ids[:10],
+                }
+                for m in constraint.identifiers
+            ],
+            identifier_failure_reason=constraint.failure_reason,
         )
         result.memories = [self.storage.get_memory(s.memory_id) for s in scored]  # type: ignore[assignment]
         result.memories = [m for m in result.memories if m is not None]  # type: ignore[list-item]
@@ -822,6 +898,256 @@ class AssistedRetriever:
             score += cfg.temporal_valid_bonus * 0.5
             reasons.append("temporal: valid_from set, no end")
         return score, reasons
+
+    # ------------------------------------------------------------------
+    # R4.1 fix: Negative identifier constraint
+    # ------------------------------------------------------------------
+
+    def _exclude_test_literal_only_candidates(
+        self, scored: list[StructuredScore]
+    ) -> list[StructuredScore]:
+        authoritative: list[StructuredScore] = []
+        for score in scored:
+            memory = self.storage.get_memory(score.memory_id)
+            if memory is None:
+                continue
+            source_path = str(candidate_metadata(memory).get("source_path", ""))
+            is_test_source = source_path.replace("\\", "/").startswith("tests/")
+            has_structured_match = any((
+                score.identifier_score > 0.0,
+                score.path_score > 0.0,
+                score.symbol_score > 0.0,
+                score.cli_score > 0.0,
+                score.commit_score > 0.0,
+            ))
+            if is_test_source and not has_structured_match:
+                continue
+            authoritative.append(score)
+        return authoritative
+
+    def _evaluate_identifier_constraint(
+        self,
+        query: str,
+        hints: dict[str, list[str]],
+        scored: list[StructuredScore],
+    ) -> IdentifierConstraint:
+        """Evaluate whether the query contains an explicit identifier that
+        must be matched for the result to be valid.
+
+        If an explicit identifier is present but matches nothing, this
+        returns IDENTIFIER_NOT_FOUND, which forces MEMORY_NOT_FOUND
+        regardless of text scores.
+        """
+        constraint = IdentifierConstraint()
+
+        # Also check for commit SHAs via symbolic normalize
+        from mec_lab.ingestion.symbol_normalize import extract_commit_prefix
+
+        # Collect all explicit identifiers from hints
+        all_identifiers: list[IdentifierMatch] = []
+
+        # Standard identifier hints (serial, MAC, protocol, commit, path, ticket)
+        for field_name in IDENTIFIER_FIELDS:
+            for raw_hint in hints.get(field_name, []):
+                norm = normalize_identifier(field_name, raw_hint)
+                if not norm:
+                    continue
+                # Check if any candidate has this identifier
+                matches: list[str] = []
+
+                # Check both the typed field and source_path (for ingested data)
+                check_fields = [field_name]
+                if field_name == "file_path":
+                    check_fields.append("source_path")
+
+                for s in scored:
+                    mem = self.storage.get_memory(s.memory_id)
+                    if mem is None:
+                        continue
+                    md = candidate_metadata(mem)
+                    for cf in check_fields:
+                        stored = md.get(cf)
+                        if not stored:
+                            continue
+                        norm_stored = normalize_identifier(field_name, str(stored))
+                        if norm_stored == norm:
+                            if s.memory_id not in matches:
+                                matches.append(s.memory_id)
+                        elif (
+                            norm_stored.startswith(norm)
+                            or norm.startswith(norm_stored)
+                            or norm_stored.endswith(norm)
+                            or norm.endswith(norm_stored)
+                        ):
+                            if s.memory_id not in matches:
+                                matches.append(s.memory_id)
+                        elif (
+                            field_name == "file_path"
+                            and "/" not in raw_hint
+                            and "\\" not in raw_hint
+                        ):
+                            # Basename matching is only valid for a filename
+                            # fragment. An explicit structural path must not
+                            # collapse to every file sharing its basename.
+                            from pathlib import PurePath
+                            stored_base = PurePath(str(stored).replace("\\", "/")).name.lower()
+                            hint_base = PurePath(raw_hint.replace("\\", "/")).name.lower()
+                            if stored_base and hint_base and stored_base == hint_base:
+                                if s.memory_id not in matches:
+                                    matches.append(s.memory_id)
+
+                # Also check commit_sha metadata for commit_sha field
+                if field_name == "commit_sha":
+                    for s in scored:
+                        mem = self.storage.get_memory(s.memory_id)
+                        if mem is None:
+                            continue
+                        md = candidate_metadata(mem)
+                        stored_sha = md.get("commit_sha", "")
+                        if stored_sha and len(stored_sha) >= 7:
+                            if stored_sha.lower().startswith(norm.lower()) or norm.lower().startswith(stored_sha.lower()):
+                                if s.memory_id not in matches:
+                                    matches.append(s.memory_id)
+
+                    # A short hexadecimal token is an explicit commit only
+                    # with Git context, or when it resolves to a known prefix.
+                    # A full 40-character SHA remains self-identifying.
+                    has_git_context = bool(
+                        re.search(r"\b(?:commit|sha|git)\b", query, re.IGNORECASE)
+                    )
+                    if len(norm) < 40 and not has_git_context and not matches:
+                        continue
+
+                # An identifier is "complete" only if it's long enough to be
+                # a real identifier value. Short tokens like "PROTO" alone are
+                # partial and should not trigger the negative constraint.
+                min_len = 7 if field_name == "commit_sha" else 4
+                is_complete = len(raw_hint) >= min_len
+                # file_path without a directory separator is partial —
+                # it's a filename fragment, not an explicit path.
+                if field_name == "file_path" and "/" not in raw_hint and "\\" not in raw_hint:
+                    is_complete = False
+                # protocol_number and ticket_number must contain digits
+                # to be considered complete identifiers.
+                if field_name in ("protocol_number", "ticket_number", "issue_id"):
+                    if not any(c.isdigit() for c in raw_hint):
+                        is_complete = False
+                all_identifiers.append(IdentifierMatch(
+                    field=field_name,
+                    raw_value=raw_hint,
+                    normalized_value=norm,
+                    is_complete=is_complete,
+                    match_count=len(matches),
+                    matched_memory_ids=matches,
+                ))
+                constraint.matched_memory_ids.extend(matches)
+
+        # Check for explicit commit SHA in the query (via symbolic extractor)
+        commit_prefix = extract_commit_prefix(query)
+        if commit_prefix and not any(i.field == "commit_sha" for i in all_identifiers):
+            # Check against all candidate commit_sha metadata
+            matches: list[str] = []
+            for s in scored:
+                mem = self.storage.get_memory(s.memory_id)
+                if mem is None:
+                    continue
+                md = candidate_metadata(mem)
+                stored_sha = md.get("commit_sha", "")
+                if stored_sha and len(stored_sha) >= 7:
+                    if stored_sha.lower().startswith(commit_prefix.lower()):
+                        matches.append(s.memory_id)
+
+            has_git_context = bool(
+                re.search(r"\b(?:commit|sha|git)\b", query, re.IGNORECASE)
+            )
+            if len(commit_prefix) >= 40 or has_git_context or matches:
+                all_identifiers.append(IdentifierMatch(
+                    field="commit_sha",
+                    raw_value=commit_prefix,
+                    normalized_value=commit_prefix,
+                    is_complete=len(commit_prefix) >= 40,
+                    match_count=len(matches),
+                    matched_memory_ids=matches,
+                ))
+                constraint.matched_memory_ids.extend(matches)
+
+        if not all_identifiers:
+            constraint.status = IdentifierConstraintStatus.NO_EXPLICIT_IDENTIFIER
+            return constraint
+
+        constraint.identifiers = all_identifiers
+
+        # Determine constraint status.
+        # Group identifiers by normalized value — if the same value is extracted
+        # as multiple types (e.g. AABBCCDDEE03 as both commit_sha and mac_address),
+        # and any type matches, the value is considered matched.
+        from collections import defaultdict
+        value_groups: dict[str, list[IdentifierMatch]] = defaultdict(list)
+        for i in all_identifiers:
+            value_groups[i.normalized_value].append(i)
+
+        any_value_matched = any(
+            any(i.match_count > 0 for i in group)
+            for group in value_groups.values()
+        )
+        any_value_not_matched = any(
+            all(i.match_count == 0 for i in group)
+            for group in value_groups.values()
+        )
+
+        if any_value_not_matched and not any_value_matched:
+            # All explicit identifiers matched nothing.
+            # Only force NOT_FOUND if at least one is a complete identifier.
+            has_complete_unmatched = any(
+                (i.is_complete or i.field == "commit_sha")
+                and i.match_count == 0
+                for group in value_groups.values()
+                for i in group
+            )
+            if has_complete_unmatched:
+                constraint.status = IdentifierConstraintStatus.IDENTIFIER_NOT_FOUND
+                unmatched = [
+                    i.field + "=" + i.raw_value
+                    for group in value_groups.values()
+                    for i in group
+                    if i.match_count == 0
+                    and (i.is_complete or i.field == "commit_sha")
+                ]
+                constraint.failure_reason = (
+                    f"Explicit identifier(s) not found: {', '.join(unmatched)}"
+                )
+            else:
+                # All unmatched identifiers are partial — don't force NOT_FOUND
+                constraint.status = IdentifierConstraintStatus.IDENTIFIER_PARTIAL
+        elif any_value_matched and any_value_not_matched:
+            # Some values matched, others didn't.
+            # Only force NOT_FOUND for *complete* unmatched identifiers
+            # (not partial/prefix ones that could be ambiguous).
+            unmatched_complete = [
+                i for group in value_groups.values()
+                for i in group
+                if i.match_count == 0
+                and (i.is_complete or i.field == "commit_sha")
+                and not any(g.match_count > 0 for g in group)
+            ]
+            if unmatched_complete:
+                constraint.status = IdentifierConstraintStatus.IDENTIFIER_NOT_FOUND
+                constraint.failure_reason = (
+                    f"Complete identifier(s) not found: "
+                    f"{', '.join(i.field + '=' + i.raw_value for i in unmatched_complete)}"
+                )
+            else:
+                # All unmatched identifiers are partial or share a value with a match
+                constraint.status = IdentifierConstraintStatus.IDENTIFIER_PARTIAL
+        else:
+            # All matched
+            total_matches = sum(i.match_count for i in all_identifiers)
+            if total_matches == 1:
+                constraint.status = IdentifierConstraintStatus.IDENTIFIER_MATCHED_UNIQUE
+            else:
+                constraint.status = IdentifierConstraintStatus.IDENTIFIER_MATCHED_MULTIPLE
+
+        return constraint
 
     # ------------------------------------------------------------------
     # R4.1: Entity grouping
