@@ -714,6 +714,10 @@ def show_lineage(ctx: click.Context, memory_id: str) -> None:
               help="Output report as JSON to stdout")
 @click.option("--force-reindex", is_flag=True, default=False,
               help="Re-create memories even if they already exist")
+@click.option("--include-git-history", is_flag=True, default=False,
+              help="Ingest git commit history as evidence memories")
+@click.option("--git-history-since", default=None,
+              help="Git ref to start history from (e.g. 8501da0)")
 @click.pass_context
 def ingest_project(
     ctx: click.Context,
@@ -727,6 +731,8 @@ def ingest_project(
     exclude_patterns: tuple[str, ...],
     json_output: bool,
     force_reindex: bool,
+    include_git_history: bool,
+    git_history_since: str | None,
 ) -> None:
     """Ingest a project's files into MEC structured memories.
 
@@ -757,6 +763,8 @@ def ingest_project(
         include_patterns=inc,
         exclude_patterns=exc,
         force_reindex=force_reindex,
+        include_git_history=include_git_history,
+        git_history_since=git_history_since,
     )
 
     report = pipeline.run()
@@ -798,7 +806,7 @@ def ingest_project(
     if manifest_path:
         # Rebuild manifest for saving (pipeline builds it internally)
         manifest = IngestionManifest(
-            pipeline_version="1.0.0",
+            pipeline_version="1.1.0",
             project_id=project_id,
             source_root=source,
             generated_at=report.start_time,

@@ -67,6 +67,13 @@ class StructuredScore:
     final_score: float = 0.0
     match_reasons: list[str] = field(default_factory=list)
     is_exact_identifier: bool = False
+    # R4.1: new score channels
+    path_score: float = 0.0
+    symbol_score: float = 0.0
+    cli_score: float = 0.0
+    commit_score: float = 0.0
+    entity_group_score: float = 0.0
+    group_id: str = ""
 
     def components(self) -> dict[str, float]:
         return {
@@ -75,6 +82,11 @@ class StructuredScore:
             "text_score": round(self.text_score, 4),
             "relation_score": round(self.relation_score, 4),
             "temporal_score": round(self.temporal_score, 4),
+            "path_score": round(self.path_score, 4),
+            "symbol_score": round(self.symbol_score, 4),
+            "cli_score": round(self.cli_score, 4),
+            "commit_score": round(self.commit_score, 4),
+            "entity_group_score": round(self.entity_group_score, 4),
             "final_score": round(self.final_score, 4),
         }
 
@@ -133,6 +145,22 @@ class AssistedRetrievalConfig:
     superseded_penalty: float = 0.25
     obsolete_penalty: float = 0.20
     hypothesis_penalty: float = 0.10  # not approved -> cannot be a confirmed decision
+
+    # R4.1: Symbolic and structural score channels
+    path_weight: float = 1.5          # exact path match dominates
+    symbol_weight: float = 1.2        # exact symbol match dominates
+    cli_weight: float = 0.8           # CLI command/option match
+    commit_weight: float = 1.0         # commit SHA match
+    entity_group_weight: float = 0.15  # entity grouping bonus
+
+    path_exact_score: float = 1.0
+    path_partial_score: float = 0.5
+    symbol_exact_score: float = 1.0
+    symbol_partial_score: float = 0.4
+    cli_exact_score: float = 1.0
+    cli_partial_score: float = 0.4
+    commit_exact_score: float = 1.0
+    commit_prefix_score: float = 0.6
 
     # Top-k pool considered for ranking
     pool_size: int = 50
@@ -258,6 +286,9 @@ class AssistedRetriever:
         if session_filters:
             scored = self._apply_session_filters(scored, session_filters)
 
+        # R4.1: Entity grouping — merge segments from the same file
+        scored = self._group_entities(scored)
+
         state = self._classify_state(scored, session_filters)
 
         result = AssistedRetrievalResult(
@@ -368,9 +399,23 @@ class AssistedRetriever:
         # 2. Partial identifier matching (only counted if no exact hit)
         if not exact_hit:
             ps, p_reasons = self._partial_identifier_score(md, hints)
-            # partial never overrides exact from another candidate, but boosts
             s.identifier_score = max(s.identifier_score, ps)
             s.match_reasons.extend(p_reasons)
+
+        # R4.1: Symbolic scoring (path, symbol, CLI, commit)
+        s.path_score, path_reasons = self._path_score(md, query)
+        s.match_reasons.extend(path_reasons)
+
+        s.symbol_score, sym_reasons = self._symbol_score(md, query)
+        s.match_reasons.extend(sym_reasons)
+
+        s.cli_score, cli_reasons = self._cli_score(md, query)
+        s.match_reasons.extend(cli_reasons)
+
+        s.commit_score, commit_reasons = self._commit_score(md, query)
+        s.match_reasons.extend(commit_reasons)
+
+        s.group_id = md.get("source_path", "")
 
         # 3. Structured metadata match (filters + query tokens over metadata)
         s.metadata_score, md_reasons = self._metadata_score(md, hints, query, session_filters)
@@ -388,18 +433,24 @@ class AssistedRetriever:
         s.temporal_score, t_reasons = self._temporal_score(mem, md)
         s.match_reasons.extend(t_reasons)
 
-        # 7. Final weighted sum
+        # 7. Final weighted sum (R4.1: includes symbolic channels)
         s.final_score = (
             s.identifier_score * cfg.identifier_weight
             + s.metadata_score * cfg.metadata_weight
             + s.text_score * cfg.text_weight
             + s.relation_score * cfg.relation_weight
             + s.temporal_score * cfg.temporal_weight
+            + s.path_score * cfg.path_weight
+            + s.symbol_score * cfg.symbol_weight
+            + s.cli_score * cfg.cli_weight
+            + s.commit_score * cfg.commit_weight
         )
 
-        # Non-textual signal floor: if there is identifier or metadata signal,
-        # allow the candidate to survive even without text overlap.
-        if s.identifier_score == 0.0 and s.metadata_score == 0.0 and s.text_score == 0.0:
+        # Non-textual signal floor: if there is no signal at all, drop it.
+        if (s.identifier_score == 0.0 and s.metadata_score == 0.0
+                and s.text_score == 0.0 and s.path_score == 0.0
+                and s.symbol_score == 0.0 and s.cli_score == 0.0
+                and s.commit_score == 0.0):
             s.final_score = 0.0
 
         # Stale penalties (applied to final_score so they can drop a candidate)
@@ -483,6 +534,171 @@ class AssistedRetriever:
                     if score > best:
                         best = score
                         reasons.append(f"partial match: {field} (hint={raw_hint}, stored={stored})")
+        return best, reasons
+
+    # ------------------------------------------------------------------
+    # R4.1: Symbolic scoring methods
+    # ------------------------------------------------------------------
+
+    def _path_score(
+        self, md: dict[str, Any], query: str
+    ) -> tuple[float, list[str]]:
+        """Score based on file path matching (exact, partial, basename)."""
+        from mec_lab.ingestion.symbol_normalize import normalize_path_symbol, paths_symbol_match
+        cfg = self.config
+        reasons: list[str] = []
+        best = 0.0
+
+        stored_path = md.get("source_path", "")
+        if not stored_path:
+            return 0.0, []
+
+        # Extract path-like tokens from the query
+        import re
+        path_patterns = [
+            re.compile(r'([A-Za-z]:[\\/][^ \t]+|/[A-Za-z][^ \t]+|[\w\-./]+\.[a-z]{1,6})'),
+        ]
+        for pat in path_patterns:
+            for match in pat.findall(query):
+                if paths_symbol_match(match, stored_path):
+                    # Check if it's an exact match
+                    norm_q = normalize_path_symbol(match)
+                    norm_s = normalize_path_symbol(stored_path)
+                    if norm_q == norm_s:
+                        best = max(best, cfg.path_exact_score)
+                        reasons.append(f"exact path match: {match}")
+                    else:
+                        best = max(best, cfg.path_partial_score)
+                        reasons.append(f"partial path match: {match} ~ {stored_path}")
+
+        return best, reasons
+
+    def _symbol_score(
+        self, md: dict[str, Any], query: str
+    ) -> tuple[float, list[str]]:
+        """Score based on software symbol matching (class, function, module name)."""
+        from mec_lab.ingestion.symbol_normalize import normalize_symbol
+        cfg = self.config
+        reasons: list[str] = []
+        best = 0.0
+
+        # Get the stored symbol name
+        stored_name = md.get("qualified_name", "") or md.get("source_heading", "")
+        if not stored_name:
+            return 0.0, []
+
+        # Simple name: last component of qualified name
+        simple_name = stored_name.rsplit(".", 1)[-1] if "." in stored_name else stored_name
+        symbol_kind = md.get("symbol_kind", "") or md.get("entity_type", "")
+
+        # Extract candidate symbols from query using regex
+        import re
+        # Match PascalCase, camelCase, snake_case identifiers of 3+ chars
+        candidates = set()
+        # PascalCase / camelCase
+        for m in re.findall(r'\b([A-Z][a-zA-Z0-9]{2,})\b', query):
+            candidates.add(m)
+        # snake_case
+        for m in re.findall(r'\b([a-z][a-z0-9_]{2,})\b', query):
+            candidates.add(m)
+        # Dotted module paths
+        for m in re.findall(r'\b([a-z][a-z0-9_]*(?:\.[a-z][a-z0-9_]*)+)\b', query):
+            candidates.add(m)
+
+        # Get normalized forms of the stored symbol
+        stored_forms = set(normalize_symbol(stored_name))
+        simple_forms = set(normalize_symbol(simple_name))
+
+        for candidate in candidates:
+            cand_forms = set(normalize_symbol(candidate))
+            # Check exact match against simple name
+            if cand_forms & simple_forms:
+                # Only boost if it looks like a real symbol match (not a stopword)
+                if len(candidate) >= 3 and candidate.lower() not in {
+                    "the", "for", "and", "but", "not", "all", "any", "can",
+                    "has", "her", "his", "its", "may", "our", "she", "the",
+                }:
+                    best = max(best, cfg.symbol_exact_score)
+                    reasons.append(f"exact symbol match: {candidate} ~ {simple_name} ({symbol_kind})")
+            elif cand_forms & stored_forms:
+                best = max(best, cfg.symbol_partial_score)
+                reasons.append(f"partial symbol match: {candidate} ~ {stored_name}")
+
+        return best, reasons
+
+    def _cli_score(
+        self, md: dict[str, Any], query: str
+    ) -> tuple[float, list[str]]:
+        """Score based on CLI command and option matching."""
+        from mec_lab.ingestion.symbol_normalize import normalize_cli_option, cli_options_match
+        cfg = self.config
+        reasons: list[str] = []
+        best = 0.0
+
+        cli_command = md.get("cli_command", "")
+        cli_option = md.get("cli_option", "")
+
+        if not cli_command and not cli_option:
+            return 0.0, []
+
+        import re
+        # Extract CLI-looking tokens from query: --option, command-name
+        cli_tokens = re.findall(r'--?[a-z][\w-]+', query, re.IGNORECASE)
+        # Also extract bare words that could be command names
+        words = re.findall(r'\b([a-z][a-z-]{2,})\b', query, re.IGNORECASE)
+
+        for token in cli_tokens:
+            token_clean = token.lstrip("-")
+            if cli_option:
+                if cli_options_match(token, cli_option):
+                    best = max(best, cfg.cli_exact_score)
+                    reasons.append(f"exact CLI option match: {token} ~ {cli_option}")
+            if cli_command:
+                norm_token = token_clean.replace("-", "_").lower()
+                norm_cmd = cli_command.replace("-", "_").lower()
+                if norm_token == norm_cmd:
+                    best = max(best, cfg.cli_exact_score)
+                    reasons.append(f"exact CLI command match: {token} ~ {cli_command}")
+
+        for word in words:
+            norm_word = word.lower().replace("-", "_")
+            if cli_command:
+                norm_cmd = cli_command.lower().replace("-", "_")
+                if norm_word == norm_cmd:
+                    best = max(best, cfg.cli_exact_score)
+                    reasons.append(f"CLI command match: {word} ~ {cli_command}")
+                elif norm_word in norm_cmd or norm_cmd in norm_word:
+                    best = max(best, cfg.cli_partial_score)
+                    reasons.append(f"partial CLI command match: {word} ~ {cli_command}")
+
+        return best, reasons
+
+    def _commit_score(
+        self, md: dict[str, Any], query: str
+    ) -> tuple[float, list[str]]:
+        """Score based on commit SHA matching."""
+        from mec_lab.ingestion.symbol_normalize import extract_commit_prefix, commit_prefix_matches
+        cfg = self.config
+        reasons: list[str] = []
+        best = 0.0
+
+        stored_sha = md.get("commit_sha", "")
+        if not stored_sha or len(stored_sha) < 7:
+            return 0.0, []
+
+        # Extract commit prefix from query
+        prefix = extract_commit_prefix(query)
+        if not prefix:
+            return 0.0, []
+
+        if commit_prefix_matches(prefix, stored_sha):
+            if len(prefix) >= len(stored_sha):
+                best = cfg.commit_exact_score
+                reasons.append(f"exact commit SHA match: {prefix}")
+            else:
+                best = cfg.commit_prefix_score
+                reasons.append(f"commit prefix match: {prefix} ~ {stored_sha[:7]}")
+
         return best, reasons
 
     def _metadata_score(
@@ -606,6 +822,58 @@ class AssistedRetriever:
             score += cfg.temporal_valid_bonus * 0.5
             reasons.append("temporal: valid_from set, no end")
         return score, reasons
+
+    # ------------------------------------------------------------------
+    # R4.1: Entity grouping
+    # ------------------------------------------------------------------
+
+    def _group_entities(self, scored: list[StructuredScore]) -> list[StructuredScore]:
+        """Group candidates from the same source file into a single representative.
+
+        Multiple segments of the same file (e.g. module, its classes, its functions)
+        should not cause false ambiguity. The highest-scoring segment represents
+        the group, and others are absorbed.
+
+        Only groups by ``source_path`` metadata — truly different files remain
+        separate candidates.
+        """
+        if not scored:
+            return scored
+
+        groups: dict[str, list[StructuredScore]] = {}
+        standalone: list[StructuredScore] = []
+
+        for s in scored:
+            mem = self.storage.get_memory(s.memory_id)
+            if mem is None:
+                standalone.append(s)
+                continue
+            md = candidate_metadata(mem)
+            source_path = md.get("source_path", "")
+            if source_path:
+                groups.setdefault(source_path, []).append(s)
+            else:
+                standalone.append(s)
+
+        result: list[StructuredScore] = []
+        for path, segs in groups.items():
+            if len(segs) == 1:
+                result.extend(segs)
+            else:
+                # Keep the highest-scoring segment as representative
+                segs.sort(key=lambda s: s.final_score, reverse=True)
+                rep = segs[0]
+                rep.entity_group_score = self.config.entity_group_weight
+                if not any("entity group representative" in r for r in rep.match_reasons):
+                    rep.match_reasons.append(
+                        f"entity group representative: {path} ({len(segs)} segments)"
+                    )
+                result.append(rep)
+
+        result.extend(standalone)
+        # Re-sort by final score (entity_group_score may have changed order)
+        result.sort(key=lambda s: (s.final_score, s.identifier_score), reverse=True)
+        return result
 
     # ------------------------------------------------------------------
     # State classification

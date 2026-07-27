@@ -158,6 +158,8 @@ class IngestionPipeline:
         include_patterns: list[str] | None = None,
         exclude_patterns: list[str] | None = None,
         force_reindex: bool = False,
+        include_git_history: bool = False,
+        git_history_since: str | None = None,
     ) -> None:
         self.source_root = Path(source_root).resolve()
         self.project_id = project_id
@@ -166,6 +168,8 @@ class IngestionPipeline:
         self.include_patterns = include_patterns or []
         self.exclude_patterns = exclude_patterns or []
         self.force_reindex = force_reindex
+        self.include_git_history = include_git_history
+        self.git_history_since = git_history_since
         self.report = IngestionReport()
         self._commit_sha = ""
 
@@ -196,6 +200,10 @@ class IngestionPipeline:
             for entry in manifest.files:
                 if entry.status == "included":
                     self._ingest_file(entry)
+
+            # Phase 3: Ingest git history if requested
+            if self.include_git_history:
+                self._ingest_git_history()
 
         self.report.end_time = now_iso()
         self.report.elapsed_seconds = round(time.monotonic() - t0, 2)
@@ -512,14 +520,12 @@ class IngestionPipeline:
         if not entities:
             return None
 
-        # Module entity (first one)
         module_entity = entities[0]
         module_id = stable_memory_id(
             self.project_id, entry.relative_path, "module",
             module_entity.qualified_name,
         )
 
-        # Determine memory type based on content
         mem_type = MemoryType.FACT
 
         self._create_memory(
@@ -532,36 +538,48 @@ class IngestionPipeline:
                 "source_line_start": module_entity.line_start,
                 "source_line_end": module_entity.line_end,
                 "entity_type": "module",
+                "symbol_kind": "module",
+                "module_name": module_entity.qualified_name,
                 "docstring": module_entity.docstring[:1000],
                 "imports": module_entity.imports[:20],
             },
         )
 
         module_id_map: dict[str, str] = {"": module_id}
-        last_parent: str | None = None
 
-        for entity in entities[1:]:  # skip module
+        for entity in entities[1:]:
             ent_id = stable_memory_id(
                 self.project_id, entry.relative_path,
                 entity.entity_type, entity.qualified_name,
             )
 
+            extra: dict[str, Any] = {
+                "source_heading": entity.qualified_name,
+                "qualified_name": entity.qualified_name,
+                "signature": entity.signature,
+                "docstring": entity.docstring[:1000],
+                "source_line_start": entity.line_start,
+                "source_line_end": entity.line_end,
+                "entity_type": entity.entity_type,
+                "symbol_kind": entity.symbol_kind,
+                "module_name": entity.module_name,
+                "class_name": entity.class_name,
+                "function_name": entity.function_name,
+                "method_name": entity.method_name,
+                "decorators": entity.decorators[:10],
+            }
+            if entity.cli_command:
+                extra["cli_command"] = entity.cli_command
+            if entity.cli_option:
+                extra["cli_option"] = entity.cli_option
+
             self._create_memory(
                 ent_id, mem_type,
                 content=entity.content[:5000],
                 entry=entry,
-                extra={
-                    "source_heading": entity.qualified_name,
-                    "qualified_name": entity.qualified_name,
-                    "signature": entity.signature,
-                    "docstring": entity.docstring[:1000],
-                    "source_line_start": entity.line_start,
-                    "source_line_end": entity.line_end,
-                    "entity_type": entity.entity_type,
-                },
+                extra=extra,
             )
 
-            # Determine parent: for methods, find the class; for classes/functions, use module
             if entity.entity_type == "method":
                 parent_name = entity.qualified_name.rsplit(".", 2)[0] if entity.qualified_name.count(".") >= 2 else ""
             else:
@@ -569,9 +587,7 @@ class IngestionPipeline:
 
             parent_id = module_id_map.get(parent_name, module_id)
             self._create_relation(ent_id, parent_id, RelationType.PART_OF)
-
             module_id_map[entity.qualified_name] = ent_id
-            last_parent = ent_id
 
         return module_id
 
@@ -618,6 +634,131 @@ class IngestionPipeline:
             self._create_relation(seg_id, file_id, RelationType.PART_OF)
 
         return file_id
+
+    # ------------------------------------------------------------------
+    # Git history ingestion
+    # ------------------------------------------------------------------
+
+    def _ingest_git_history(self) -> None:
+        """Ingest reachable commit history as evidence memories with relations."""
+        commits = self._get_git_log()
+        if not commits:
+            return
+
+        for commit in commits:
+            commit_id = stable_memory_id(
+                self.project_id, "git_history", "commit",
+                commit["sha"],
+            )
+            self._create_memory(
+                commit_id, MemoryType.EVIDENCE,
+                content=commit["message"][:5000],
+                entry=FileEntry(
+                    relative_path="git_history",
+                    file_type="git",
+                    size_bytes=len(commit["message"]),
+                    sha256=commit["sha"],
+                    commit_sha=self._commit_sha,
+                ),
+                extra={
+                    "entity_type": "commit",
+                    "symbol_kind": "commit",
+                    "commit_sha": commit["sha"],
+                    "commit_short_sha": commit["sha"][:7],
+                    "commit_message": commit["message"][:2000],
+                    "commit_author": commit["author"],
+                    "commit_date": commit["date"],
+                    "commit_parents": commit["parents"],
+                    "commit_files_changed": commit["files"],
+                    "commit_insertions": commit.get("insertions", 0),
+                    "commit_deletions": commit.get("deletions", 0),
+                    "source_heading": f"commit {commit['sha'][:7]}",
+                    "qualified_name": commit["sha"],
+                },
+            )
+
+            # Create DERIVED_FROM relation from commit to parent(s)
+            for parent_sha in commit["parents"]:
+                parent_id = stable_memory_id(
+                    self.project_id, "git_history", "commit", parent_sha,
+                )
+                if self.storage.get_memory(parent_id):
+                    self._create_relation(commit_id, parent_id, RelationType.DERIVED_FROM)
+
+    def _get_git_log(self) -> list[dict[str, Any]]:
+        """Get git commit history from the repository."""
+        rev_range = self.git_history_since or "HEAD~50"
+        try:
+            # Get commits with separator-based format
+            fmt = "%H%x1f%P%x1f%an%x1f%ad%x1f%s%x1f%b%x1e"
+            if self.git_history_since:
+                args = ["git", "log", f"{self.git_history_since}..HEAD", f"--format={fmt}"]
+            else:
+                args = ["git", "log", "-50", f"--format={fmt}"]
+
+            result = subprocess.run(
+                args,
+                cwd=str(self.source_root),
+                capture_output=True, text=True, timeout=30,
+            )
+            if result.returncode != 0:
+                return []
+
+            commits = []
+            for record in result.stdout.split(chr(30)):
+                record = record.strip()
+                if not record:
+                    continue
+                fields = record.split(chr(31))
+                sha = fields[0] if len(fields) > 0 else ""
+                parents = fields[1].split() if len(fields) > 1 else []
+                author = fields[2] if len(fields) > 2 else ""
+                date = fields[3] if len(fields) > 3 else ""
+                subject = fields[4] if len(fields) > 4 else ""
+                body = fields[5] if len(fields) > 5 else ""
+                msg = subject + (chr(10) + body if body else "")
+
+                # Get files changed
+                files_changed: list[str] = []
+                insertions = 0
+                deletions = 0
+                try:
+                    stat_result = subprocess.run(
+                        ["git", "show", "--stat", "--format=", sha],
+                        cwd=str(self.source_root),
+                        capture_output=True, text=True, timeout=10,
+                    )
+                    for fline in stat_result.stdout.strip().split(chr(10)):
+                        if not fline:
+                            continue
+                        if "|" in fline:
+                            fname = fline.split("|")[0].strip()
+                            if fname:
+                                files_changed.append(fname)
+                        if "insertion" in fline:
+                            m = re.search(r"(\d+) insertion", fline)
+                            if m:
+                                insertions = int(m.group(1))
+                        if "deletion" in fline:
+                            m = re.search(r"(\d+) deletion", fline)
+                            if m:
+                                deletions = int(m.group(1))
+                except Exception:
+                    pass
+
+                commits.append({
+                    "sha": sha,
+                    "parents": parents,
+                    "author": author,
+                    "date": date,
+                    "message": msg,
+                    "files": files_changed,
+                    "insertions": insertions,
+                    "deletions": deletions,
+                })
+            return commits
+        except Exception:
+            return []
 
     # ------------------------------------------------------------------
     # Git helpers

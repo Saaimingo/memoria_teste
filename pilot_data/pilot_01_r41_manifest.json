@@ -1,0 +1,12 @@
+{
+  "pipeline_version": "1.1.0",
+  "project_id": "mec-lab",
+  "source_root": "D:/memoria_teste",
+  "commit_sha": "",
+  "generated_at": "2026-07-27T20:13:56.650651+00:00",
+  "total_files": 96,
+  "included_files": 69,
+  "excluded_files": 27,
+  "total_expected_memories": 908,
+  "files": []
+}

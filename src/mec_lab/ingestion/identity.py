@@ -10,7 +10,7 @@ import hashlib
 from datetime import UTC, datetime
 from typing import Any
 
-INGESTION_PIPELINE_VERSION = "1.0.0"
+INGESTION_PIPELINE_VERSION = "1.1.0"
 
 
 def content_fingerprint(content: str) -> str:
