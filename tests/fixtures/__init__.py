@@ -1,0 +1,1 @@
+"""MEC R4 — Operational test fixtures."""
