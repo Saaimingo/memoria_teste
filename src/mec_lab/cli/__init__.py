@@ -43,6 +43,7 @@ from mec_lab.evaluation import (
     generate_report,
     run_ablation,
 )
+from mec_lab.ingestion import IngestionManifest, IngestionPipeline
 from mec_lab.retrieval import (
     AssistedRetrievalConfig,
     AssistedRetrievalResult,
@@ -686,6 +687,132 @@ def show_lineage(ctx: click.Context, memory_id: str) -> None:
         console.print(f"\n[bold]Relations ({len(rels)}):[/bold]")
         for r in rels:
             console.print(f"  {r.relation_type}: {r.source_id} -> {r.target_id}")
+
+
+# ---------------------------------------------------------------------------
+# ingest-project
+# ---------------------------------------------------------------------------
+
+
+@cli.command()
+@click.option("--source", required=True, type=click.Path(exists=True),
+              help="Project source root directory")
+@click.option("--db", "db_override", default=None,
+              help="SQLite database path (overrides global --db)")
+@click.option("--project-id", default="mec-lab", help="Project identifier")
+@click.option("--manifest", "manifest_path", default=None,
+              help="Path to write the ingestion manifest JSON")
+@click.option("--report", "report_path", default=None,
+              help="Path to write the ingestion report JSON")
+@click.option("--dry-run", is_flag=True, default=False,
+              help="Generate manifest without writing memories")
+@click.option("--include", "include_patterns", multiple=True, default=None,
+              help="File patterns to include (repeatable)")
+@click.option("--exclude", "exclude_patterns", multiple=True, default=None,
+              help="File patterns to exclude (repeatable)")
+@click.option("--json", "json_output", is_flag=True, default=False,
+              help="Output report as JSON to stdout")
+@click.option("--force-reindex", is_flag=True, default=False,
+              help="Re-create memories even if they already exist")
+@click.pass_context
+def ingest_project(
+    ctx: click.Context,
+    source: str,
+    db_override: str | None,
+    project_id: str,
+    manifest_path: str | None,
+    report_path: str | None,
+    dry_run: bool,
+    include_patterns: tuple[str, ...],
+    exclude_patterns: tuple[str, ...],
+    json_output: bool,
+    force_reindex: bool,
+) -> None:
+    """Ingest a project's files into MEC structured memories.
+
+    Reads git-tracked files, segments them, and creates deterministic
+    memory records with full provenance metadata.
+
+    Examples:
+
+    \b
+    # Dry run — generate manifest only
+    python -m mec_lab ingest-project --source . --dry-run --manifest manifest.json
+
+    \b
+    # Full ingestion
+    python -m mec_lab ingest-project --source . --db pilot.db --project-id mec-lab
+    """
+    db = db_override or ctx.obj["db"]
+    store = _get_storage(db)
+
+    inc = list(include_patterns) if include_patterns else None
+    exc = list(exclude_patterns) if exclude_patterns else None
+
+    pipeline = IngestionPipeline(
+        source_root=source,
+        project_id=project_id,
+        storage=store,
+        dry_run=dry_run,
+        include_patterns=inc,
+        exclude_patterns=exc,
+        force_reindex=force_reindex,
+    )
+
+    report = pipeline.run()
+
+    if json_output:
+        sys.stdout.write(json.dumps(report.to_dict(), ensure_ascii=False, indent=2))
+        sys.stdout.write("\n")
+        sys.stdout.flush()
+        return
+
+    console.print(f"[bold]Ingestion Pipeline[/bold]")
+    console.print(f"  Source: {source}")
+    console.print(f"  Project: {project_id}")
+    console.print(f"  Database: {db}")
+    console.print(f"  Mode: {'DRY RUN' if dry_run else 'LIVE'}")
+
+    console.print(f"\n[bold green]Ingestion complete.[/bold green]")
+    console.print(f"  Files analyzed:  {report.files_analyzed}")
+    console.print(f"  Files included:  {report.files_included}")
+    console.print(f"  Files excluded:  {report.files_excluded}")
+    console.print(f"  Memories created: {report.memories_created}")
+    console.print(f"  Duplicates skipped: {report.memories_skipped}")
+    console.print(f"  Relations created: {report.relations_created}")
+    console.print(f"  Secrets blocked: {report.secrets_blocked}")
+    console.print(f"  Errors:          {report.errors}")
+    console.print(f"  Elapsed:         {report.elapsed_seconds}s")
+
+    if report.errors:
+        console.print(f"\n[yellow]Errors:[/yellow]")
+        for e in report.error_details[:10]:
+            console.print(f"  - {e}")
+
+    if report.secrets_blocked:
+        console.print(f"\n[cyan]Secrets blocked:[/cyan]")
+        for s in report.secret_details:
+            console.print(f"  - {s['path']}: {', '.join(s['reasons'])}")
+
+    # Save manifest and report if paths provided
+    if manifest_path:
+        # Rebuild manifest for saving (pipeline builds it internally)
+        manifest = IngestionManifest(
+            pipeline_version="1.0.0",
+            project_id=project_id,
+            source_root=source,
+            generated_at=report.start_time,
+            total_files=report.files_analyzed,
+            included_files=report.files_included,
+            excluded_files=report.files_excluded,
+            total_expected_memories=report.memories_created,
+        )
+        manifest.save(manifest_path)
+        console.print(f"\n[dim]Manifest saved to {manifest_path}[/dim]")
+
+    if report_path:
+        report.save(report_path)
+        console.print(f"[dim]Report saved to {report_path}[/dim]")
 
 
 def main() -> None:

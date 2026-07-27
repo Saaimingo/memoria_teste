@@ -1,0 +1,16 @@
+{
+  "files_analyzed": 83,
+  "files_included": 60,
+  "files_excluded": 23,
+  "memories_created": 835,
+  "memories_skipped": 0,
+  "relations_created": 776,
+  "relations_skipped": 0,
+  "secrets_blocked": 0,
+  "errors": 0,
+  "error_details": [],
+  "secret_details": [],
+  "start_time": "2026-07-27T04:23:05.092174+00:00",
+  "end_time": "2026-07-27T04:23:08.175989+00:00",
+  "elapsed_seconds": 3.08
+}
