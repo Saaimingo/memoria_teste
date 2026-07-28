@@ -1,33 +1,41 @@
 # Roadmap Pós-MEC R4.1 — Retomada do Harness Cognitivo
 
-**Data:** 2026-07-27  
+**Data:** 2026-07-28  
 **Estado:** aprovado como ordem de execução
 
 ## 1. Objetivo
 
-Encerrar o ciclo isolado do MEC e retomar o Harness Cognitivo sem reconstruir capacidades operacionais que já existem no Hermes Agent.
+Encerrar o ciclo isolado do MEC e retomar o Harness Cognitivo sem reconstruir capacidades operacionais já existentes no Hermes Agent.
 
-O MEC passa a ser o subsistema de memória do projeto. O Hermes Agent passa a ser candidato a fundação operacional do Harness por meio de fork controlado.
+O MEC passa a ser o subsistema de memória do projeto. O Hermes Agent passa a ser a fundação operacional escolhida, por meio de fork controlado e fino.
 
 ## 2. Marco 0 — Publicação e consolidação do MEC
 
-Antes de qualquer integração:
+**Estado:** concluído.
 
-1. publicar a cadeia local de commits do MEC R4.1;
-2. abrir Pull Request contra a `main`;
-3. executar CI remota;
-4. revisar o diff acumulado;
-5. confirmar que os 310 testes permanecem verdes;
-6. validar que bancos e artefatos locais não foram commitados indevidamente;
-7. fazer merge somente depois da revisão;
-8. criar tag de marco;
-9. registrar o contrato público da versão.
+Entregas realizadas:
 
-Saída esperada:
+- cadeia R4/R4.1 publicada;
+- Pull Request #22 aberta e revisada;
+- sete commits preservados;
+- fixture operacional portátil;
+- CI remota implantada;
+- 313 testes aprovados no Ubuntu;
+- 313 testes aprovados no Windows;
+- zero falhas, zero skips e zero xfails;
+- `git diff --check` aprovado;
+- `compileall` aprovado;
+- bancos e artefatos locais excluídos;
+- merge realizado na `main` no commit `4b04963b73e5af3eb880db7dd33a53510d09cf93`;
+- contrato público e limitações registrados.
 
-`MEC_R41_RELEASE_CANDIDATE_APPROVED`
+Saída alcançada:
+
+`MEC_R41_OPERATIONAL_RETRIEVAL_APPROVED`
 
 ## 3. Marco 1 — Fork controlado do Hermes Agent
+
+**Estado:** próxima execução.
 
 Criar repositório próprio a partir de `NousResearch/hermes-agent`.
 
@@ -35,12 +43,17 @@ Requisitos:
 
 - preservar licença MIT e copyright;
 - configurar `origin` e `upstream`;
-- registrar o commit-base;
+- registrar o commit-base exato;
+- registrar versão e data do upstream;
 - instalar ambiente de desenvolvimento;
 - executar testes oficiais relevantes;
 - iniciar CLI e Desktop a partir do source checkout;
 - registrar estrutura dos principais subsistemas;
-- não adicionar MEC nesta primeira etapa.
+- verificar o sistema nativo de plugins;
+- verificar o contrato de `MemoryProvider`;
+- localizar a infraestrutura de `i18n` do Desktop;
+- não adicionar o MEC nesta primeira etapa;
+- evitar alterações diretas no núcleo.
 
 Saída esperada:
 
@@ -49,6 +62,10 @@ Saída esperada:
 ## 4. Marco 2 — Localização nativa `pt-BR`
 
 Implementar localização seletiva do Desktop.
+
+Princípio:
+
+> Traduzir a experiência humana; preservar a linguagem técnica.
 
 Traduzir:
 
@@ -59,6 +76,7 @@ Traduzir:
 - estados operacionais;
 - ajuda;
 - mensagens explicativas;
+- aprovações;
 - narração e respostas padrão do LLM.
 
 Preservar:
@@ -72,7 +90,8 @@ Preservar:
 - branches;
 - commits;
 - nomes de modelos e providers;
-- APIs, endpoints e formatos técnicos.
+- APIs, endpoints e formatos técnicos;
+- stack traces e saídas técnicas originais.
 
 Critérios:
 
@@ -81,7 +100,8 @@ Critérios:
 - nenhuma chave do locale-base fica silenciosamente ausente;
 - layouts críticos não quebram;
 - termos técnicos permanecem intactos;
-- a tradução é mantida em arquivos de locale, não espalhada pelo núcleo.
+- tradução mantida em arquivos de locale, não espalhada pelo núcleo;
+- mensagens produzidas pelo LLM usam `pt-BR` por padrão, salvo escolha do usuário.
 
 Saída esperada:
 
@@ -154,7 +174,7 @@ Saída esperada:
 
 ## 7. Marco 5 — Circuito real com provider
 
-Usar um provider já suportado pelo Hermes, inicialmente o OpenAI/Codex já configurado pelo usuário.
+Usar um provider já suportado pelo Hermes, inicialmente OpenAI/Codex já configurado pelo usuário.
 
 Fluxo:
 
@@ -234,14 +254,13 @@ Esses módulos devem consumir o MEC e a infraestrutura Hermes, evitando implemen
 - não inserir segredos em repositório;
 - não tratar teste local como release remoto;
 - toda etapa deve possuir commit, testes, limitações e veredito;
-- decisões de arquitetura devem ser registradas em ADR.
+- decisões de arquitetura devem ser registradas em ADR;
+- toda atualização do upstream deve passar por testes do Hermes e do Harness.
 
-## 11. Próxima ação permitida
+## 11. Próxima ação autorizada
 
-A próxima ação autorizada é:
+> Criar o fork baseline do Hermes Agent, configurar `upstream`, registrar o commit-base e provar que CLI e Desktop funcionam a partir do source checkout.
 
-> publicar e consolidar o MEC R4.1 no GitHub.
+Depois do baseline:
 
-Depois disso:
-
-> criar o fork baseline do Hermes Agent e iniciar a localização nativa `pt-BR`.
+> iniciar a localização nativa `pt-BR` sem alterar a linguagem técnica do código.
