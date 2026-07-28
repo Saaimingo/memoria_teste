@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - fix/mec-r41-idempotency-identifier-absence
 
 permissions:
   contents: read

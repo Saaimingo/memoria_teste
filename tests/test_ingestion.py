@@ -95,8 +95,13 @@ class TestManifest(unittest.TestCase):
             pipeline._git_ls_files = lambda: ["first.py", "second.py"]  # type: ignore[method-assign]
             original_read_text = Path.read_text
 
+            def canonical_path(path: os.PathLike[str] | str) -> str:
+                return os.path.normcase(os.path.realpath(os.path.abspath(os.fspath(path))))
+
+            normalized_second = canonical_path(second)
+
             def controlled_read(path: Path, *args: object, **kwargs: object) -> str:
-                if path == second:
+                if canonical_path(path) == normalized_second:
                     raise OSError("controlled read failure")
                 return original_read_text(path, *args, **kwargs)
 
