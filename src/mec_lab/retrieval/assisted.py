@@ -108,7 +108,6 @@ class StructuredScore:
     symbol_score: float = 0.0
     cli_score: float = 0.0
     commit_score: float = 0.0
-    entity_group_score: float = 0.0
     group_id: str = ""
 
     def components(self) -> dict[str, float]:
@@ -122,7 +121,6 @@ class StructuredScore:
             "symbol_score": round(self.symbol_score, 4),
             "cli_score": round(self.cli_score, 4),
             "commit_score": round(self.commit_score, 4),
-            "entity_group_score": round(self.entity_group_score, 4),
             "final_score": round(self.final_score, 4),
         }
 
@@ -187,7 +185,6 @@ class AssistedRetrievalConfig:
     symbol_weight: float = 1.2        # exact symbol match dominates
     cli_weight: float = 0.8           # CLI command/option match
     commit_weight: float = 1.0         # commit SHA match
-    entity_group_weight: float = 0.15  # entity grouping bonus
 
     path_exact_score: float = 1.0
     path_partial_score: float = 0.5
@@ -1189,15 +1186,14 @@ class AssistedRetriever:
                 # Keep the highest-scoring segment as representative
                 segs.sort(key=lambda s: s.final_score, reverse=True)
                 rep = segs[0]
-                rep.entity_group_score = self.config.entity_group_weight
-                if not any("entity group representative" in r for r in rep.match_reasons):
+                if not any("entity grouping:" in r for r in rep.match_reasons):
                     rep.match_reasons.append(
-                        f"entity group representative: {path} ({len(segs)} segments)"
+                        f"entity grouping: {path} ({len(segs)} segments grouped)"
                     )
                 result.append(rep)
 
         result.extend(standalone)
-        # Re-sort by final score (entity_group_score may have changed order)
+        # Grouping removes sibling duplicates but never changes candidate scores.
         result.sort(key=lambda s: (s.final_score, s.identifier_score), reverse=True)
         return result
 
@@ -1306,23 +1302,22 @@ class AssistedRetriever:
         if not scored:
             return None, None
         top = scored[:3]
-        mems: list[AnyMemory] = []
-        for s in top:
-            m = self.storage.get_memory(s.memory_id)
-            if m is not None:
-                mems.append(m)
-        if len(mems) < 2:
+        candidates: list[tuple[StructuredScore, AnyMemory, dict[str, Any]]] = []
+        for score in top:
+            memory = self.storage.get_memory(score.memory_id)
+            if memory is not None:
+                candidates.append((score, memory, candidate_metadata(memory)))
+        if len(candidates) < 2:
             return None, None
-        mds = [candidate_metadata(m) for m in mems]
 
         for dim in self._DIMENSION_PRIORITY:
             if dim in session_filters:
                 continue
             values = []
-            for md in mds:
-                v = md.get(dim)
+            for _score, memory, metadata in candidates:
+                v = metadata.get(dim)
                 if dim == "memory_type":
-                    v = md.get("type") or self.storage.get_memory(top[0].memory_id).type  # type: ignore[union-attr]
+                    v = metadata.get("type") or memory.type
                 if v is None or v == "":
                     values.append(None)
                 else:

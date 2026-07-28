@@ -225,6 +225,7 @@ class IngestionPipeline:
         tracked_files = self._git_ls_files()
 
         for rel_path in sorted(tracked_files):
+            content = ""
             self.report.files_analyzed += 1
             full_path = self.source_root / rel_path
 
@@ -261,14 +262,20 @@ class IngestionPipeline:
                     manifest.files.append(entry)
                     continue
             except Exception:
-                pass  # binary/unreadable — already excluded by extension
+                entry.status = "excluded"
+                entry.exclusion_reason = "read error"
+                self.report.files_excluded += 1
+                self.report.errors += 1
+                self.report.error_details.append(f"read error: {rel_path}")
+                manifest.files.append(entry)
+                continue
 
             # Inclusion
             entry.status = "included"
             entry.inclusion_reason = f"tracked {entry.file_type} file"
             entry.segmentation_rule = self._segmentation_rule(entry.file_type)
             entry.expected_segments = self._estimate_segments(
-                entry.file_type, str(full_path), content if 'content' in dir() else ""
+                entry.file_type, str(full_path), content
             )
             self.report.files_included += 1
             manifest.files.append(entry)

@@ -11,6 +11,7 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from click.testing import CliRunner
 
@@ -29,6 +30,7 @@ from mec_lab.ingestion.segmenters.python_ast import segment_python
 from mec_lab.ingestion.segmenters.config_files import segment_json, segment_toml, segment_yaml
 from mec_lab.retrieval import AssistedRetriever, RetrievalState
 from mec_lab.storage import Storage
+from tests.fixtures.portable_r41_project import PortableR41Project
 
 
 # ---------------------------------------------------------------------------
@@ -73,6 +75,44 @@ class TestManifest(unittest.TestCase):
         self.assertEqual(m2.total_files, 10)
         os.unlink(path)
 
+    def test_failed_read_does_not_reuse_previous_file_content(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="mec-manifest-read-") as temp_dir:
+            root = Path(temp_dir)
+            first = root / "first.py"
+            second = root / "second.py"
+            first.write_text(
+                "class First:\n    pass\n\ndef first_function():\n    pass\n",
+                encoding="utf-8",
+            )
+            second.write_text("class Second:\n    pass\n", encoding="utf-8")
+            storage = Storage(":memory:")
+            storage.init_schema()
+            pipeline = IngestionPipeline(
+                source_root=str(root),
+                project_id="manifest-read-isolation",
+                storage=storage,
+            )
+            pipeline._git_ls_files = lambda: ["first.py", "second.py"]  # type: ignore[method-assign]
+            original_read_text = Path.read_text
+
+            def controlled_read(path: Path, *args: object, **kwargs: object) -> str:
+                if path == second:
+                    raise OSError("controlled read failure")
+                return original_read_text(path, *args, **kwargs)
+
+            with patch.object(Path, "read_text", controlled_read):
+                manifest = pipeline._build_manifest()
+
+            entries = {entry.relative_path: entry for entry in manifest.files}
+            self.assertEqual(entries["first.py"].status, "included")
+            self.assertGreater(entries["first.py"].expected_segments, 0)
+            self.assertEqual(entries["second.py"].status, "excluded")
+            self.assertEqual(entries["second.py"].expected_segments, 0)
+            self.assertEqual(entries["second.py"].exclusion_reason, "read error")
+            self.assertEqual(pipeline.report.errors, 1)
+            self.assertIn("read error: second.py", pipeline.report.error_details)
+            storage.conn.close()
+
 
 # ---------------------------------------------------------------------------
 # Dry-run tests
@@ -81,18 +121,20 @@ class TestManifest(unittest.TestCase):
 
 class TestDryRun(unittest.TestCase):
     def test_dry_run_no_write(self) -> None:
-        store = Storage(":memory:")
-        store.init_schema()
-        pipeline = IngestionPipeline(
-            source_root="D:/memoria_teste",
-            project_id="test-dry",
-            storage=store,
-            dry_run=True,
-        )
-        report = pipeline.run()
-        self.assertGreater(report.files_analyzed, 0)
-        self.assertEqual(report.memories_created, 0)
-        self.assertEqual(report.relations_created, 0)
+        with PortableR41Project.create() as fixture:
+            store = Storage(":memory:")
+            store.init_schema()
+            pipeline = IngestionPipeline(
+                source_root=str(fixture.source_root),
+                project_id="test-dry",
+                storage=store,
+                dry_run=True,
+            )
+            report = pipeline.run()
+            self.assertGreater(report.files_analyzed, 0)
+            self.assertEqual(report.memories_created, 0)
+            self.assertEqual(report.relations_created, 0)
+            store.conn.close()
 
 
 # ---------------------------------------------------------------------------
@@ -365,6 +407,16 @@ class TestSecretBlocking(unittest.TestCase):
 
 
 class TestCliIngestion(unittest.TestCase):
+    fixture: PortableR41Project
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.fixture = PortableR41Project.create()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.fixture.close()
+
     def setUp(self) -> None:
         self.runner = CliRunner()
 
@@ -377,7 +429,7 @@ class TestCliIngestion(unittest.TestCase):
     def test_dry_run_json_output(self) -> None:
         result = self.runner.invoke(cli, [
             "ingest-project",
-            "--source", "D:/memoria_teste",
+            "--source", str(self.fixture.source_root),
             "--db", ":memory:",
             "--project-id", "test-cli",
             "--dry-run",
@@ -393,7 +445,7 @@ class TestCliIngestion(unittest.TestCase):
     def test_full_ingestion_json_output(self) -> None:
         result = self.runner.invoke(cli, [
             "ingest-project",
-            "--source", "D:/memoria_teste",
+            "--source", str(self.fixture.source_root),
             "--db", ":memory:",
             "--project-id", "test-cli-full",
             "--json",
@@ -412,28 +464,27 @@ class TestCliIngestion(unittest.TestCase):
 
 
 class TestR4OverIngestedDb(unittest.TestCase):
-    """Verify that R4 can search the ingested pilot database."""
+    """Verify that R4 can search a freshly ingested portable database."""
+
+    fixture: PortableR41Project
 
     @classmethod
     def setUpClass(cls) -> None:
-        db_path = "D:/memoria_teste/pilot_data/mec_r4_operational_pilot_01.db"
-        if not os.path.exists(db_path):
-            raise unittest.SkipTest(f"Pilot DB not found at {db_path}")
-        cls.store = Storage(db_path)
-        cls.store.init_schema()
+        cls.fixture = PortableR41Project.create()
+        cls.store = cls.fixture.storage
         cls.retriever = AssistedRetriever(cls.store)
 
     @classmethod
     def tearDownClass(cls) -> None:
-        cls.store.conn.close()
+        cls.fixture.close()
 
     def test_pilot_db_has_memories(self) -> None:
         count = self.store.count_memories()
-        self.assertGreater(count, 100, f"Expected >100 memories, got {count}")
+        self.assertGreater(count, 10, f"Expected >10 portable memories, got {count}")
 
     def test_pilot_db_has_relations(self) -> None:
         rels = self.store.list_all_relations()
-        self.assertGreater(len(rels), 100)
+        self.assertGreater(len(rels), 5)
 
     def test_r4_path_query_returns_results(self) -> None:
         result = self.retriever.retrieve("src/mec_lab/retrieval/assisted.py")

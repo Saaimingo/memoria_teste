@@ -20,10 +20,11 @@ from unittest.mock import patch
 from click.testing import CliRunner
 
 from mec_lab.cli import cli
-from mec_lab.domain.models import Fact
+from mec_lab.domain.models import Decision, Fact, Hypothesis
 from mec_lab.ingestion import IngestionPipeline
 from mec_lab.retrieval import (
     AssistedRetriever,
+    AssistedRetrievalConfig,
     DeterministicSemanticAdapter,
     HybridRetriever,
     IdentifierConstraintStatus,
@@ -34,6 +35,7 @@ from tests.fixtures.operational_fixture import (
     COMMIT_FULL_A,
     build_fixture_storage,
 )
+from tests.fixtures.portable_r41_project import PortableR41Project
 
 
 GIT_COMMITS = [
@@ -127,7 +129,7 @@ def run_git_ingestion(db_path: str, commits: list[dict]) -> tuple[object, str]:
     storage = Storage(db_path)
     storage.init_schema()
     pipeline = IngestionPipeline(
-        source_root="D:/memoria_teste",
+        source_root=str(Path(db_path).parent),
         project_id="r41-final-fix-test",
         storage=storage,
         include_git_history=True,
@@ -341,16 +343,51 @@ class IdentifierConstraintFixtureTests(unittest.TestCase):
         self.assertTrue(all(self.storage.get_memory(m.id) is not None for m in result.memories))
 
 
-class PreservationAndDiagnosticsTests(unittest.TestCase):
-    def test_33_symbol_query_still_works(self) -> None:
-        db = Path("D:/memoria_teste/pilot_data/mec_r4_operational_pilot_01_r41.db")
-        if not db.exists():
-            self.skipTest("R4.1 pilot DB unavailable")
-        storage = Storage(str(db))
+class ArchitecturalReviewRegressionTests(unittest.TestCase):
+    def test_clarification_uses_each_candidates_memory_type(self) -> None:
+        storage = Storage(":memory:")
         storage.init_schema()
-        result = AssistedRetriever(storage).retrieve("ClarificationCycle")
-        self.assertEqual(result.state, RetrievalState.MEMORY_CONFIRMED)
+        shared = {
+            "project_id": "portable-clarification",
+            "content": "shared architectural candidate",
+        }
+        storage.save_memory(Fact(id="type-fact", **shared))
+        storage.save_memory(Decision(id="type-decision", **shared))
+        storage.save_memory(Hypothesis(id="type-hypothesis", **shared))
+        config = AssistedRetrievalConfig(
+            confirmed_min_score=1.0,
+            ambiguous_min_score=0.9,
+            clarification_min_score=0.01,
+            not_found_floor=0.0,
+        )
+
+        result = AssistedRetriever(storage, config=config).retrieve(
+            "shared architectural candidate"
+        )
+
+        self.assertEqual(result.state, RetrievalState.CLARIFICATION_REQUIRED)
+        self.assertEqual(result.clarification_dimension, "memory_type")
+        self.assertEqual(
+            result.clarification_question,
+            "Era uma decisão aprovada, um fato verificado ou uma hipótese?",
+        )
         storage.conn.close()
+
+
+class PreservationAndDiagnosticsTests(unittest.TestCase):
+    fixture: PortableR41Project
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.fixture = PortableR41Project.create()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.fixture.close()
+
+    def test_33_symbol_query_still_works(self) -> None:
+        result = AssistedRetriever(self.fixture.storage).retrieve("ClarificationCycle")
+        self.assertEqual(result.state, RetrievalState.MEMORY_CONFIRMED)
 
     def test_34_r3_remains_functional(self) -> None:
         storage = Storage(":memory:")
@@ -364,14 +401,11 @@ class PreservationAndDiagnosticsTests(unittest.TestCase):
         storage.conn.close()
 
     def test_35_json_output_contains_identifier_diagnostics(self) -> None:
-        db = Path("D:/memoria_teste/pilot_data/mec_r4_operational_pilot_01_r41.db")
-        if not db.exists():
-            self.skipTest("R4.1 pilot DB unavailable")
         runner = CliRunner()
         result = runner.invoke(
             cli,
             [
-                "--db", str(db),
+                "--db", str(self.fixture.db_path),
                 "search", "commit dea8b9c7d5e3f0123456789abcdef012345abc",
                 "--retrieval-mode", "assisted", "--json",
             ],

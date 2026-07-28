@@ -7,10 +7,7 @@ entity grouping, and git history ingestion.
 from __future__ import annotations
 
 import json
-import os
-import tempfile
 import unittest
-from pathlib import Path
 
 from mec_lab.ingestion.symbol_normalize import (
     cli_options_match,
@@ -22,8 +19,27 @@ from mec_lab.ingestion.symbol_normalize import (
     symbols_match,
 )
 from mec_lab.ingestion.segmenters.python_ast import segment_python
-from mec_lab.retrieval import AssistedRetriever, RetrievalState
+from mec_lab.retrieval import AssistedRetriever, RetrievalState, StructuredScore
 from mec_lab.storage import Storage
+from tests.fixtures.portable_r41_project import PortableR41Project
+
+
+class PortableR41TestCase(unittest.TestCase):
+    """Provide each integration-test class with an isolated ingested project."""
+
+    fixture: PortableR41Project
+    store: Storage
+    r: AssistedRetriever
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.fixture = PortableR41Project.create()
+        cls.store = cls.fixture.storage
+        cls.r = AssistedRetriever(cls.store)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.fixture.close()
 
 
 # ---------------------------------------------------------------------------
@@ -191,19 +207,8 @@ def ingest_project():
 # ---------------------------------------------------------------------------
 
 
-class TestEntityGrouping(unittest.TestCase):
+class TestEntityGrouping(PortableR41TestCase):
     """Multiple segments of the same file should not cause false ambiguity."""
-
-    def setUp(self) -> None:
-        db_path = "D:/memoria_teste/pilot_data/mec_r4_operational_pilot_01_r41.db"
-        if not os.path.exists(db_path):
-            raise unittest.SkipTest(f"R4.1 DB not found at {db_path}")
-        self.store = Storage(db_path)
-        self.store.init_schema()
-        self.r = AssistedRetriever(self.store)
-
-    def tearDown(self) -> None:
-        self.store.conn.close()
 
     def test_exact_path_no_false_ambiguity(self) -> None:
         result = self.r.retrieve("src/mec_lab/retrieval/assisted.py")
@@ -217,26 +222,34 @@ class TestEntityGrouping(unittest.TestCase):
         result = self.r.retrieve("AssistedRetriever")
         self.assertEqual(result.state, RetrievalState.MEMORY_CONFIRMED)
 
+    def test_grouping_preserves_score_and_reports_segment_count(self) -> None:
+        memories = [
+            memory
+            for memory in self.store.list_all_memories()
+            if memory.metadata.get("source_path") == "src/mec_lab/retrieval/assisted.py"
+        ]
+        self.assertGreaterEqual(len(memories), 2)
+        scores = [
+            StructuredScore(memory_id=memories[0].id, final_score=0.8),
+            StructuredScore(memory_id=memories[1].id, final_score=0.7),
+        ]
+
+        grouped = self.r._group_entities(scores)
+
+        self.assertEqual(len(grouped), 1)
+        self.assertEqual(grouped[0].final_score, 0.8)
+        self.assertNotIn("entity_group_score", grouped[0].components())
+        self.assertIn("2 segments grouped", grouped[0].match_reasons[-1])
+
 
 # ---------------------------------------------------------------------------
 # Commit retrieval tests
 # ---------------------------------------------------------------------------
 
 
-class TestCommitRetrieval(unittest.TestCase):
-    def setUp(self) -> None:
-        db_path = "D:/memoria_teste/pilot_data/mec_r4_operational_pilot_01_r41.db"
-        if not os.path.exists(db_path):
-            raise unittest.SkipTest(f"R4.1 DB not found at {db_path}")
-        self.store = Storage(db_path)
-        self.store.init_schema()
-        self.r = AssistedRetriever(self.store)
-
-    def tearDown(self) -> None:
-        self.store.conn.close()
-
+class TestCommitRetrieval(PortableR41TestCase):
     def test_commit_prefix_8_chars(self) -> None:
-        result = self.r.retrieve("commit 0d3833fc")
+        result = self.r.retrieve(f"commit {self.fixture.head_sha[:8]}")
         self.assertIn(
             result.state,
             (RetrievalState.MEMORY_CONFIRMED, RetrievalState.AMBIGUOUS_CANDIDATES),
@@ -244,28 +257,24 @@ class TestCommitRetrieval(unittest.TestCase):
         )
 
     def test_sha_prefix_8_chars(self) -> None:
-        result = self.r.retrieve("SHA 0d3833fc")
+        result = self.r.retrieve(f"SHA {self.fixture.head_sha[:8]}")
         self.assertIn(
             result.state,
             (RetrievalState.MEMORY_CONFIRMED, RetrievalState.AMBIGUOUS_CANDIDATES),
         )
 
     def test_commit_full_sha(self) -> None:
-        result = self.r.retrieve("commit 0d3833fc50aa7004c388de3495f97e099d844259")
+        result = self.r.retrieve(f"commit {self.fixture.head_sha}")
         self.assertIn(
             result.state,
             (RetrievalState.MEMORY_CONFIRMED, RetrievalState.AMBIGUOUS_CANDIDATES),
         )
 
     def test_nonexistent_sha(self) -> None:
-        result = self.r.retrieve("commit zzzzzzzzzzzzzzzzzzzzzzzzzz")
-        # Nonexistent SHA should not be found by commit_score
-        # Note: "commit" as a word may still text-match content about commits,
-        # but commit_score should be 0 for a non-matching SHA.
+        result = self.r.retrieve("commit ffffffffffffffffffffffffffffffffffffffff")
+        self.assertEqual(result.state, RetrievalState.MEMORY_NOT_FOUND)
         if result.scores:
             for s in result.scores:
-                # The commit_score channel must not fire for a bad SHA
-                # even if text overlap lifts the candidate.
                 self.assertEqual(s.commit_score, 0.0,
                     f"commit_score should be 0 for nonexistent SHA, got {s.commit_score}")
 
@@ -275,19 +284,8 @@ class TestCommitRetrieval(unittest.TestCase):
 # ---------------------------------------------------------------------------
 
 
-class TestOperationalQueries(unittest.TestCase):
+class TestOperationalQueries(PortableR41TestCase):
     """The 12 baseline queries — verify correctness post-R4.1."""
-
-    def setUp(self) -> None:
-        db_path = "D:/memoria_teste/pilot_data/mec_r4_operational_pilot_01_r41.db"
-        if not os.path.exists(db_path):
-            raise unittest.SkipTest(f"R4.1 DB not found at {db_path}")
-        self.store = Storage(db_path)
-        self.store.init_schema()
-        self.r = AssistedRetriever(self.store)
-
-    def tearDown(self) -> None:
-        self.store.conn.close()
 
     def test_q1_clarification_cycle(self) -> None:
         r = self.r.retrieve("ClarificationCycle")
@@ -321,14 +319,14 @@ class TestOperationalQueries(unittest.TestCase):
         )
 
     def test_q7_commit_prefix(self) -> None:
-        r = self.r.retrieve("commit 0d3833fc")
+        r = self.r.retrieve(f"commit {self.fixture.head_sha[:8]}")
         self.assertIn(
             r.state,
             (RetrievalState.MEMORY_CONFIRMED, RetrievalState.AMBIGUOUS_CANDIDATES),
         )
 
     def test_q8_sha_prefix(self) -> None:
-        r = self.r.retrieve("SHA 0d3833fc")
+        r = self.r.retrieve(f"SHA {self.fixture.head_sha[:8]}")
         self.assertIn(
             r.state,
             (RetrievalState.MEMORY_CONFIRMED, RetrievalState.AMBIGUOUS_CANDIDATES),
@@ -341,11 +339,13 @@ class TestOperationalQueries(unittest.TestCase):
     def test_q10_init_ambiguous(self) -> None:
         """init.py is genuinely ambiguous — multiple distinct __init__.py files."""
         r = self.r.retrieve("init.py")
-        # Should be ambiguous (truly distinct files)
-        self.assertIn(
-            r.state,
-            (RetrievalState.AMBIGUOUS_CANDIDATES, RetrievalState.MEMORY_CONFIRMED),
-        )
+        self.assertEqual(r.state, RetrievalState.AMBIGUOUS_CANDIDATES)
+        source_paths = {
+            memory.metadata.get("source_path", "")
+            for memory in r.memories
+            if memory.metadata.get("source_path")
+        }
+        self.assertGreaterEqual(len(source_paths), 2)
 
     def test_q11_storage_init(self) -> None:
         r = self.r.retrieve("storage init")
