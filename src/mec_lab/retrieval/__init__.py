@@ -26,6 +26,20 @@ from typing import Any, Protocol
 
 from mec_lab.domain.enums import EpistemicStatus, MemoryType, RelationType
 from mec_lab.domain.models import AnyMemory
+from mec_lab.retrieval.assisted import (
+    AssistedRetrievalConfig,
+    AssistedRetrievalResult,
+    AssistedRetriever,
+    ClarificationCycle,
+    ClarificationTurn,
+    IdentifierConstraint,
+    IdentifierConstraintStatus,
+    IdentifierMatch,
+    RetrievalState,
+    StructuredScore,
+    candidate_metadata,
+    save_confirmed_association,
+)
 from mec_lab.retrieval.normalize import token_set, tokenize, normalize, stem_pt
 from mec_lab.storage import Storage
 

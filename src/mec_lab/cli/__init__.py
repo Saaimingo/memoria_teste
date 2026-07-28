@@ -2,11 +2,15 @@
 
 Commands: init-db, load-dataset, add-memory, add-relation, create-episode,
 create-checkpoint, search, explain, build-capsule, evaluate, export-report, show-lineage.
+
+R4 integration: --retrieval-mode assisted enables the structured assisted
+retrieval pipeline with the four canonical states and interactive clarification.
 """
 
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import click
@@ -39,11 +43,18 @@ from mec_lab.evaluation import (
     generate_report,
     run_ablation,
 )
+from mec_lab.ingestion import IngestionManifest, IngestionPipeline
 from mec_lab.retrieval import (
+    AssistedRetrievalConfig,
+    AssistedRetrievalResult,
+    AssistedRetriever,
+    ClarificationCycle,
     DeterministicSemanticAdapter,
     HybridRetriever,
     LexicalRetriever,
     RetrievalConfig,
+    RetrievalState,
+    TfidfAdapter,
 )
 from mec_lab.storage import Storage
 
@@ -241,20 +252,228 @@ def create_checkpoint(
 # ---------------------------------------------------------------------------
 
 
+def _format_assisted_result_json(result: AssistedRetrievalResult) -> str:
+    """Serialize an AssistedRetrievalResult to JSON for machine consumption."""
+    scores_out = []
+    for s in result.scores:
+        scores_out.append({
+            "memory_id": s.memory_id,
+            **s.components(),
+            "is_exact_identifier": s.is_exact_identifier,
+            "match_reasons": s.match_reasons,
+        })
+    memories_out = []
+    for m in result.memories:
+        memories_out.append({
+            "id": m.id,
+            "type": str(m.type) if hasattr(m.type, "value") else str(m.type),
+            "content": m.content[:200],
+            "project_id": m.project_id,
+            "status": str(m.status) if hasattr(m.status, "value") else str(m.status),
+        })
+    related_out = []
+    for m in result.related:
+        related_out.append({
+            "id": m.id,
+            "type": str(m.type) if hasattr(m.type, "value") else str(m.type),
+            "content": m.content[:200],
+        })
+    return json.dumps({
+        "state": result.state.value,
+        "query": result.query,
+        "candidates": scores_out,
+        "memories": memories_out,
+        "related": related_out,
+        "explanation": result.explanation,
+        "clarification_dimension": result.clarification_dimension,
+        "clarification_question": result.clarification_question,
+        "clarifications_used": result.clarifications_used,
+        "session_filters": result.session_filters,
+        "identifier_constraint_applied": result.identifier_constraint_applied,
+        "identifier_constraint_status": result.identifier_constraint_status,
+        "identifier_matches": result.identifier_matches,
+        "identifier_failure_reason": result.identifier_failure_reason,
+    }, ensure_ascii=False, indent=2)
+
+
+_STATE_ICONS = {
+    RetrievalState.MEMORY_CONFIRMED: "[green]MEMORY_CONFIRMED[/green]",
+    RetrievalState.AMBIGUOUS_CANDIDATES: "[yellow]AMBIGUOUS_CANDIDATES[/yellow]",
+    RetrievalState.CLARIFICATION_REQUIRED: "[cyan]CLARIFICATION_REQUIRED[/cyan]",
+    RetrievalState.MEMORY_NOT_FOUND: "[red]MEMORY_NOT_FOUND[/red]",
+}
+
+_STATE_HUMAN = {
+    RetrievalState.MEMORY_CONFIRMED: "Lembrança confirmada — a memória foi localizada com confiança.",
+    RetrievalState.AMBIGUOUS_CANDIDATES: "Ambiguidade — há múltiplas lembranças possíveis. Refine a consulta.",
+    RetrievalState.CLARIFICATION_REQUIRED: "Esclarecimento necessário — uma informação adicional resolve a busca.",
+    RetrievalState.MEMORY_NOT_FOUND: "Nenhuma lembrança localizada com os parâmetros fornecidos.",
+}
+
+
+def _print_assisted_result(result: AssistedRetrievalResult) -> None:
+    """Pretty-print an assisted retrieval result for human consumption."""
+    state = result.state
+    console.print(f"\n[bold]Estado:[/bold] {_STATE_ICONS.get(state, state.value)}")
+    console.print(f"[bold]Significado:[/bold] {_STATE_HUMAN.get(state, '')}")
+    console.print(f"[bold]Consulta:[/bold] {result.query}")
+    console.print(f"[bold]Esclarecimentos usados:[/bold] {result.clarifications_used}/3")
+
+    if result.session_filters:
+        console.print(f"[bold]Filtros de sessão:[/bold] {result.session_filters}")
+
+    if result.identifier_constraint_applied:
+        console.print(
+            f"[bold]Restrição de identificador:[/bold] "
+            f"{result.identifier_constraint_status}"
+        )
+        if result.identifier_failure_reason:
+            console.print(f"[bold]Motivo:[/bold] {result.identifier_failure_reason}")
+
+    if result.scores:
+        table = Table(title="Candidatos")
+        table.add_column("Rank", style="dim")
+        table.add_column("ID")
+        table.add_column("Tipo")
+        table.add_column("Score", justify="right")
+        table.add_column("ID Exacto", justify="center")
+        table.add_column("Trecho")
+        for i, s in enumerate(result.scores[:10], 1):
+            mem = next((m for m in result.memories if m.id == s.memory_id), None)
+            snippet = (mem.content[:80] + "..." if mem and len(mem.content) > 80 else mem.content) if mem else "(ausente)"
+            mtype = str(mem.type) if mem and hasattr(mem.type, "value") else (str(mem.type) if mem else "?")
+            exact = "S" if s.is_exact_identifier else ""
+            table.add_row(str(i), s.memory_id, mtype, f"{s.final_score:.4f}", exact, snippet)
+        console.print(table)
+
+        # Score breakdown
+        console.print("\n[bold]Decomposição dos scores:[/bold]")
+        for s in result.scores[:5]:
+            comp = s.components()
+            console.print(
+                f"  {s.memory_id}: id={comp['identifier_score']:.3f} "
+                f"meta={comp['metadata_score']:.3f} text={comp['text_score']:.3f} "
+                f"rel={comp['relation_score']:.3f} temp={comp['temporal_score']:.3f} "
+                f"→ final={comp['final_score']:.3f}"
+            )
+            if s.match_reasons:
+                console.print(f"    motivos: {'; '.join(s.match_reasons[:5])}")
+
+    if state == RetrievalState.MEMORY_CONFIRMED and result.related:
+        console.print(f"\n[bold]Memórias relacionadas ({len(result.related)}):[/bold]")
+        for m in result.related:
+            console.print(f"  {m.id} ({m.type}): {m.content[:100]}")
+
+    if state == RetrievalState.CLARIFICATION_REQUIRED and result.clarification_question:
+        console.print(f"\n[bold cyan]Pergunta de esclarecimento:[/bold cyan] {result.clarification_question}")
+        console.print(f"[dim]Dimensão: {result.clarification_dimension}[/dim]")
+
+    if state == RetrievalState.MEMORY_NOT_FOUND:
+        console.print(
+            "\n[dim]Nenhuma lembrança confiável foi localizada com os parâmetros "
+            "e esclarecimentos fornecidos. Resultados aproximados não devem "
+            "ser usados como memória confirmada.[/dim]"
+        )
+
+
+def _run_assisted_search(
+    store: Storage,
+    query: str,
+    project_id: str | None,
+    json_output: bool,
+) -> None:
+    """Run the R4 assisted retrieval pipeline with interactive clarification."""
+    cycle = ClarificationCycle(store)
+    turn = cycle.start(query, project_id=project_id)
+
+    while True:
+        result = turn.result
+
+        if json_output:
+            sys.stdout.write(_format_assisted_result_json(result))
+            sys.stdout.write("\n")
+            sys.stdout.flush()
+        else:
+            _print_assisted_result(result)
+
+        if result.state != RetrievalState.CLARIFICATION_REQUIRED:
+            break
+
+        # Interactive clarification
+        question = result.clarification_question or "Pode fornecer mais detalhes?"
+        dim = result.clarification_dimension or ""
+
+        if json_output:
+            # In JSON mode, the question is already in the JSON output.
+            # Exit so the caller can inspect and re-invoke with the answer.
+            break
+
+        # Human-interactive mode: prompt for answer
+        console.print(f"\n[bold cyan]⚠ {question}[/bold cyan]")
+        try:
+            answer = click.prompt(
+                f"  Resposta ({dim})",
+                default="",
+                show_default=False,
+            )
+        except (EOFError, KeyboardInterrupt):
+            console.print("\n[yellow]Esclarecimento cancelado.[/yellow]")
+            break
+
+        if not answer or answer.strip() == "":
+            answer = "não sei"
+
+        turn = cycle.answer(answer)
+
+
 @cli.command()
 @click.argument("query")
 @click.option("--project", "project_id", default=None)
-@click.option("--strategy", default="hybrid", type=click.Choice(["lexical", "semantic", "hybrid"]))
+@click.option("--strategy", default="hybrid",
+              type=click.Choice(["lexical", "semantic", "hybrid"]),
+              help="Estratégia de busca (modo R3)")
+@click.option("--retrieval-mode", "retrieval_mode", default="hybrid",
+              type=click.Choice(["hybrid", "assisted"]),
+              help="Pipeline de recuperação: hybrid (R3, padrão) ou assisted (R4)")
 @click.option("--top-k", default=10)
 @click.option("--explain/--no-explain", default=False, help="Show score decomposition")
+@click.option("--json", "json_output", is_flag=True, default=False,
+              help="Saída estruturada em JSON (para integração com Harness)")
+@click.option("--clarify-dimension", default=None,
+              help="Dimensão do esclarecimento (usado com --clarify-answer)")
+@click.option("--clarify-answer", default=None,
+              help="Resposta ao esclarecimento anterior")
 @click.pass_context
 def search(
-    ctx: click.Context, query: str, project_id: str | None, strategy: str,
-    top_k: int, explain: bool,
+    ctx: click.Context,
+    query: str,
+    project_id: str | None,
+    strategy: str,
+    retrieval_mode: str,
+    top_k: int,
+    explain: bool,
+    json_output: bool,
+    clarify_dimension: str | None,
+    clarify_answer: str | None,
 ) -> None:
-    """Search memories by clues."""
+    """Search memories by clues.
+
+    Modos de recuperação:
+
+    \b
+    --retrieval-mode hybrid  : pipeline R3 (padrão, HybridRetriever)
+    --retrieval-mode assisted: pipeline R4 (AssistedRetriever com 4 estados)
+
+    No modo assisted, se o estado for CLARIFICATION_REQUIRED, o CLI
+    perguntará interativamente por até 3 esclarecimentos.
+    """
     store = _get_storage(ctx.obj["db"])
 
+    if retrieval_mode == "assisted":
+        _run_assisted_search(store, query, project_id, json_output)
+        return
+
+    # --- R3 / hybrid mode (existing behaviour, preserved) ---
     if strategy == "lexical":
         retriever = LexicalRetriever(store)
         results = retriever.search(query, project_id=project_id, top_k=top_k)
@@ -272,6 +491,29 @@ def search(
         semantic = DeterministicSemanticAdapter()
         retriever = HybridRetriever(store, config=cfg, semantic=semantic)
         result = retriever.search(query, project_id=project_id, top_k=top_k)
+
+        if json_output:
+            scores_out = []
+            for cs in result.candidate_scores:
+                mem = store.get_memory(cs.memory_id)
+                scores_out.append({
+                    "memory_id": cs.memory_id,
+                    "total_score": cs.total_score,
+                    "type": str(mem.type) if mem and hasattr(mem.type, "value") else "?",
+                    "snippet": mem.content[:200] if mem else "",
+                    "decomposition": cs.explanation_decomposition,
+                })
+            sys.stdout.write(json.dumps({
+                "quality": result.quality,
+                "query": result.query,
+                "candidates": scores_out,
+                "conflicts": result.conflicts,
+                "missing_information": result.missing_information,
+            }, ensure_ascii=False, indent=2))
+            sys.stdout.write("\n")
+            sys.stdout.flush()
+            return
+
         table = Table(title=f"Hybrid search: {query}")
         table.add_column("Rank", style="dim")
         table.add_column("ID")
@@ -457,6 +699,140 @@ def show_lineage(ctx: click.Context, memory_id: str) -> None:
         console.print(f"\n[bold]Relations ({len(rels)}):[/bold]")
         for r in rels:
             console.print(f"  {r.relation_type}: {r.source_id} -> {r.target_id}")
+
+
+# ---------------------------------------------------------------------------
+# ingest-project
+# ---------------------------------------------------------------------------
+
+
+@cli.command()
+@click.option("--source", required=True, type=click.Path(exists=True),
+              help="Project source root directory")
+@click.option("--db", "db_override", default=None,
+              help="SQLite database path (overrides global --db)")
+@click.option("--project-id", default="mec-lab", help="Project identifier")
+@click.option("--manifest", "manifest_path", default=None,
+              help="Path to write the ingestion manifest JSON")
+@click.option("--report", "report_path", default=None,
+              help="Path to write the ingestion report JSON")
+@click.option("--dry-run", is_flag=True, default=False,
+              help="Generate manifest without writing memories")
+@click.option("--include", "include_patterns", multiple=True, default=None,
+              help="File patterns to include (repeatable)")
+@click.option("--exclude", "exclude_patterns", multiple=True, default=None,
+              help="File patterns to exclude (repeatable)")
+@click.option("--json", "json_output", is_flag=True, default=False,
+              help="Output report as JSON to stdout")
+@click.option("--force-reindex", is_flag=True, default=False,
+              help="Re-create memories even if they already exist")
+@click.option("--include-git-history", is_flag=True, default=False,
+              help="Ingest git commit history as evidence memories")
+@click.option("--git-history-since", default=None,
+              help="Git ref to start history from (e.g. 8501da0)")
+@click.pass_context
+def ingest_project(
+    ctx: click.Context,
+    source: str,
+    db_override: str | None,
+    project_id: str,
+    manifest_path: str | None,
+    report_path: str | None,
+    dry_run: bool,
+    include_patterns: tuple[str, ...],
+    exclude_patterns: tuple[str, ...],
+    json_output: bool,
+    force_reindex: bool,
+    include_git_history: bool,
+    git_history_since: str | None,
+) -> None:
+    """Ingest a project's files into MEC structured memories.
+
+    Reads git-tracked files, segments them, and creates deterministic
+    memory records with full provenance metadata.
+
+    Examples:
+
+    \b
+    # Dry run — generate manifest only
+    python -m mec_lab ingest-project --source . --dry-run --manifest manifest.json
+
+    \b
+    # Full ingestion
+    python -m mec_lab ingest-project --source . --db pilot.db --project-id mec-lab
+    """
+    db = db_override or ctx.obj["db"]
+    store = _get_storage(db)
+
+    inc = list(include_patterns) if include_patterns else None
+    exc = list(exclude_patterns) if exclude_patterns else None
+
+    pipeline = IngestionPipeline(
+        source_root=source,
+        project_id=project_id,
+        storage=store,
+        dry_run=dry_run,
+        include_patterns=inc,
+        exclude_patterns=exc,
+        force_reindex=force_reindex,
+        include_git_history=include_git_history,
+        git_history_since=git_history_since,
+    )
+
+    report = pipeline.run()
+
+    if json_output:
+        sys.stdout.write(json.dumps(report.to_dict(), ensure_ascii=False, indent=2))
+        sys.stdout.write("\n")
+        sys.stdout.flush()
+        return
+
+    console.print(f"[bold]Ingestion Pipeline[/bold]")
+    console.print(f"  Source: {source}")
+    console.print(f"  Project: {project_id}")
+    console.print(f"  Database: {db}")
+    console.print(f"  Mode: {'DRY RUN' if dry_run else 'LIVE'}")
+
+    console.print(f"\n[bold green]Ingestion complete.[/bold green]")
+    console.print(f"  Files analyzed:  {report.files_analyzed}")
+    console.print(f"  Files included:  {report.files_included}")
+    console.print(f"  Files excluded:  {report.files_excluded}")
+    console.print(f"  Memories created: {report.memories_created}")
+    console.print(f"  Duplicates skipped: {report.memories_skipped}")
+    console.print(f"  Relations created: {report.relations_created}")
+    console.print(f"  Secrets blocked: {report.secrets_blocked}")
+    console.print(f"  Errors:          {report.errors}")
+    console.print(f"  Elapsed:         {report.elapsed_seconds}s")
+
+    if report.errors:
+        console.print(f"\n[yellow]Errors:[/yellow]")
+        for e in report.error_details[:10]:
+            console.print(f"  - {e}")
+
+    if report.secrets_blocked:
+        console.print(f"\n[cyan]Secrets blocked:[/cyan]")
+        for s in report.secret_details:
+            console.print(f"  - {s['path']}: {', '.join(s['reasons'])}")
+
+    # Save manifest and report if paths provided
+    if manifest_path:
+        # Rebuild manifest for saving (pipeline builds it internally)
+        manifest = IngestionManifest(
+            pipeline_version="1.1.0",
+            project_id=project_id,
+            source_root=source,
+            generated_at=report.start_time,
+            total_files=report.files_analyzed,
+            included_files=report.files_included,
+            excluded_files=report.files_excluded,
+            total_expected_memories=report.memories_created,
+        )
+        manifest.save(manifest_path)
+        console.print(f"\n[dim]Manifest saved to {manifest_path}[/dim]")
+
+    if report_path:
+        report.save(report_path)
+        console.print(f"[dim]Report saved to {report_path}[/dim]")
 
 
 def main() -> None:

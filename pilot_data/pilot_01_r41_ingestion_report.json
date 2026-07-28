@@ -1,0 +1,23 @@
+{
+  "files_analyzed": 96,
+  "files_included": 69,
+  "files_excluded": 27,
+  "memories_created": 908,
+  "memories_skipped": 0,
+  "relations_created": 837,
+  "relations_skipped": 0,
+  "secrets_blocked": 1,
+  "errors": 0,
+  "error_details": [],
+  "secret_details": [
+    {
+      "path": "tests/test_ingestion.py",
+      "reasons": [
+        "content matches api_key_pattern"
+      ]
+    }
+  ],
+  "start_time": "2026-07-27T20:13:56.650651+00:00",
+  "end_time": "2026-07-27T20:14:01.585632+00:00",
+  "elapsed_seconds": 4.92
+}
