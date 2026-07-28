@@ -1,24 +1,32 @@
 # Estado Técnico — MEC R4.1
 
-**Data do registro:** 2026-07-27  
-**Estado arquitetural:** aprovado para integração controlada  
+**Data do fechamento:** 2026-07-28  
+**Estado arquitetural:** integrado à `main` e aprovado como subsistema operacional  
 **Veredito canônico:** `MEC_R41_OPERATIONAL_RETRIEVAL_APPROVED`
 
-## 1. Aviso de rastreabilidade
+## 1. Rastreabilidade remota
 
-O código aprovado do MEC R4.1 foi produzido e validado no repositório local, no commit:
+Commit final da cadeia R4.1:
 
-`edd3c342f5962535b81bb55c35a9d70f001adf33`
+`9830d35d1f8669ffd351cb3f3eab4df1e8f36a64`
 
 Mensagem:
 
-`fix(mec): enforce identifier absence and full ingestion idempotency`
+`fix(mec): declare yaml dependency and harden windows test`
 
-No momento deste registro, esse commit ainda não está publicado no repositório remoto. Este documento registra o resultado técnico validado, mas não substitui a publicação da cadeia de commits, a execução da CI remota e a revisão do diff antes do merge na `main`.
+Pull Request de código:
+
+`#22 — feat(mec): entregar memória operacional MEC R4.1`
+
+Merge na `main`:
+
+`4b04963b73e5af3eb880db7dd33a53510d09cf93`
+
+A cadeia foi publicada, revisada, validada em CI e integrada preservando os sete commits do ciclo R4/R4.1.
 
 ## 2. Conclusão do ciclo experimental
 
-O MEC deixou de ser apenas uma hipótese documental. A versão R4.1 demonstrou uma fatia operacional capaz de:
+O MEC deixou de ser apenas hipótese documental. A versão R4.1 demonstrou uma fatia operacional capaz de:
 
 - ingerir projetos reais de forma determinística;
 - persistir memórias e relações em SQLite;
@@ -31,7 +39,8 @@ O MEC deixou de ser apenas uma hipótese documental. A versão R4.1 demonstrou u
 - encerrar sem memória confiável;
 - impedir que texto genérico substitua um identificador explícito inexistente;
 - repetir a ingestão sem alterar o estado persistido;
-- manter compatibilidade com o `HybridRetriever` R3.
+- manter compatibilidade com o `HybridRetriever` R3;
+- executar a suíte completa sem dependência de bancos locais ou caminhos específicos da máquina.
 
 ## 3. Contrato público de recuperação
 
@@ -44,11 +53,11 @@ A recuperação assistida retorna exatamente um dos seguintes estados:
 
 ### `MEMORY_CONFIRMED`
 
-Existe uma candidata suficientemente forte e consistente com os identificadores, metadados, relações, vigência e demais sinais disponíveis.
+Existe uma candidata suficientemente forte e consistente com identificadores, metadados, relações, vigência e demais sinais disponíveis.
 
 ### `AMBIGUOUS_CANDIDATES`
 
-Existem duas ou mais entidades realmente distintas e plausíveis. Segmentos irmãos do mesmo arquivo ou entidade devem ser agrupados antes da classificação.
+Existem duas ou mais entidades realmente distintas e plausíveis. Segmentos irmãos do mesmo arquivo são agrupados antes da classificação.
 
 ### `CLARIFICATION_REQUIRED`
 
@@ -56,7 +65,7 @@ Há indícios de memória relacionada, mas falta uma pista discriminatória. O c
 
 ### `MEMORY_NOT_FOUND`
 
-Nenhuma lembrança confiável foi localizada com os parâmetros fornecidos. O estado não afirma que a memória é absolutamente inexistente; afirma que não há evidência suficiente para tratá-la como lembrança confirmada.
+Nenhuma lembrança confiável foi localizada com os parâmetros fornecidos. O estado não afirma inexistência absoluta; afirma insuficiência de evidência para tratar algo como lembrança confirmada.
 
 Após três esclarecimentos insuficientes, o encerramento em `MEMORY_NOT_FOUND` é obrigatório.
 
@@ -67,7 +76,7 @@ Quando uma consulta contém um identificador explícito reconhecido, a identidad
 Comportamento obrigatório:
 
 - identificador único existente: pode produzir `MEMORY_CONFIRMED`;
-- identificador com várias correspondências legítimas: `AMBIGUOUS_CANDIDATES`;
+- várias correspondências legítimas: `AMBIGUOUS_CANDIDATES`;
 - identificador parcial plausível: ambiguidade ou esclarecimento;
 - identificador explícito inexistente: `MEMORY_NOT_FOUND`;
 - texto, semântica e relações não podem substituir uma identidade inexistente.
@@ -94,6 +103,7 @@ O pipeline aprovado suporta:
 - Markdown segmentado por títulos e seções;
 - Python segmentado por AST;
 - TOML, YAML e JSON segmentados por estruturas principais;
+- `PyYAML>=6.0` declarado como dependência de produção;
 - símbolos de código e nomes qualificados;
 - comandos e opções CLI detectáveis estaticamente;
 - snapshot do projeto;
@@ -114,7 +124,7 @@ Essa ordem elimina relações tardias causadas pela ordem do `git log`.
 
 ## 6. Evidência de idempotência
 
-A validação final foi executada três vezes sobre um banco novo.
+A validação final foi executada três vezes sobre banco novo.
 
 Primeira execução:
 
@@ -136,23 +146,32 @@ SHA-256 canônico nas três execuções:
 
 O hash representa o estado canônico ordenado de memórias, fingerprints, tipos e relações. Não representa os bytes brutos do arquivo SQLite.
 
-## 7. Evidência de testes
+## 7. Evidência de testes e portabilidade
 
-Resultado canônico final:
+Resultado final da suíte:
 
-- 271 testes anteriores preservados;
-- 39 testes novos;
-- 310 testes totais;
-- 310 aprovados;
+- 313 testes totais;
+- 313 aprovados;
 - 0 falhas;
-- 0 erros.
+- 0 skips;
+- 0 xfails.
 
-A suíte completa foi executada duas vezes no commit final:
+CI remota:
 
-- `310 passed in 74.41s`;
-- `310 passed in 72.37s`.
+- workflow: `CI`;
+- run aprovado: `30318817937`;
+- Python 3.12;
+- Ubuntu: 313 testes, `git diff --check` e `compileall` aprovados;
+- Windows: 313 testes, `git diff --check` e `compileall` aprovados.
 
-Uma verificação ad hoc adicional executou 13 checks focados e todos passaram. Essa verificação é evidência complementar e não deve ser somada ao total da suíte canônica.
+A fixture portátil:
+
+- cria projeto temporário;
+- inicializa Git real com commits controlados;
+- gera SQLite temporário;
+- executa o pipeline real;
+- remove os artefatos ao final;
+- não depende de `D:\memoria_teste` nem de bancos piloto locais.
 
 ## 8. Evidência operacional
 
@@ -190,52 +209,41 @@ Arquivos de teste continuam recuperáveis por:
 
 Essa regra evita que frases criadas para testar ausência se tornem falsas evidências de presença no banco operacional.
 
-No futuro, essa decisão pode evoluir para níveis explícitos de autoridade, como:
-
-- produção;
-- documentação;
-- configuração;
-- histórico Git;
-- teste;
-- exemplo;
-- evidência rejeitada.
-
 ## 10. Limitações conhecidas
 
 - formatos de identificador não reconhecidos pelo extrator não acionam a restrição negativa;
 - hexadecimal curto sem contexto Git não é tratado como SHA;
 - nomes parciais como `init.py` permanecem ambíguos quando existem entidades distintas;
 - conteúdo puramente textual de testes não é autoridade operacional;
+- o hash de idempotência representa o resumo canônico, não bytes brutos do SQLite;
 - a memória pessoal progressiva ainda depende da integração com o Harness;
-- os pesos e thresholds devem ser observados em uso real antes de qualquer recalibração;
-- o MEC não é, nesta versão, uma memória universal para qualquer conversa humana.
+- pesos e thresholds devem ser observados em uso real antes de qualquer recalibração;
+- o MEC não é, nesta versão, memória universal para qualquer conversa humana.
 
-## 11. Cadeia local do R4
-
-Commits relevantes produzidos localmente:
+## 11. Cadeia R4/R4.1 integrada
 
 1. `d10a6912c775cdf32e4316edb6c7a2d9428554ef` — recuperação estruturada e assistida;
 2. `0d3833fc50aa7004c388de3495f97e099d844259` — integração com a interface pública;
-3. `353da0a827c5edadf649a757be1065b3d49b17ff` — ingestão operacional do projeto;
+3. `353da0a827c5edadf649a757be1065b3d49b17ff` — ingestão operacional;
 4. `d290a469d33f3dc02e5f134e1f0b45c57d0c121c` — recuperação simbólica e histórico Git;
-5. `edd3c342f5962535b81bb55c35a9d70f001adf33` — idempotência integral e ausência de identificador.
+5. `edd3c342f5962535b81bb55c35a9d70f001adf33` — idempotência integral e ausência de identificador;
+6. `b285b2ef5b6ec0bc97cadd3a8b7c9d160a15bd16` — validação portátil e reproduzível;
+7. `9830d35d1f8669ffd351cb3f3eab4df1e8f36a64` — dependência YAML e robustez no Windows.
 
 ## 12. Decisão de saída
 
-O desenvolvimento isolado do MEC deve ser pausado no marco R4.1.
+O desenvolvimento isolado do MEC fica pausado no marco R4.1.
 
-O MEC passa a ser um componente versionado destinado a integração controlada com o Harness Cognitivo. Novas alterações no núcleo devem ser motivadas por:
+O MEC passa a ser componente versionado destinado à integração controlada com o Harness Cognitivo. Novas alterações no núcleo devem ser motivadas por:
 
 - defeito observado na integração real;
 - necessidade comprovada por uso operacional;
 - evolução formal de versão.
 
-Antes da integração, ainda são obrigatórios:
+Próximo marco:
 
-1. publicar a cadeia local de commits;
-2. abrir Pull Request;
-3. executar CI remota;
-4. revisar o diff acumulado;
-5. confirmar que artefatos experimentais rejeitados não foram promovidos;
-6. fazer merge apenas com evidência remota limpa;
-7. criar uma tag de marco após o merge.
+`HERMES_FORK_BASELINE_APPROVED`
+
+Próxima ação:
+
+> criar o fork controlado do Hermes Agent, registrar o commit-base e iniciar o spike de localização nativa `pt-BR`.
